@@ -1,0 +1,17 @@
+<hr>
+<div class="row w-100">
+	<h1 class="col-10 pl-5">Create a room or join one</h1>
+	<div class="btn-toolbar col-2">
+	    <div class="btn-group">
+	        <button phx-click="create" class="btn btn-primary float-right">Create room</button>
+	    </div>
+	</div>
+</div>
+<hr>
+<ul class="collection list-unstyled">
+    <%= for room <- @rooms do %>
+        <li class="collection-item">
+            <a href="watch/<%= room.uuid %>"><%= room.uuid %></a>
+        </li>
+    <% end %>
+</ul>

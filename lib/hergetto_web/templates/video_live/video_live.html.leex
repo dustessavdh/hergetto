@@ -1,0 +1,67 @@
+<div class="card">
+    <div class="card-header">
+         Room: <%= @room.uuid %>
+    </div>
+    <%= if @room.current_video do %>
+        <div class="pl-1 m-3">
+            <p>Current video: <a href="<%= @room.current_video %>" target="_blank"><%= @room.current_video %></a></p>
+            <div phx-hook="vid_player" id="vid_player" class="w-100 h-100">
+                <iframe id="player"
+                        width="640" height="360"
+                        src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1"
+                        frameborder="0"
+                        style="border: solid 4px #37474F"
+                ></iframe>
+            </div>
+        </div>
+    <% end %>
+</div>
+<div class="card mt-3">
+    <div class="card-header">
+       Add a video
+    </div>
+    <div class="m-3">
+        <%= form_for @changeset, "#", [phx_submit: :add_vid], fn f -> %>
+            <div class="form-group">
+                <%= text_input f, :add_video, placeholder: "Add a video", class: "form-control" %>
+                <%= error_tag f, :add_video %>
+            </div>
+
+          <%= submit "add video", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+</div>
+<%= if Enum.count(@room.playlist) > 0 do %>
+<div class="card mt-3">
+    <div class="card-header">
+        <p>Playlist</p>
+    </div>
+    <table class="table w-100 v-center pl-2">
+        <thead>
+            <tr>
+               <th scope="col">Nummer</th>
+               <th scope="col" class="w-50">Video</th>
+               <th scope="col" class="text-right pr-3">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%= for {video, index} <- Enum.with_index(@room.playlist) do %>
+                <tr>
+                    <th scope="row" class="align-middle"><%= index + 1 %></th>
+                    <td class="align-middle"><a href="<%= video %>" target="_blank"><%= video %></a></th>
+                    <td class="text-right pr-3">
+                        <div class="btn-group">
+                            <button phx-click="change_cur_vid" class="btn btn-success" value="<%= index %>" style="width: 50px">
+                                <i class="fas fa-bolt"></i>
+                            </button>
+                            <button phx-click="remove_vid" class="btn btn-danger" value="<%= index %>" style="width: 50px">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </th>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+<% end %>
