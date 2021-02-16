@@ -28,6 +28,9 @@ let Player = {
     onPlayerStateChange(event) {
         player.removeEventListener("onStateChange", (event => this.onPlayerStateChange(event)))
         switch (event.data) {
+            case YT.PlayerState.UNSTARTED:
+                console.log('unstarted')
+                break;
             case YT.PlayerState.ENDED:
                 console.log('ended')
                 break;

@@ -77,6 +77,23 @@ defmodule HergettoWeb.VideoLive do
   end
 
   @impl true
+  def handle_event("validate_vid", %{"room" => params}, socket) do
+    IO.puts("================================")
+    IO.inspect(params)
+    changeset =
+    %Room{}
+    |> Rooms.change_room(params)
+    |> Ecto.Changeset.add_error(:add_video, "isn't a valid url", validation: :format)
+    # |> Ecto.Changeset.validate_format(:add_video, ~r/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/, message: "isn't a youtube video!")
+    |> Map.put(:action, :insert)
+
+    IO.inspect(changeset)
+    IO.puts("================================")
+
+    {:noreply, assign(socket, changeset: changeset)}
+  end
+
+  @impl true
   def handle_event("add_vid", %{"room" => %{"add_video" => video}}, socket) do
     room_changes =
       socket.assigns.room.playlist
