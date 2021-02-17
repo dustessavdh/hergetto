@@ -5,6 +5,17 @@ defmodule HergettoWeb.VideoLive do
   alias HergettoWeb.RoomHelper
   alias HergettoWeb.VideoHelper
 
+  # TODO:
+  # wanneer de pagina laad de goede video laden
+  # validator voor video toevoegen
+  # kijken naar de t=69420 en die gebruiken bij het laden van een video
+  # index toevoegen aan playlist
+  # playlist maken waar alle verwijderde playlist items naar toe gaan
+  # skip knop maken
+  # vorige knop maken
+
+
+
   @impl true
   def mount(%{"id" => id}, _session, socket) do
     RoomHelper.subscribe(id)
