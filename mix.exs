@@ -48,7 +48,7 @@ defmodule Hergetto.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:elixir_uuid, "~> 1.2"},
-      {:ecto_fields, "~> 1.3.0"}
+      {:videx, "~> 0.2.0"}
     ]
   end
 

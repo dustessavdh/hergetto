@@ -13,7 +13,8 @@ export default class Player {
             events: {
                 "onReady": (event => this.onPlayerReady(event)),
                 "onStateChange": (event => setTimeout(() => {this.onPlayerStateChange(event)}, 0)),
-                "onPlaybackRateChange": (event => this.onPlaybackRateChange(event))
+                "onPlaybackRateChange": (event => this.onPlaybackRateChange(event)),
+                "onError": (event => this.onPlayerError(event))
             }
         })
 
@@ -52,6 +53,10 @@ export default class Player {
     onPlaybackRateChange(event) {
         console.log('playback:', event)
         this.hook.pushEvent("playback_rate_changed", {"playback_rate": event.data})
+    }
+
+    onPlayerError(event) {
+        console.log(event)
     }
 
     onPlayerPlaying(event) {

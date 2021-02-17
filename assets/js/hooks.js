@@ -8,7 +8,7 @@ Hooks.vid_player = {
         let player = new Player('player', this)
         this.handleEvent('change_vid', (event) => {
             console.log('change video:', event)
-            player.setCurrentVideoById("ggqI-HH8yXc")
+            player.setCurrentVideoById(event.cur_vid)
         })
 
         this.handleEvent('play_video', (event) => {

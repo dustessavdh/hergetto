@@ -21,6 +21,11 @@ defmodule HergettoWeb.VideoLive do
   end
 
   @impl true
+  def terminate(_reason, _socket) do
+    :normal
+  end
+
+  @impl true
   def handle_info(%{event_type: event_type, broadcast_id: broadcast_id}, socket) do
     IO.puts("handle_info manager")
     case broadcast_id do
@@ -71,7 +76,16 @@ defmodule HergettoWeb.VideoLive do
     case Rooms.update_room(socket.assigns.room, room_changes) do
       {:ok, _room} ->
         RoomHelper.broadcast(socket.assigns.room.uuid, socket.assigns.broadcast_id, "changed_cur_vid")
-        {:noreply, fetch(socket, :room_changed)}
+        case Integer.parse(vid_index) do
+          {index, _} ->
+            case Videx.parse(Enum.at(socket.assigns.room.playlist, index)) do
+              %{id: id} ->
+                {:noreply, push_event(fetch(socket, :room_changed), "change_vid", %{cur_vid: id})}
+              test ->
+                IO.inspect(test)
+                {:noreply, socket}
+            end
+        end
 
       {:error, changeset} ->
         IO.inspect(changeset)
@@ -170,11 +184,6 @@ defmodule HergettoWeb.VideoLive do
         IO.inspect(changeset)
         {:noreply, socket}
     end
-  end
-
-  @impl true
-  def terminate(_reason, _socket) do
-    :normal
   end
 
   def fetch(socket, :room, id) do
