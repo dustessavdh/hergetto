@@ -159,7 +159,7 @@ defmodule HergettoWeb.VideoLive do
   end
 
   @impl true
-  def handle_event("playback_rate_changed", playback_rate, socket) do
+  def handle_event("playback_rate_changed", %{"playback_rate" => playback_rate}, socket) do
     room_changes = VideoHelper.change_playback_rate(playback_rate)
     case Rooms.update_room(socket.assigns.room, room_changes) do
       {:ok, _room} ->

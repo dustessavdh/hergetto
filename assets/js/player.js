@@ -51,7 +51,7 @@ export default class Player {
 
     onPlaybackRateChange(event) {
         console.log('playback:', event)
-        this.hook.pushEvent("playback_rate_changed", {})
+        this.hook.pushEvent("playback_rate_changed", {"playback_rate": event.data})
     }
 
     onPlayerPlaying(event) {
