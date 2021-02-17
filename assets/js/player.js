@@ -71,11 +71,11 @@ export default class Player {
     }
 
     setCurrentVideoById(videoId) {
-        this.player.loadVideoById(videoId, 0)
+        this.player.loadVideoById(videoId)
     }
 
     setCurrentVideoByUrl(videoUrl) {
-        this.player.loadVideoByUrl(videoUrl, 0)
+        this.player.loadVideoByUrl(videoUrl)
     }
 
     onPlayerStateChangeTimeout(event) {
