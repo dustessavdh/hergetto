@@ -202,8 +202,16 @@ defmodule HergettoWeb.VideoLive do
   def fetch(socket, :setup, id) do
     case fetch(socket, :room, id) do
       {:ok, socket} ->
+        video = Map.get(socket.assigns.room, :current_video)
+        load_id = case Videx.parse(video) do
+          %{id: id} ->
+            id
+          _ ->
+            "M7lc1UVf-VE"
+        end
         socket
         |> assign(broadcast_id: UUID.uuid4())
+        |> assign(load_id: load_id)
       {:error, socket} ->
         socket
     end
