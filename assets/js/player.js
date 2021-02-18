@@ -1,33 +1,37 @@
-let Player = {
-    player: null,
-    hook: null,
-
-    init(domId, hook) {
+export default class Player {
+    constructor(domId, hook) {
         this.hook = hook;
         window.onYouTubeIframeAPIReady = () => this.onIframeReady(domId)
         let youtubeScriptTag = document.createElement("script")
         youtubeScriptTag.src = "//www.youtube.com/iframe_api"
         document.head.appendChild(youtubeScriptTag)
-    },
+    }
 
     onIframeReady(domId) {
         console.log('iframe ready')
         this.player = new YT.Player(domId, {
             events: {
                 "onReady": (event => this.onPlayerReady(event)),
-                "onStateChange": (event => this.onPlayerStateChange(event)),
-                "onPlaybackRateChange": (event => this.onPlaybackRateChange(event))
+                "onStateChange": (event => setTimeout(() => {this.onPlayerStateChange(event)}, 0)),
+                "onPlaybackRateChange": (event => this.onPlaybackRateChange(event)),
+                "onError": (event => this.onPlayerError(event))
             }
         })
-    },
+
+        return this.player
+    }
 
     onPlayerReady(event) {
+        console.log('player ready')
         this.player.playVideo()
-    },
+    }
 
     onPlayerStateChange(event) {
-        player.removeEventListener("onStateChange", (event => this.onPlayerStateChange(event)))
+        console.log('player state changed!', event.data)
         switch (event.data) {
+            case YT.PlayerState.UNSTARTED:
+                console.log('unstarted')
+                break;
             case YT.PlayerState.ENDED:
                 console.log('ended')
                 break;
@@ -44,59 +48,66 @@ let Player = {
                 console.log('video cued')
                 break;
         }
-        player.addEventListener("onStateChange", (event => this.onPlayerStateChange(event)))
-        console.log('after break')
-    },
+    }
+
+    onPlaybackRateChange(event) {
+        console.log('playback:', event)
+        this.hook.pushEvent("playback_rate_changed", {"playback_rate": event.data})
+    }
+
+    onPlayerError(event) {
+        console.log(event)
+    }
 
     onPlayerPlaying(event) {
+        console.log('player playing')
         let playback_position = this.getCurrentTime()
         this.hook.pushEvent('play_video', {"playback_position": playback_position, "paused": false})
-    },
+    }
 
     onPlayerPaused(event) {
         console.log('player paused')
         this.hook.pushEvent('pause_video', event)
-    },
-
-    onPlaybackRateChange(event) {
-        console.log('playback:', event)
-        this.hook.pushEvent("playback_rate_changed", {})
-    },
+    }
 
     setCurrentVideoById(videoId) {
-        this.player.loadVideoById(videoId, 0)
-    },
+        this.player.loadVideoById(videoId)
+    }
 
     setCurrentVideoByUrl(videoUrl) {
-        this.player.loadVideoByUrl(videoUrl, 0)
-    },
+        this.player.loadVideoByUrl(videoUrl)
+    }
+
+    onPlayerStateChangeTimeout(event) {
+        console.log('player state changed, but was in timeout!', event.data)
+        this.player.l.h[5] = (event => this.onPlayerStateChange(event))
+        this.player.i.i.events.onStateChange = (event => this.onPlayerStateChange(event))
+    }
 
     playVideo(playback_position) {
+        this.player.l.h[5] = (event => setTimeout(() => {this.onPlayerStateChangeTimeout(event)}, 250))
+        this.player.i.i.events.onStateChange = (event => setTimeout(() => {this.onPlayerStateChangeTimeout(event)}, 250))
         if (this.getCurrentTime() != playback_position) {
             this.seekTo(playback_position)
         }
         this.player.playVideo()
-    },
+    }
 
     pauseVideo() {
         this.player.pauseVideo()
-    },
+    }
 
     setPlaybackRate(playbackRate) {
         this.player.setPlaybackRate(playbackRate)
-    },
+    }
 
     getCurrentTime() {
-        // return Math.floor(this.player.getCurrentTime() * 1000)
-        // return Math.floor(this.player.getCurrentTime() * 100)
-        return Math.floor(this.player.getCurrentTime())
-    },
+        // return Math.ceil(this.player.getCurrentTime() * 1000)
+        return Math.ceil(this.player.getCurrentTime() * 10)
+    }
 
     seekTo(millsec) {
         // return this.player.seekTo(millsec / 1000)
-        // return this.player.seekTo(millsec / 100)
-        return this.player.seekTo(millsec)
+        return this.player.seekTo(millsec / 10)
     }
 }
-
-export default Player

@@ -2,17 +2,23 @@ defmodule HergettoWeb.VideoLive do
   use HergettoWeb, :live_view
   alias Hergetto.Rooms
   alias Hergetto.Rooms.Room
+  alias Hergetto.Rooms.Video
   alias HergettoWeb.RoomHelper
   alias HergettoWeb.VideoHelper
+
+  # TODO:
+  # kijken naar de t=69420 en die gebruiken bij het laden van een video
+  # index toevoegen aan playlist
+  # playlist maken waar alle verwijderde playlist items naar toe gaan
+  # skip knop maken
+  # vorige knop maken
+
+
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
     RoomHelper.subscribe(id)
-    {
-      :ok,
-      fetch(socket, :room, id)
-      |> assign(broadcast_id: UUID.uuid4())
-    }
+    {:ok, fetch(socket, :setup, id)}
   end
 
   @impl true
@@ -21,9 +27,25 @@ defmodule HergettoWeb.VideoLive do
   end
 
   @impl true
+  def terminate(_reason, _socket) do
+    :normal
+  end
+
+  @impl true
+  def handle_info(%{event_type: event_type, broadcast_id: broadcast_id}, socket) do
+    IO.puts("handle_info manager")
+    case broadcast_id do
+      id when id == socket.assigns.broadcast_id ->
+        {:noreply, fetch(socket, :room_changed)}
+      _id ->
+        handle_info(event_type, socket)
+    end
+  end
+
+  @impl true
   def handle_info("changed_cur_vid", socket) do
     IO.puts("current video changed")
-    {:noreply, push_event(fetch(socket, :room_changed), "change_vid", %{curr_vid: socket.assigns.room.current_video})}
+    {:noreply, fetch(socket, :change_video)}
   end
 
   @impl true
@@ -33,17 +55,9 @@ defmodule HergettoWeb.VideoLive do
   end
 
   @impl true
-  def handle_info(%{event_type: "play_video", broadcast_id: broadcast_id}, socket) do
+  def handle_info("play_video", socket) do
     IO.puts("Video is playing")
-    IO.inspect(broadcast_id)
-    own_broadcast_id = socket.assigns.broadcast_id
-    case broadcast_id do
-      id when id == own_broadcast_id ->
-        {:noreply, fetch(socket, :room_changed)}
-
-      _ ->
-        {:noreply, fetch(socket, :play_video)}
-    end
+    {:noreply, fetch(socket, :play_video)}
   end
 
   @impl true
@@ -67,8 +81,13 @@ defmodule HergettoWeb.VideoLive do
 
     case Rooms.update_room(socket.assigns.room, room_changes) do
       {:ok, _room} ->
-        RoomHelper.broadcast(socket.assigns.room.uuid, "changed_cur_vid")
-        {:noreply, fetch(socket, :room_changed)}
+        RoomHelper.broadcast(socket.assigns.room.uuid, socket.assigns.broadcast_id, "changed_cur_vid")
+        case Integer.parse(vid_index) do
+          {index, _} ->
+            {:noreply, fetch(socket, :change_video)}
+          :error ->
+            {:noreply, fetch(socket, :room_changed)}
+        end
 
       {:error, changeset} ->
         IO.inspect(changeset)
@@ -77,14 +96,37 @@ defmodule HergettoWeb.VideoLive do
   end
 
   @impl true
-  def handle_event("add_vid", %{"room" => %{"add_video" => video}}, socket) do
+  def handle_event("validate_video", %{"video" => video}, socket) do
+    IO.inspect(video)
+    changeset =
+    %Video{}
+    |> Video.changeset(video)
+    |> Map.put(:action, :insert)
+
+    case Videx.parse(Map.get(video, "add_video", "")) do
+      nil ->
+        {:noreply, fetch(
+          socket,
+          :validate_video,
+          changeset
+          |> Ecto.Changeset.add_error(:add_video, "isn't a valid url", validation: :format)
+          )}
+      _parsed ->
+        {:noreply, fetch(socket, :validate_video, changeset)}
+    end
+
+
+  end
+
+  @impl true
+  def handle_event("add_vid", %{"video" => %{"add_video" => video}}, socket) do
     room_changes =
       socket.assigns.room.playlist
       |> VideoHelper.add_video(video, %{})
 
     case Rooms.update_room(socket.assigns.room, room_changes) do
       {:ok, _room} ->
-        RoomHelper.broadcast(socket.assigns.room.uuid, "changed_playlist")
+        RoomHelper.broadcast(socket.assigns.room.uuid, socket.assigns.broadcast_id, "changed_playlist")
         {:noreply, fetch(socket, :room_changed)}
 
       {:error, changeset} ->
@@ -101,7 +143,7 @@ defmodule HergettoWeb.VideoLive do
 
     case Rooms.update_room(socket.assigns.room, room_changes) do
       {:ok, _room} ->
-        RoomHelper.broadcast(socket.assigns.room.uuid, "changed_playlist")
+        RoomHelper.broadcast(socket.assigns.room.uuid, socket.assigns.broadcast_id, "changed_playlist")
         {:noreply, fetch(socket, :room_changed)}
 
       {:error, changeset} ->
@@ -115,7 +157,7 @@ defmodule HergettoWeb.VideoLive do
     room_changes = VideoHelper.change_video_state(false, playback_position)
     case Rooms.update_room(socket.assigns.room, room_changes) do
       {:ok, _room} ->
-        RoomHelper.broadcast(socket.assigns.room.uuid, %{event_type: "play_video", broadcast_id: socket.assigns.broadcast_id})
+        RoomHelper.broadcast(socket.assigns.room.uuid, socket.assigns.broadcast_id, "play_video")
         {:noreply, fetch(socket, :room_changed)}
 
       {:error, changeset} ->
@@ -129,7 +171,7 @@ defmodule HergettoWeb.VideoLive do
     room_changes = VideoHelper.change_video_state(true)
     case Rooms.update_room(socket.assigns.room, room_changes) do
       {:ok, _room} ->
-        RoomHelper.broadcast(socket.assigns.room.uuid, "pause_video")
+        RoomHelper.broadcast(socket.assigns.room.uuid, socket.assigns.broadcast_id, "pause_video")
         {:noreply, fetch(socket, :room_changed)}
 
       {:error, changeset} ->
@@ -139,74 +181,113 @@ defmodule HergettoWeb.VideoLive do
   end
 
   @impl true
-  def handle_event("playback_rate_changed", playback_rate, socket) do
+  def handle_event("playback_rate_changed", %{"playback_rate" => playback_rate}, socket) do
     room_changes = VideoHelper.change_playback_rate(playback_rate)
     case Rooms.update_room(socket.assigns.room, room_changes) do
       {:ok, _room} ->
-        RoomHelper.broadcast(socket.assigns.room.uuid, "changed_playback_rate")
+        RoomHelper.broadcast(socket.assigns.room.uuid, socket.assigns.broadcast_id, "changed_playback_rate")
         {:noreply, fetch(socket, :room_changed)}
 
       {:error, changeset} ->
         IO.inspect(changeset)
         {:noreply, socket}
     end
-  end
-
-  @impl true
-  def terminate(_reason, _socket) do
-    :normal
   end
 
   def fetch(socket, :room, id) do
     case Rooms.get_room(id, :uuid) do
       %Room{} = room ->
-        socket
-        |> assign(room: room)
-        |> assign(changeset: Room.changeset(room, %{add_video: ""}))
-
+        {
+          :ok,
+          socket
+          |> assign(room: room)
+          |> assign(changeset: Video.changeset(%Video{}, %{}))
+        }
       nil ->
-        socket
-        |> put_flash(:error, "That room doesn't exist")
-        |> push_redirect(to: "/watch")
+        {
+          :error,
+          socket
+          |> put_flash(:error, "That room doesn't exist")
+          |> push_redirect(to: "/watch")
+        }
     end
   end
 
+  def fetch(socket, :setup, id) do
+    case fetch(socket, :room, id) do
+      {:ok, socket} ->
+        video = Map.get(socket.assigns.room, :current_video)
+        load_id = case Videx.parse(video) do
+          %{id: id} ->
+            id
+          _ ->
+            "M7lc1UVf-VE"
+        end
+        socket
+        |> assign(broadcast_id: UUID.uuid4())
+        |> assign(load_id: load_id)
+      {:error, socket} ->
+        socket
+    end
+  end
+
+  def fetch(socket, :validate_video, changeset) do
+    socket
+    |> assign(changeset: changeset)
+  end
+
   def fetch(socket, :room_changed) do
-    fetch(socket, :room, socket.assigns.room.uuid)
+    case fetch(socket, :room, socket.assigns.room.uuid) do
+      {:ok, socket} ->
+        socket
+      {:error, socket} ->
+        socket
+    end
   end
 
   def fetch(socket, :play_video) do
-    case Rooms.get_room(socket.assigns.room.id) do
-      %Room{} = room ->
+    case fetch(socket, :room, socket.assigns.room.uuid) do
+      {:ok, socket} ->
         socket
-        |> assign(room: room)
-        |> assign(changeset: Room.changeset(room, %{}))
-        |> push_event("play_video", %{paused: false, playback_position: room.playback_position})
-
-      nil ->
+        |> push_event("play_video", %{paused: false, playback_position: socket.assigns.room.playback_position})
+      {:error, socket} ->
         socket
-        |> put_flash(:error, "That room doesn't exist")
-        |> push_redirect(to: "/watch")
     end
   end
 
   def fetch(socket, :pause_video) do
-    fetch(socket, :room_changed)
-    |> push_event("pause_video", %{paused: true})
+    case fetch(socket, :room, socket.assigns.room.uuid) do
+      {:ok, socket} ->
+        socket
+        |> push_event("pause_video", %{paused: true})
+      {:error, socket} ->
+        socket
+    end
+  end
+
+  def fetch(socket, :change_video) do
+    case fetch(socket, :room, socket.assigns.room.uuid) do
+      {:ok, socket} ->
+        case Videx.parse(socket.assigns.room.current_video) do
+          %{id: id} ->
+            socket
+            |> push_event("change_vid", %{cur_vid: id})
+          _ ->
+            socket
+            |> put_flash(:error, "That wasn't a valid url!")
+        end
+      {:error, socket} ->
+        socket
+    end
   end
 
   def fetch(socket, :playback_rate_changed) do
-    case Rooms.get_room(socket.assigns.room.id) do
-      %Room{} = room ->
+    case fetch(socket, :room, socket.assigns.room.uuid) do
+      {:ok, socket} ->
         socket
-        |> assign(room: room)
-        |> assign(changeset: Room.changeset(room, %{}))
-        |> push_event("change_playback_rate", %{playback_rate: room.playback_rate})
-
-      nil ->
+        |> push_event("change_playback_rate", %{playback_rate: socket.assigns.room.playback_rate})
+      {:error, socket} ->
         socket
-        |> put_flash(:error, "That room doesn't exist")
-        |> push_redirect(to: "/watch")
     end
   end
 end

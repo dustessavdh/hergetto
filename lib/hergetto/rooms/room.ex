@@ -3,7 +3,7 @@ defmodule Hergetto.Rooms.Room do
   import Ecto.Changeset
 
   schema "rooms" do
-    field :current_video, :string
+    field :current_video, :string, default: "https://www.youtube.com/watch?v=Fkxox9xgL1U"
     field :loop, :boolean, default: false
     field :paused, :boolean, default: false
     field :playback_position, :integer
@@ -22,8 +22,6 @@ defmodule Hergetto.Rooms.Room do
       :playback_position,
       :playback_rate,
       :playlist,
-      :paused,
-      :loop,
       :uuid
     ])
   end

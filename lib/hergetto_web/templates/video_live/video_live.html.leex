@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-         Room: <%= @room.uuid %>
+        <p>Room: <%= @room.uuid %></p>
     </div>
     <%= if @room.current_video do %>
         <div class="pl-1 m-3">
@@ -8,9 +8,11 @@
             <div phx-hook="vid_player" id="vid_player" class="w-100 h-100">
                 <iframe id="player"
                         width="640" height="360"
-                        src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1"
+                        src="https://www.youtube.com/embed/<%= @load_id %>?enablejsapi=1"
                         frameborder="0"
                         style="border: solid 4px #37474F"
+                        allow="autoplay 'src' https://www.youtube.com; accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
                 ></iframe>
             </div>
         </div>
@@ -21,13 +23,14 @@
        Add a video
     </div>
     <div class="m-3">
-        <%= form_for @changeset, "#", [phx_submit: :add_vid], fn f -> %>
+        <%= form_for @changeset, "#", [phx_change: :validate_video, phx_submit: :add_vid], fn f -> %>
             <div class="form-group">
+                <%= label f, :add_video, class: "test" %>
                 <%= text_input f, :add_video, placeholder: "Add a video", class: "form-control" %>
-                <%= error_tag f, :add_video %>
+                <p class="mt-4"><%= error_tag f, :add_video %></p>
             </div>
 
-          <%= submit "add video", class: "btn btn-primary" %>
+          <%= submit "add video", class: "btn btn-primary", disabled: !@changeset.valid? %>
         <% end %>
     </div>
 </div>
