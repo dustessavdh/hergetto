@@ -13,8 +13,6 @@ defmodule HergettoWeb.VideoLive do
   # skip knop maken
   # vorige knop maken
 
-
-
   @impl true
   def mount(%{"id" => id}, _session, socket) do
     RoomHelper.subscribe(id)
@@ -82,13 +80,7 @@ defmodule HergettoWeb.VideoLive do
     case Rooms.update_room(socket.assigns.room, room_changes) do
       {:ok, _room} ->
         RoomHelper.broadcast(socket.assigns.room.uuid, socket.assigns.broadcast_id, "changed_cur_vid")
-        case Integer.parse(vid_index) do
-          {index, _} ->
-            {:noreply, fetch(socket, :change_video)}
-          :error ->
-            {:noreply, fetch(socket, :room_changed)}
-        end
-
+        {:noreply, fetch(socket, :change_video)}
       {:error, changeset} ->
         IO.inspect(changeset)
         {:noreply, socket}
