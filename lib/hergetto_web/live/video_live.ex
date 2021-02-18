@@ -2,12 +2,11 @@ defmodule HergettoWeb.VideoLive do
   use HergettoWeb, :live_view
   alias Hergetto.Rooms
   alias Hergetto.Rooms.Room
+  alias Hergetto.Rooms.Video
   alias HergettoWeb.RoomHelper
   alias HergettoWeb.VideoHelper
 
   # TODO:
-  # wanneer de pagina laad de goede video laden
-  # validator voor video toevoegen
   # kijken naar de t=69420 en die gebruiken bij het laden van een video
   # index toevoegen aan playlist
   # playlist maken waar alle verwijderde playlist items naar toe gaan
@@ -97,15 +96,30 @@ defmodule HergettoWeb.VideoLive do
   end
 
   @impl true
-  def handle_event("add_vid", %{"room" => %{"add_video" => video}}, socket) do
-    # TODO validate here
-    # changeset =
-    # %Room{}
-    # |> Rooms.change_room(params)
-    # |> Map.put(:action, :insert)
+  def handle_event("validate_video", %{"video" => video}, socket) do
+    IO.inspect(video)
+    changeset =
+    %Video{}
+    |> Video.changeset(video)
+    |> Map.put(:action, :insert)
 
-    # IO.inspect(Videx.Youtube.parse(params["add_video"]))
+    case Videx.parse(Map.get(video, "add_video", "")) do
+      nil ->
+        {:noreply, fetch(
+          socket,
+          :validate_video,
+          changeset
+          |> Ecto.Changeset.add_error(:add_video, "isn't a valid url", validation: :format)
+          )}
+      _parsed ->
+        {:noreply, fetch(socket, :validate_video, changeset)}
+    end
 
+
+  end
+
+  @impl true
+  def handle_event("add_vid", %{"video" => %{"add_video" => video}}, socket) do
     room_changes =
       socket.assigns.room.playlist
       |> VideoHelper.add_video(video, %{})
@@ -187,7 +201,7 @@ defmodule HergettoWeb.VideoLive do
           :ok,
           socket
           |> assign(room: room)
-          |> assign(changeset: Room.changeset(room, %{}))
+          |> assign(changeset: Video.changeset(%Video{}, %{}))
         }
       nil ->
         {
@@ -215,6 +229,11 @@ defmodule HergettoWeb.VideoLive do
       {:error, socket} ->
         socket
     end
+  end
+
+  def fetch(socket, :validate_video, changeset) do
+    socket
+    |> assign(changeset: changeset)
   end
 
   def fetch(socket, :room_changed) do

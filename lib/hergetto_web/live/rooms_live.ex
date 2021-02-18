@@ -21,7 +21,6 @@ defmodule HergettoWeb.RoomsLive do
   def handle_event("create", _params, socket) do
     new_room = %{
       uuid: UUID.uuid4(),
-      current_video: nil,
       playback_position: 0,
       playback_rate: 1.0,
       playlist: []

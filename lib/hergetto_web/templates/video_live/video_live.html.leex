@@ -23,14 +23,14 @@
        Add a video
     </div>
     <div class="m-3">
-        <%= form_for @changeset, "#", [phx_submit: :add_vid], fn f -> %>
+        <%= form_for @changeset, "#", [phx_change: :validate_video, phx_submit: :add_vid], fn f -> %>
             <div class="form-group">
                 <%= label f, :add_video, class: "test" %>
                 <%= text_input f, :add_video, placeholder: "Add a video", class: "form-control" %>
                 <p class="mt-4"><%= error_tag f, :add_video %></p>
             </div>
 
-          <%= submit "add video", class: "btn btn-primary" %>
+          <%= submit "add video", class: "btn btn-primary", disabled: !@changeset.valid? %>
         <% end %>
     </div>
 </div>
