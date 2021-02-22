@@ -22,6 +22,8 @@ export default class Player {
     }
 
     onPlayerReady(event) {
+        this.pausePlayerStateChange(500)
+        this.player.mute()
         console.log('player ready')
         this.player.playVideo()
     }
@@ -70,23 +72,16 @@ export default class Player {
         this.hook.pushEvent('pause_video', event)
     }
 
-    setCurrentVideoById(videoId) {
-        this.player.loadVideoById(videoId)
+    setCurrentVideoById(videoId, startTime) {
+        this.player.loadVideoById(videoId, startTime)
     }
 
-    setCurrentVideoByUrl(videoUrl) {
-        this.player.loadVideoByUrl(videoUrl)
-    }
-
-    onPlayerStateChangeTimeout(event) {
-        console.log('player state changed, but was in timeout!', event.data)
-        this.player.l.h[5] = (event => this.onPlayerStateChange(event))
-        this.player.i.i.events.onStateChange = (event => this.onPlayerStateChange(event))
+    setCurrentVideoByUrl(videoUrl, startTime) {
+        this.player.loadVideoByUrl(videoUrl, startTime)
     }
 
     playVideo(playback_position) {
-        this.player.l.h[5] = (event => setTimeout(() => {this.onPlayerStateChangeTimeout(event)}, 250))
-        this.player.i.i.events.onStateChange = (event => setTimeout(() => {this.onPlayerStateChangeTimeout(event)}, 250))
+        this.pausePlayerStateChange(250)
         if (this.getCurrentTime() != playback_position) {
             this.seekTo(playback_position)
         }
@@ -109,5 +104,16 @@ export default class Player {
     seekTo(millsec) {
         // return this.player.seekTo(millsec / 1000)
         return this.player.seekTo(millsec / 10)
+    }
+
+    pausePlayerStateChange(millsec) {
+        this.player.l.h[5] = (event => setTimeout(() => {this.onPlayerStateChangeTimeout(event)}, millsec))
+        this.player.i.i.events.onStateChange = (event => setTimeout(() => {this.onPlayerStateChangeTimeout(event)}, millsec))
+    }
+
+    onPlayerStateChangeTimeout(event) {
+        console.log('player state changed, but was in timeout!', event.data)
+        this.player.l.h[5] = (event => this.onPlayerStateChange(event))
+        this.player.i.i.events.onStateChange = (event => this.onPlayerStateChange(event))
     }
 }

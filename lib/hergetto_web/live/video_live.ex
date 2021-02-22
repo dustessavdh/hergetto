@@ -7,7 +7,6 @@ defmodule HergettoWeb.VideoLive do
   alias HergettoWeb.VideoHelper
 
   # TODO:
-  # kijken naar de t=69420 en die gebruiken bij het laden van een video
   # index toevoegen aan playlist
   # playlist maken waar alle verwijderde playlist items naar toe gaan
   # skip knop maken
@@ -211,7 +210,7 @@ defmodule HergettoWeb.VideoLive do
         video = Map.get(socket.assigns.room, :current_video)
         load_id = case Videx.parse(video) do
           %{id: id} ->
-            id
+            "#{id}?t=#{Map.get(socket.assigns.room, :playback_position) / 10}"
           _ ->
             "M7lc1UVf-VE"
         end
@@ -261,9 +260,18 @@ defmodule HergettoWeb.VideoLive do
     case fetch(socket, :room, socket.assigns.room.uuid) do
       {:ok, socket} ->
         case Videx.parse(socket.assigns.room.current_video) do
+          %{id: id, params: %{"t" => time}} ->
+            start_time = case Integer.parse(String.replace(time, ~r/\D+/, "")) do
+              {parsed_time, _} ->
+                parsed_time
+              :error ->
+                0
+            end
+            socket
+            |> push_event("change_vid", %{cur_vid: id, start_time: start_time})
           %{id: id} ->
             socket
-            |> push_event("change_vid", %{cur_vid: id})
+            |> push_event("change_vid", %{cur_vid: id, start_time: 0})
           _ ->
             socket
             |> put_flash(:error, "That wasn't a valid url!")
