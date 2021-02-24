@@ -7,7 +7,7 @@ defmodule HergettoWeb.VideoLive do
   alias HergettoWeb.VideoHelper
 
   # TODO:
-  # index toevoegen aan playlist
+  # volgende video afspelen wanneer de andere klaar is.
   # playlist maken waar alle verwijderde playlist items naar toe gaan
   # skip knop maken
   # vorige knop maken

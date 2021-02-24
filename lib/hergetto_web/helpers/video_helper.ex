@@ -16,7 +16,7 @@ defmodule HergettoWeb.VideoHelper do
   end
 
   def add_video(playlist, video, changes) do
-    Map.put(changes, :playlist, [video | playlist])
+    Map.put(changes, :playlist, playlist ++ [video])
   end
 
   def change_video_state(paused?) do
