@@ -210,7 +210,9 @@ defmodule HergettoWeb.VideoLive do
         video = Map.get(socket.assigns.room, :current_video)
         load_id = case Videx.parse(video) do
           %{id: id} ->
-            "#{id}?t=#{Map.get(socket.assigns.room, :playback_position) / 10}"
+            raw_time = Map.get(socket.assigns.room, :playback_position) / 10
+            {time, _} = Integer.parse("#{raw_time}")
+            "#{id}?t=#{time}s"
           _ ->
             "M7lc1UVf-VE"
         end
