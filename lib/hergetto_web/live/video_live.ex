@@ -13,9 +13,21 @@ defmodule HergettoWeb.VideoLive do
   # vorige knop maken
 
   @impl true
-  def mount(%{"id" => id}, _session, socket) do
+  def mount(params, session, socket) do
+    case connected?(socket) do
+      true -> connected_mount(params, session, socket)
+      false -> {:ok, assign(socket, page: "loading")}
+    end
+  end
+
+  def connected_mount(%{"id" => id}, _session, socket) do
     RoomHelper.subscribe(id)
     {:ok, fetch(socket, :setup, id)}
+  end
+
+  @impl true
+  def render(%{page: "loading"} = assigns) do
+    ~L"<div>Hergetto is loading... Can you believe this site is so slow!?! What a bad developer!</div>"
   end
 
   @impl true
@@ -24,7 +36,8 @@ defmodule HergettoWeb.VideoLive do
   end
 
   @impl true
-  def terminate(_reason, _socket) do
+  def terminate(_reason, socket) do
+    RoomHelper.remove_participant(socket.assigns.room, socket.assigns.broadcast_id)
     :normal
   end
 
@@ -105,8 +118,6 @@ defmodule HergettoWeb.VideoLive do
       _parsed ->
         {:noreply, fetch(socket, :validate_video, changeset)}
     end
-
-
   end
 
   @impl true
@@ -217,6 +228,7 @@ defmodule HergettoWeb.VideoLive do
             "M7lc1UVf-VE"
         end
         broadcast_id = UUID.uuid4()
+        RoomHelper.subscribe(socket.assigns.room.uuid, broadcast_id)
         socket
         |> assign(broadcast_id: broadcast_id)
         |> assign(room: RoomHelper.set_participant(socket.assigns.room, broadcast_id))
