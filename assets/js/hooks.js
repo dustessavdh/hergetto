@@ -25,6 +25,11 @@ Hooks.vid_player = {
             console.log('change playback rate:', event)
             player.setPlaybackRate(event.playback_rate)
         })
+
+        this.handleEvent('update_playback_position', (event) => {
+            console.log('update playback position')
+            this.pushEvent('update_playback_position', {'playback_position': player.getCurrentTime()})
+        })
     },
 
     updated() {

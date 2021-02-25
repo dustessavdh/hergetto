@@ -11,6 +11,8 @@ defmodule HergettoWeb.VideoLive do
   # playlist maken waar alle verwijderde playlist items naar toe gaan
   # skip knop maken
   # vorige knop maken
+  # alle kleine errors fixen
+  # styling
 
   @impl true
   def mount(params, session, socket) do
@@ -50,6 +52,12 @@ defmodule HergettoWeb.VideoLive do
       _id ->
         handle_info(event_type, socket)
     end
+  end
+
+  @impl true
+  def handle_info("update_playback_postion", socket) do
+    IO.puts("updating current playback_position")
+    {:noreply, fetch(socket, :update_playback_postion)}
   end
 
   @impl true
@@ -196,6 +204,19 @@ defmodule HergettoWeb.VideoLive do
     end
   end
 
+  @impl true
+  def handle_event("update_playback_position", %{"playback_position" => playback_position}, socket) do
+    case Rooms.update_room(socket.assigns.room, %{playback_position: playback_position}) do
+      {:ok, _room} ->
+        # RoomHelper.broadcast(socket.assigns.room.uuid, socket.assigns.broadcast_id, "play_video")
+        {:noreply, fetch(socket, :room_changed)}
+
+      {:error, changeset} ->
+        IO.inspect(changeset)
+        {:noreply, socket}
+    end
+  end
+
   def fetch(socket, :room, id) do
     case Rooms.get_room(id, :uuid) do
       %Room{} = room ->
@@ -218,17 +239,26 @@ defmodule HergettoWeb.VideoLive do
   def fetch(socket, :setup, id) do
     case fetch(socket, :room, id) do
       {:ok, socket} ->
+        broadcast_id = UUID.uuid4()
+        RoomHelper.subscribe(socket.assigns.room.uuid, broadcast_id)
+        if socket.assigns.room.owner do
+          RoomHelper.broadcast_to_participant(socket.assigns.room.uuid, broadcast_id, socket.assigns.room.owner, "update_playback_postion")
+            :timer.sleep(500)
+        end
         video = Map.get(socket.assigns.room, :current_video)
         load_id = case Videx.parse(video) do
           %{id: id} ->
-            raw_time = Map.get(socket.assigns.room, :playback_position) / 10
-            {time, _} = Integer.parse("#{raw_time}")
-            "#{id}?t=#{time}s"
+            time = case Rooms.get_room(socket.assigns.room.uuid, :uuid) do
+              %Room{} = room ->
+                raw_time = Map.get(room, :playback_position) / 10
+                {time, _} = Integer.parse("#{raw_time}")
+                time
+              nil -> 0
+            end
+            "#{id}?start=#{time}s"
           _ ->
             "M7lc1UVf-VE"
         end
-        broadcast_id = UUID.uuid4()
-        RoomHelper.subscribe(socket.assigns.room.uuid, broadcast_id)
         socket
         |> assign(broadcast_id: broadcast_id)
         |> assign(room: RoomHelper.set_participant(socket.assigns.room, broadcast_id))
@@ -302,6 +332,16 @@ defmodule HergettoWeb.VideoLive do
       {:ok, socket} ->
         socket
         |> push_event("change_playback_rate", %{playback_rate: socket.assigns.room.playback_rate})
+      {:error, socket} ->
+        socket
+    end
+  end
+
+  def fetch(socket, :update_playback_postion) do
+    case fetch(socket, :room, socket.assigns.room.uuid) do
+      {:ok, socket} ->
+        socket
+        |> push_event("update_playback_position", %{})
       {:error, socket} ->
         socket
     end
