@@ -23,7 +23,8 @@ defmodule HergettoWeb.RoomsLive do
       uuid: UUID.uuid4(),
       playback_position: 0,
       playback_rate: 1.0,
-      playlist: []
+      playlist: [],
+      participants: []
     }
 
     case Rooms.create_room(new_room) do

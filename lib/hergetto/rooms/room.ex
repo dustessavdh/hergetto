@@ -10,6 +10,8 @@ defmodule Hergetto.Rooms.Room do
     field :playback_rate, :float
     field :playlist, {:array, :string}
     field :uuid, Ecto.UUID
+    field :owner, Ecto.UUID
+    field :participants, {:array, Ecto.UUID}
 
     timestamps()
   end
@@ -17,12 +19,23 @@ defmodule Hergetto.Rooms.Room do
   @doc false
   def changeset(room, attrs) do
     room
-    |> cast(attrs, [:playback_position, :playback_rate, :current_video, :playlist, :paused, :loop, :uuid])
+    |> cast(attrs, [
+      :playback_position,
+      :playback_rate,
+      :current_video,
+      :playlist,
+      :paused,
+      :loop,
+      :uuid,
+      :owner,
+      :participants
+      ])
     |> validate_required([
       :playback_position,
       :playback_rate,
       :playlist,
-      :uuid
+      :uuid,
+      :participants
     ])
   end
 end

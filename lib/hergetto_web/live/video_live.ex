@@ -216,8 +216,10 @@ defmodule HergettoWeb.VideoLive do
           _ ->
             "M7lc1UVf-VE"
         end
+        broadcast_id = UUID.uuid4()
         socket
-        |> assign(broadcast_id: UUID.uuid4())
+        |> assign(broadcast_id: broadcast_id)
+        |> assign(room: RoomHelper.set_participant(socket.assigns.room, broadcast_id))
         |> assign(load_id: load_id)
       {:error, socket} ->
         socket
