@@ -35,13 +35,13 @@ export default class Player {
                 console.log('unstarted')
                 break;
             case YT.PlayerState.ENDED:
-                console.log('ended')
+                this.onPlayerEnded(event)
                 break;
             case YT.PlayerState.PLAYING:
-                    this.onPlayerPlaying(event)
+                this.onPlayerPlaying(event)
                 break;
             case YT.PlayerState.PAUSED:
-                    this.onPlayerPaused(event)
+                this.onPlayerPaused(event)
                 break;
             case YT.PlayerState.BUFFERING:
                 console.log('buffering')
@@ -70,6 +70,11 @@ export default class Player {
     onPlayerPaused(event) {
         console.log('player paused')
         this.hook.pushEvent('pause_video', event)
+    }
+
+    onPlayerEnded(event) {
+        console.log('Player ended')
+        this.hook.pushEvent('next_video', {"reason": "video ended"})
     }
 
     setCurrentVideoById(videoId, startTime) {

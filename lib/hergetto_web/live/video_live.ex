@@ -7,7 +7,7 @@ defmodule HergettoWeb.VideoLive do
   alias HergettoWeb.VideoHelper
 
   # TODO:
-  # volgende video afspelen wanneer de andere klaar is.
+  # wanneer er een video wordt toegevoegd en de socket.assigns.ended is true dan gelijk die video afspelen
   # playlist maken waar alle verwijderde playlist items naar toe gaan
   # skip knop maken
   # vorige knop maken
@@ -217,6 +217,29 @@ defmodule HergettoWeb.VideoLive do
     end
   end
 
+  @impl true
+  def handle_event("next_video", %{"reason" => _reason}, socket) do
+    case socket.assigns.broadcast_id do
+      id when id == socket.assigns.room.owner ->
+        case List.first(socket.assigns.room.playlist) do
+          nil ->
+            {
+              :noreply,
+              fetch(socket, :room_changed)
+              |> assign(ended: true)
+            }
+          _first ->
+            handle_event("change_cur_vid", %{"value" => "0"}, socket)
+        end
+      _ ->
+        {
+          :noreply,
+          fetch(socket, :room_changed)
+          |> assign(ended: true)
+        }
+    end
+  end
+
   def fetch(socket, :room, id) do
     case Rooms.get_room(id, :uuid) do
       %Room{} = room ->
@@ -255,7 +278,7 @@ defmodule HergettoWeb.VideoLive do
                 time
               nil -> 0
             end
-            "#{id}?start=#{time}s"
+            "#{id}?start=#{time}"
           _ ->
             "M7lc1UVf-VE"
         end
@@ -263,6 +286,7 @@ defmodule HergettoWeb.VideoLive do
         |> assign(broadcast_id: broadcast_id)
         |> assign(room: RoomHelper.set_participant(socket.assigns.room, broadcast_id))
         |> assign(load_id: load_id)
+        |> assign(ended: false)
       {:error, socket} ->
         socket
     end
@@ -314,12 +338,15 @@ defmodule HergettoWeb.VideoLive do
                 0
             end
             socket
+            |> assign(ended: false)
             |> push_event("change_vid", %{cur_vid: id, start_time: start_time})
           %{id: id} ->
             socket
+            |> assign(ended: false)
             |> push_event("change_vid", %{cur_vid: id, start_time: 0})
           _ ->
             socket
+            |> assign(ended: true)
             |> put_flash(:error, "That wasn't a valid url!")
         end
       {:error, socket} ->
@@ -341,6 +368,7 @@ defmodule HergettoWeb.VideoLive do
     case fetch(socket, :room, socket.assigns.room.uuid) do
       {:ok, socket} ->
         socket
+        |> assign(ended: false)
         |> push_event("update_playback_position", %{})
       {:error, socket} ->
         socket
