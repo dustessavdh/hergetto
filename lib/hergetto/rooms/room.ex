@@ -8,10 +8,11 @@ defmodule Hergetto.Rooms.Room do
     field :paused, :boolean, default: false
     field :playback_position, :integer
     field :playback_rate, :float
-    field :playlist, {:array, :string}
+    field :playlist, {:array, :string}, default: []
     field :uuid, Ecto.UUID
     field :owner, Ecto.UUID
-    field :participants, {:array, Ecto.UUID}
+    field :participants, {:array, Ecto.UUID}, default: []
+    field :private, :boolean, default: true
 
     timestamps()
   end
@@ -28,14 +29,13 @@ defmodule Hergetto.Rooms.Room do
       :loop,
       :uuid,
       :owner,
-      :participants
+      :participants,
+      :private
       ])
     |> validate_required([
       :playback_position,
       :playback_rate,
-      :playlist,
-      :uuid,
-      :participants
+      :uuid
     ])
   end
 end

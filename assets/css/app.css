@@ -1,0 +1,19 @@
+body {
+    background-color: #3D065F !important;
+}
+
+.bg-hergetto-light {
+    background-color: #9F19AB;
+}
+
+.nav-link {
+    color: #fadfef;
+}
+
+.nav-link:hover {
+    color: #fff;
+}
+
+.card {
+    margin-bottom: 2rem;
+}
