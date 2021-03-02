@@ -86,20 +86,23 @@ body {
 
 .scrollbar::-webkit-scrollbar {
     width: 15px;
-  }
-  
-  
-  .scrollbar::-webkit-scrollbar-track {
+}
+
+
+.scrollbar::-webkit-scrollbar-track {
     background: #EBEBEB;
     border-radius: 10px;
-  }
-  
-  .scrollbar::-webkit-scrollbar-thumb {
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
     background: #433C76;
     border-radius: 10px;
-  }
-  
-  .scrollbar::-webkit-scrollbar-thumb:hover {
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
     background: #675D9B;
-  }
-  
+}
+
+.loading {
+    max-height: calc(100vh - 82px - 60px - 45px);
+}

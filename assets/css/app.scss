@@ -3,7 +3,8 @@
 @import "../node_modules/nprogress/nprogress.css";
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
-@import "./app.css";
+@import "../node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css";
+@import "./style.css";
 
 /* LiveView specific classes for your customizations */
 .phx-no-feedback.invalid-feedback,

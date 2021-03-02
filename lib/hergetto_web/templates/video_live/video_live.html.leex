@@ -12,6 +12,13 @@
                             allowfullscreen
                     ></iframe>
                 </div>
+            <% else %>
+                <div class="embed-responsive embed-responsive-1by1" style="max-height: 400px;">
+                    <video class="embed-responsive-item" autoplay muted loop>
+                        <source src="<%= Routes.static_path(@socket, "/images/loading.webm") %>" type="video/webm">
+                        <h5 class="text-white">Can't play the current video</h5>
+                    </video>
+                </div>
             <% end %>
         </div>
     </div>

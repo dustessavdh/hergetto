@@ -29,7 +29,7 @@ defmodule HergettoWeb.VideoLive do
 
   @impl true
   def render(%{page: "loading"} = assigns) do
-    ~L"<div>Hergetto is loading... Can you believe this site is so slow!?! What a bad developer!</div>"
+    Phoenix.View.render(HergettoWeb.LayoutView, "loading.html", assigns)
   end
 
   @impl true
