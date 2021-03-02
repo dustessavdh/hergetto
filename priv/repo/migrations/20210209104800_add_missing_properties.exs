@@ -3,8 +3,8 @@ defmodule Hergetto.Repo.Migrations.AddMissingProperties do
 
   def change do
     alter table(:rooms) do
-      add :paused, :boolean
-      add :loop, :boolean
+      add :paused, :boolean, default: false
+      add :loop, :boolean, default: false
     end
   end
 end

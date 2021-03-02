@@ -6,12 +6,14 @@ defmodule Hergetto.Rooms.Room do
     field :current_video, :string, default: "https://www.youtube.com/watch?v=Fkxox9xgL1U"
     field :loop, :boolean, default: false
     field :paused, :boolean, default: false
-    field :playback_position, :integer
-    field :playback_rate, :float
-    field :playlist, {:array, :string}
+    field :playback_position, :integer, default: 0
+    field :playback_rate, :float, default: 1.0
+    field :playlist, {:array, :string}, default: []
+    field :played_playlist, {:array, :string}, default: []
     field :uuid, Ecto.UUID
     field :owner, Ecto.UUID
-    field :participants, {:array, Ecto.UUID}
+    field :participants, {:array, Ecto.UUID}, default: []
+    field :private, :boolean, default: true
 
     timestamps()
   end
@@ -24,18 +26,16 @@ defmodule Hergetto.Rooms.Room do
       :playback_rate,
       :current_video,
       :playlist,
+      :played_playlist,
       :paused,
       :loop,
       :uuid,
       :owner,
-      :participants
+      :participants,
+      :private
       ])
     |> validate_required([
-      :playback_position,
-      :playback_rate,
-      :playlist,
-      :uuid,
-      :participants
+      :uuid
     ])
   end
 end

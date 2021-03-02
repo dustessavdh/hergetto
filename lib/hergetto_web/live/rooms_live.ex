@@ -18,13 +18,11 @@ defmodule HergettoWeb.RoomsLive do
   end
 
   @impl true
-  def handle_event("create", _params, socket) do
+  def handle_event("create_room", %{"private" => %{"is_private" => private?}}, socket) do
+    IO.inspect(private?)
     new_room = %{
       uuid: UUID.uuid4(),
-      playback_position: 0,
-      playback_rate: 1.0,
-      playlist: [],
-      participants: []
+      private: private?
     }
 
     case Rooms.create_room(new_room) do
@@ -37,7 +35,11 @@ defmodule HergettoWeb.RoomsLive do
         }
       {:error, changeset} ->
         IO.inspect(changeset)
-        {:noreply, fetch(socket)}
+        {
+          :noreply,
+          fetch(socket)
+          |> put_flash(:error, "Something went wrong when creating a room! Try again in a few minutes!")
+        }
     end
   end
 
@@ -48,6 +50,11 @@ defmodule HergettoWeb.RoomsLive do
 
   def fetch(socket) do
     socket
-    |> assign(rooms: Rooms.list_rooms())
+    |> assign(rooms: Rooms.list_public_rooms())
+  end
+
+  def get_yt_id(url) do
+    %{id: id} = Videx.parse(url)
+    id
   end
 end

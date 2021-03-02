@@ -21,6 +21,12 @@ defmodule Hergetto.Rooms do
     Repo.all(Room)
   end
 
+  def list_public_rooms do
+    query = from r in Room,
+            where: r.private == false
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single room.
 

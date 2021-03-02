@@ -29,7 +29,7 @@ defmodule HergettoWeb.VideoLive do
 
   @impl true
   def render(%{page: "loading"} = assigns) do
-    ~L"<div>Hergetto is loading... Can you believe this site is so slow!?! What a bad developer!</div>"
+    Phoenix.View.render(HergettoWeb.LayoutView, "loading.html", assigns)
   end
 
   @impl true
@@ -104,6 +104,24 @@ defmodule HergettoWeb.VideoLive do
       {:error, changeset} ->
         IO.inspect(changeset)
         {:noreply, socket}
+    end
+  end
+
+  @impl true
+  def handle_event("skip_vid", %{"value" => action}, socket) do
+    case action do
+      "next" ->
+        IO.puts("next!")
+        {:noreply, socket}
+      "previous" ->
+        IO.puts("previous!")
+        {:noreply, socket}
+      _ ->
+        {
+          :noreply,
+          socket
+          |> put_flash(:error, "That action isn't supported")
+        }
     end
   end
 

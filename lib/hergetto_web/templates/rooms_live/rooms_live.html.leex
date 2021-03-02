@@ -1,17 +1,38 @@
-<hr>
 <div class="row w-100">
-	<h1 class="col-10 pl-5">Create a room or join one</h1>
-	<div class="btn-toolbar col-2">
-	    <div class="btn-group">
-	        <button phx-click="create" class="btn btn-primary float-right">Create room</button>
-	    </div>
+	<div class="col pl-5 text-center">
+		<h1 class="text-white">Create a room or join one</h1>
 	</div>
 </div>
-<hr>
-<ul class="collection list-unstyled">
-    <%= for room <- @rooms do %>
-        <li class="collection-item">
-            <a href="watch/<%= room.uuid %>"><%= room.uuid %></a>
-        </li>
-    <% end %>
-</ul>
+
+<div class="row justify-content-center">
+	<div class="col-md-2">
+		<div class="card bg-hergetto-light text-center">
+			<div class="card-body">
+				<%= form_for :private, "#", [phx_submit: :create_room], fn f -> %>
+					<div class="form-group">
+						<%= label f, :is_private, "Private room:", class: "text-white" %>
+						<%= checkbox f, :is_private, value: true %>
+					</div>
+					<%= submit "Create room", class: "btn btn-success" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container mx-auto">
+	<div class="row justify-content-center">
+		<%= for room <- @rooms do %>
+			<div class="col-md-4">
+				<div class="card">
+					<img class="card-img-top" src="https://img.youtube.com/vi/<%= HergettoWeb.VideoHelper.get_yt_id(room.current_video) %>/mqdefault.jpg" alt="yt thumbnail">
+					<div class="card-body">
+						<h5 class="card-title"><%= room.uuid %></h5>
+						<p class="card-text">Participants: <%= Enum.count(room.participants) %></p>
+						<a href="watch/<%= room.uuid %>" class="btn btn-primary stretched-link"><i class="fas fa-sign-in-alt"></i> Go to room</a>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>
