@@ -5,24 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= csrf_meta_tag() %>
-    <%= live_title_tag assigns[:page_title] || "Hergetto", suffix: " · Phoenix Framework" %>
+    <%= live_title_tag assigns[:page_title] || "Hergetto", suffix: " · Together in a safe way!" %>
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <header class="bg-hergetto-light">
-      <section class="container ">
-        <nav role="navigation">
-          <ul class="nav nav-pills">
-            <li class="nav-item"><a href="/" class="nav-link">home</a></li>
-            <li class="nav-item"><%= live_redirect "find a room", to: Routes.rooms_path(@conn, :index), class: "nav-link"%></li>
-          </ul>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo img-fluid">
-          <img src="<%= Routes.static_path(@conn, "/images/hergetto.png") %>" alt="Hergetto Logo"/>
-        </a>
-      </section>
-    </header>
-    <%= @inner_content %>
+    <div class="relative">
+      <header class="bg-hergetto-light">
+        <section class="container ">
+          <nav role="navigation">
+            <ul class="nav nav-pills">
+              <li class="nav-item"><a href="/" class="nav-link">home</a></li>
+              <li class="nav-item"><%= live_redirect "find a room", to: Routes.rooms_path(@conn, :index), class: "nav-link"%></li>
+            </ul>
+          </nav>
+          <a href="/" class="phx-logo img-fluid">
+            <img src="<%= Routes.static_path(@conn, "/images/hergetto.png") %>" alt="Hergetto Logo"/>
+          </a>
+        </section>
+      </header>
+      <%= @inner_content %>
+      <br><br><br>
+      <footer class="footer bg-hergetto-light">
+        <div class="container">
+          <span class="text">Together in a safe way!</span>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>

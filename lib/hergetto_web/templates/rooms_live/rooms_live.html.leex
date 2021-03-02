@@ -4,14 +4,19 @@
 	</div>
 </div>
 
-<div class="row mb-4">
-	<div class="col text-center">
-		<%= form_for :private, "#", [phx_submit: :create_room], fn f -> %>
-			<%= label f, :is_private, "Private room:", class: "text-white" %>
-			<%= checkbox f, :is_private, value: true %>
-			<%= submit "Create room", class: "btn btn-success" %>
-		<% end %>
-		<%# <button phx-click="create" class="btn btn-success"><i class="fas fa-plus"></i> Create room</button> %>
+<div class="row justify-content-center">
+	<div class="col-md-2">
+		<div class="card bg-hergetto-light text-center">
+			<div class="card-body">
+				<%= form_for :private, "#", [phx_submit: :create_room], fn f -> %>
+					<div class="form-group">
+						<%= label f, :is_private, "Private room:", class: "text-white" %>
+						<%= checkbox f, :is_private, value: true %>
+					</div>
+					<%= submit "Create room", class: "btn btn-success" %>
+				<% end %>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -20,7 +25,7 @@
 		<%= for room <- @rooms do %>
 			<div class="col-md-4">
 				<div class="card">
-					<img class="card-img-top" src="https://img.youtube.com/vi/<%= HergettoWeb.RoomsLive.get_yt_id(room.current_video) %>/mqdefault.jpg" alt="yt thumbnail">
+					<img class="card-img-top" src="https://img.youtube.com/vi/<%= HergettoWeb.VideoHelper.get_yt_id(room.current_video) %>/mqdefault.jpg" alt="yt thumbnail">
 					<div class="card-body">
 						<h5 class="card-title"><%= room.uuid %></h5>
 						<p class="card-text">Participants: <%= Enum.count(room.participants) %></p>

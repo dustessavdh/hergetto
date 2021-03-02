@@ -34,4 +34,9 @@ defmodule HergettoWeb.VideoHelper do
   def save_changes(changes, room) do
     Rooms.update_room(room, changes)
   end
+
+  def get_yt_id(url) do
+    %{id: id} = Videx.parse(url)
+    id
+  end
 end

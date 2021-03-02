@@ -46,28 +46,6 @@ defmodule HergettoWeb.RoomsLive do
   end
 
   @impl true
-  def handle_event("create", _params, socket) do
-    new_room = %{
-      uuid: UUID.uuid4(),
-      playback_position: 0,
-      playback_rate: 1.0,
-    }
-
-    case Rooms.create_room(new_room) do
-      {:ok, room} ->
-        {
-          :noreply,
-          socket
-          |> put_flash(:info, "Room created!")
-          |> push_redirect(to: "/watch/#{room.uuid}")
-        }
-      {:error, changeset} ->
-        IO.inspect(changeset)
-        {:noreply, fetch(socket)}
-    end
-  end
-
-  @impl true
   def terminate(_reason, _socket) do
     :normal
   end
