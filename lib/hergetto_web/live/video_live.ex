@@ -108,6 +108,24 @@ defmodule HergettoWeb.VideoLive do
   end
 
   @impl true
+  def handle_event("skip_vid", %{"value" => action}, socket) do
+    case action do
+      "next" ->
+        IO.puts("next!")
+        {:noreply, socket}
+      "previous" ->
+        IO.puts("previous!")
+        {:noreply, socket}
+      _ ->
+        {
+          :noreply,
+          socket
+          |> put_flash(:error, "That action isn't supported")
+        }
+    end
+  end
+
+  @impl true
   def handle_event("validate_video", %{"video" => video}, socket) do
     IO.inspect(video)
     changeset =

@@ -22,8 +22,6 @@ defmodule HergettoWeb.RoomsLive do
     IO.inspect(private?)
     new_room = %{
       uuid: UUID.uuid4(),
-      playback_position: 0,
-      playback_rate: 1.0,
       private: private?
     }
 
