@@ -8,6 +8,13 @@ defmodule HergettoWeb.VideoHelper do
     end
   end
 
+  def add_to_played_playlist(changes, playlist, played_playlist, index) do
+    case Integer.parse(index) do
+      {index, _} ->
+        Map.put(changes, :played_playlist, played_playlist ++ [Enum.at(playlist, index)])
+    end
+  end
+
   def delete_video(changes, playlist, index) do
     case Integer.parse(index) do
       {index, _} ->

@@ -2,9 +2,17 @@ export default class Player {
     constructor(domId, hook) {
         this.hook = hook;
         window.onYouTubeIframeAPIReady = () => this.onIframeReady(domId)
-        let youtubeScriptTag = document.createElement("script")
-        youtubeScriptTag.src = "//www.youtube.com/iframe_api"
-        document.head.appendChild(youtubeScriptTag)
+        this.youtubeScriptTag = document.createElement("script")
+        this.youtubeScriptTag.src = "//www.youtube.com/iframe_api"
+        document.head.appendChild(this.youtubeScriptTag)
+    }
+
+    deconstruct() {
+        this.hook = {};
+        this.player.destroy()
+        window["YT"].loading = 0
+        window.onYouTubeIframeAPIReady = () => this.onIframeReady('aaa');
+        document.head.removeChild(this.youtubeScriptTag)
     }
 
     onIframeReady(domId) {

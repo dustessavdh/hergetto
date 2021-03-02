@@ -34,6 +34,7 @@ defmodule HergettoWeb.VideoLive do
 
   @impl true
   def render(assigns) do
+    # Phoenix.View.render(HergettoWeb.LayoutView, "loading.html", assigns)
     Phoenix.View.render(HergettoWeb.VideoLiveView, "video_live.html", assigns)
   end
 
@@ -95,6 +96,7 @@ defmodule HergettoWeb.VideoLive do
     room_changes =
       vid_index
       |> VideoHelper.set_current_video(socket.assigns.room.playlist, %{})
+      |> VideoHelper.add_to_played_playlist(socket.assigns.room.playlist, socket.assigns.room.played_playlist, vid_index)
       |> VideoHelper.delete_video(socket.assigns.room.playlist, vid_index)
 
     case Rooms.update_room(socket.assigns.room, room_changes) do

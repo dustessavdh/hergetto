@@ -1,11 +1,11 @@
 import Player from './player'
 
 let Hooks = {}
-
+let player = {};
 // Player
 Hooks.vid_player = {
     mounted() {
-        let player = new Player('player', this)
+        player = new Player(this.el.firstChild.nextElementSibling.id, this)
         this.handleEvent('change_vid', (event) => {
             console.log('change video:', event)
             player.setCurrentVideoById(event.cur_vid, event.start_time)
@@ -32,11 +32,11 @@ Hooks.vid_player = {
         })
     },
 
-    updated() {
-        console.log('updated')
-    },
-
     destroyed() {
+        if (player.player) {
+            player.deconstruct()
+        }
+        player = {}
         console.log('destroyed')
     }
 }
