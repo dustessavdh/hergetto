@@ -39,7 +39,7 @@ defmodule HergettoWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: HergettoWeb.Telemetry
+      live_dashboard "/dashboard", metrics: HergettoWeb.Telemetry, ecto_repos: [Hergetto.Repo]
     end
   end
 end
