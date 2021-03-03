@@ -1,6 +1,7 @@
 export default class Player {
     constructor(domId, hook) {
         this.hook = hook;
+        this.eventQueue = [];
         window.onYouTubeIframeAPIReady = () => this.onIframeReady(domId)
         this.youtubeScriptTag = document.createElement("script")
         this.youtubeScriptTag.src = "//www.youtube.com/iframe_api"
@@ -30,9 +31,10 @@ export default class Player {
     }
 
     onPlayerReady(event) {
-        this.pausePlayerStateChange(500)
+        // this.pausePlayerStateChange(500)
         this.player.mute()
         console.log('player ready')
+        this.startEventQueue([YT.PlayerState.UNSTARTED, YT.PlayerState.BUFFERING, YT.PlayerState.PLAYING])
         this.player.playVideo()
     }
 
@@ -94,7 +96,8 @@ export default class Player {
     }
 
     playVideo(playback_position) {
-        this.pausePlayerStateChange(250)
+        // this.pausePlayerStateChange(250)
+        this.startEventQueue([YT.PlayerState.BUFFERING, YT.PlayerState.PLAYING])
         if (this.getCurrentTime() != playback_position) {
             this.seekTo(playback_position)
         }
@@ -128,5 +131,41 @@ export default class Player {
         console.log('player state changed, but was in timeout!', event.data)
         this.player.l.h[5] = (event => this.onPlayerStateChange(event))
         this.player.i.i.events.onStateChange = (event => this.onPlayerStateChange(event))
+    }
+
+    // we set the onPlayerStateChange(event) to something else that does the following:
+    // it looks at an [] with events
+    // if that [] is empty it sets the onPlayerStateChange(event) back and calls it with that event
+    // if not empty and the event it got exist, remove it from the list. then nothing
+    // if an event is not in the list, clear the list then set the onPlayerStateChange(event) back and call that.
+
+    // if buffering first then playing its ok
+    // but if event queue is [buffering, playing], but playing gets called its ok and clear list, but any other event not okay
+    startEventQueue(events) {
+        this.eventQueue = events
+        this.player.l.h[5] = (event => this.queuedPlayerStateChange(event))
+        this.player.i.i.events.onStateChange = (event => this.queuedPlayerStateChange(event))
+    }
+
+    queuedPlayerStateChange(event) {
+        if (this.eventQueue == []) {
+            this.resumePlayerStateChange(event)
+        } else if (event.data == YT.PlayerState.PLAYING && (this.eventQueue[0] == YT.PlayerState.BUFFERING && this.eventQueue[1] == YT.PlayerState.PLAYING)) {
+            console.log('playing without buffering!')
+            this.eventQueue = []
+        } else if (event.data == this.eventQueue[0]) {
+            console.log('removed event from queue')
+            this.eventQueue.splice(0, 1)
+        } else if (event.data != this.eventQueue[0]) {
+            this.eventQueue = []
+            this.resumePlayerStateChange(event)
+        }
+    }
+
+    resumePlayerStateChange(event) {
+        console.log('resuming PlayerStateChange')
+        this.player.l.h[5] = (event => this.onPlayerStateChange(event))
+        this.player.i.i.events.onStateChange = (event => this.onPlayerStateChange(event))
+        this.onPlayerStateChange(event)
     }
 }
