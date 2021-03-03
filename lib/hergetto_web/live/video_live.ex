@@ -293,6 +293,7 @@ defmodule HergettoWeb.VideoLive do
           %{id: id} ->
             time = case Rooms.get_room(socket.assigns.room.uuid, :uuid) do
               %Room{} = room ->
+                # raw_time = Map.get(room, :playback_position) / 1000
                 raw_time = Map.get(room, :playback_position) / 10
                 {time, _} = Integer.parse("#{raw_time}")
                 time

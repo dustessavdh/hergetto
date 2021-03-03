@@ -31,10 +31,9 @@ export default class Player {
     }
 
     onPlayerReady(event) {
-        // this.pausePlayerStateChange(500)
         this.player.mute()
         console.log('player ready')
-        this.startEventQueue([YT.PlayerState.UNSTARTED, YT.PlayerState.BUFFERING, YT.PlayerState.PLAYING])
+        this.startEventQueue([YT.PlayerState.UNSTARTED, YT.PlayerState.BUFFERING, YT.PlayerState.UNSTARTED, YT.PlayerState.PLAYING])
         this.player.playVideo()
     }
 
@@ -88,15 +87,19 @@ export default class Player {
     }
 
     setCurrentVideoById(videoId, startTime) {
+        console.log('Setting new video on time:', startTime)
+        this.startEventQueue([YT.PlayerState.UNSTARTED, YT.PlayerState.BUFFERING, YT.PlayerState.UNSTARTED, YT.PlayerState.PLAYING])
         this.player.loadVideoById(videoId, startTime)
     }
 
     setCurrentVideoByUrl(videoUrl, startTime) {
+        console.log('Setting new video on time:', startTime)
+        this.startEventQueue([YT.PlayerState.UNSTARTED, YT.PlayerState.BUFFERING, YT.PlayerState.UNSTARTED, YT.PlayerState.PLAYING])
         this.player.loadVideoByUrl(videoUrl, startTime)
+        this.player.seekTo(startTime)
     }
 
     playVideo(playback_position) {
-        // this.pausePlayerStateChange(250)
         this.startEventQueue([YT.PlayerState.BUFFERING, YT.PlayerState.PLAYING])
         if (this.getCurrentTime() != playback_position) {
             this.seekTo(playback_position)
@@ -105,6 +108,7 @@ export default class Player {
     }
 
     pauseVideo() {
+        this.startEventQueue([YT.PlayerState.BUFFERING])
         this.player.pauseVideo()
     }
 
@@ -133,12 +137,12 @@ export default class Player {
         this.player.i.i.events.onStateChange = (event => this.onPlayerStateChange(event))
     }
 
+    // See this as the documentation for it, yes it's bad
     // we set the onPlayerStateChange(event) to something else that does the following:
     // it looks at an [] with events
     // if that [] is empty it sets the onPlayerStateChange(event) back and calls it with that event
     // if not empty and the event it got exist, remove it from the list. then nothing
     // if an event is not in the list, clear the list then set the onPlayerStateChange(event) back and call that.
-
     // if buffering first then playing its ok
     // but if event queue is [buffering, playing], but playing gets called its ok and clear list, but any other event not okay
     startEventQueue(events) {
@@ -148,6 +152,7 @@ export default class Player {
     }
 
     queuedPlayerStateChange(event) {
+        console.log('queuedPlayerstateChange:', event.data)
         if (this.eventQueue == []) {
             this.resumePlayerStateChange(event)
         } else if (event.data == YT.PlayerState.PLAYING && (this.eventQueue[0] == YT.PlayerState.BUFFERING && this.eventQueue[1] == YT.PlayerState.PLAYING)) {
