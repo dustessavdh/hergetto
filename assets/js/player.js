@@ -17,7 +17,6 @@ export default class Player {
     }
 
     onIframeReady(domId) {
-        console.log('iframe ready')
         this.player = new YT.Player(domId, {
             events: {
                 "onReady": (event => this.onPlayerReady(event)),
@@ -32,16 +31,13 @@ export default class Player {
 
     onPlayerReady(event) {
         this.player.mute()
-        console.log('player ready')
         this.startEventQueue([YT.PlayerState.UNSTARTED, YT.PlayerState.BUFFERING, YT.PlayerState.UNSTARTED, YT.PlayerState.PLAYING])
         this.player.playVideo()
     }
 
     onPlayerStateChange(event) {
-        console.log('player state changed!', event.data)
         switch (event.data) {
             case YT.PlayerState.UNSTARTED:
-                console.log('unstarted')
                 break;
             case YT.PlayerState.ENDED:
                 this.onPlayerEnded(event)
@@ -53,16 +49,13 @@ export default class Player {
                 this.onPlayerPaused(event)
                 break;
             case YT.PlayerState.BUFFERING:
-                console.log('buffering')
                 break;
             case YT.PlayerState.CUED:
-                console.log('video cued')
                 break;
         }
     }
 
     onPlaybackRateChange(event) {
-        console.log('playback:', event)
         this.hook.pushEvent("playback_rate_changed", {"playback_rate": event.data})
     }
 
@@ -71,29 +64,24 @@ export default class Player {
     }
 
     onPlayerPlaying(event) {
-        console.log('player playing')
         let playback_position = this.getCurrentTime()
         this.hook.pushEvent('play_video', {"playback_position": playback_position, "paused": false})
     }
 
     onPlayerPaused(event) {
-        console.log('player paused')
         this.hook.pushEvent('pause_video', event)
     }
 
     onPlayerEnded(event) {
-        console.log('Player ended')
         this.hook.pushEvent('next_video', {"reason": "video ended"})
     }
 
     setCurrentVideoById(videoId, startTime) {
-        console.log('Setting new video on time:', startTime)
         this.startEventQueue([YT.PlayerState.UNSTARTED, YT.PlayerState.BUFFERING, YT.PlayerState.UNSTARTED, YT.PlayerState.PLAYING])
         this.player.loadVideoById(videoId, startTime)
     }
 
     setCurrentVideoByUrl(videoUrl, startTime) {
-        console.log('Setting new video on time:', startTime)
         this.startEventQueue([YT.PlayerState.UNSTARTED, YT.PlayerState.BUFFERING, YT.PlayerState.UNSTARTED, YT.PlayerState.PLAYING])
         this.player.loadVideoByUrl(videoUrl, startTime)
         this.player.seekTo(startTime)
@@ -126,17 +114,6 @@ export default class Player {
         return this.player.seekTo(millsec / 10)
     }
 
-    pausePlayerStateChange(millsec) {
-        this.player.l.h[5] = (event => setTimeout(() => {this.onPlayerStateChangeTimeout(event)}, millsec))
-        this.player.i.i.events.onStateChange = (event => setTimeout(() => {this.onPlayerStateChangeTimeout(event)}, millsec))
-    }
-
-    onPlayerStateChangeTimeout(event) {
-        console.log('player state changed, but was in timeout!', event.data)
-        this.player.l.h[5] = (event => this.onPlayerStateChange(event))
-        this.player.i.i.events.onStateChange = (event => this.onPlayerStateChange(event))
-    }
-
     // See this as the documentation for it, yes it's bad
     // we set the onPlayerStateChange(event) to something else that does the following:
     // it looks at an [] with events
@@ -152,14 +129,11 @@ export default class Player {
     }
 
     queuedPlayerStateChange(event) {
-        console.log('queuedPlayerstateChange:', event.data)
         if (this.eventQueue == []) {
             this.resumePlayerStateChange(event)
         } else if (event.data == YT.PlayerState.PLAYING && (this.eventQueue[0] == YT.PlayerState.BUFFERING && this.eventQueue[1] == YT.PlayerState.PLAYING)) {
-            console.log('playing without buffering!')
             this.eventQueue = []
         } else if (event.data == this.eventQueue[0]) {
-            console.log('removed event from queue')
             this.eventQueue.splice(0, 1)
         } else if (event.data != this.eventQueue[0]) {
             this.eventQueue = []
@@ -168,7 +142,6 @@ export default class Player {
     }
 
     resumePlayerStateChange(event) {
-        console.log('resuming PlayerStateChange')
         this.player.l.h[5] = (event => this.onPlayerStateChange(event))
         this.player.i.i.events.onStateChange = (event => this.onPlayerStateChange(event))
         this.onPlayerStateChange(event)

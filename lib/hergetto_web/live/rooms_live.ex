@@ -19,7 +19,6 @@ defmodule HergettoWeb.RoomsLive do
 
   @impl true
   def handle_event("create_room", %{"private" => %{"is_private" => private?}}, socket) do
-    IO.inspect(private?)
     new_room = %{
       uuid: UUID.uuid4(),
       private: private?

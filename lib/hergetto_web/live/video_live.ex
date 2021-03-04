@@ -46,7 +46,6 @@ defmodule HergettoWeb.VideoLive do
 
   @impl true
   def handle_info(%{event_type: event_type, broadcast_id: broadcast_id}, socket) do
-    IO.puts("handle_info manager")
     case broadcast_id do
       id when id == socket.assigns.broadcast_id ->
         {:noreply, fetch(socket, :room_changed)}
@@ -57,37 +56,31 @@ defmodule HergettoWeb.VideoLive do
 
   @impl true
   def handle_info("update_playback_postion", socket) do
-    IO.puts("updating current playback_position")
     {:noreply, fetch(socket, :update_playback_postion)}
   end
 
   @impl true
   def handle_info("changed_cur_vid", socket) do
-    IO.puts("current video changed")
     {:noreply, fetch(socket, :change_video)}
   end
 
   @impl true
   def handle_info("changed_playlist", socket) do
-    IO.puts("playlist changed")
     {:noreply, fetch(socket, :room_changed)}
   end
 
   @impl true
   def handle_info("play_video", socket) do
-    IO.puts("Video is playing")
     {:noreply, fetch(socket, :play_video)}
   end
 
   @impl true
   def handle_info("pause_video", socket) do
-    IO.puts("Video is paused")
     {:noreply, fetch(socket, :pause_video)}
   end
 
   @impl true
   def handle_info("changed_playback_rate", socket) do
-    IO.puts("playback_rate changed")
     {:noreply, fetch(socket, :playback_rate_changed)}
   end
 
@@ -129,7 +122,6 @@ defmodule HergettoWeb.VideoLive do
 
   @impl true
   def handle_event("validate_video", %{"video" => video}, socket) do
-    IO.inspect(video)
     changeset =
     %Video{}
     |> Video.changeset(video)
