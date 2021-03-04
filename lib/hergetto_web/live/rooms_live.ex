@@ -19,7 +19,6 @@ defmodule HergettoWeb.RoomsLive do
 
   @impl true
   def handle_event("create_room", %{"private" => %{"is_private" => private?}}, socket) do
-    IO.inspect(private?)
     new_room = %{
       uuid: UUID.uuid4(),
       private: private?
@@ -31,7 +30,7 @@ defmodule HergettoWeb.RoomsLive do
           :noreply,
           socket
           |> put_flash(:info, "Room created!")
-          |> push_redirect(to: "/watch/#{room.uuid}")
+          |> push_redirect(to: Routes.video_path(socket, :index, room.uuid))
         }
       {:error, changeset} ->
         IO.inspect(changeset)

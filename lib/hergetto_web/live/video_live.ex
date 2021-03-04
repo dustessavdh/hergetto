@@ -34,6 +34,7 @@ defmodule HergettoWeb.VideoLive do
 
   @impl true
   def render(assigns) do
+    # Phoenix.View.render(HergettoWeb.LayoutView, "loading.html", assigns)
     Phoenix.View.render(HergettoWeb.VideoLiveView, "video_live.html", assigns)
   end
 
@@ -45,7 +46,6 @@ defmodule HergettoWeb.VideoLive do
 
   @impl true
   def handle_info(%{event_type: event_type, broadcast_id: broadcast_id}, socket) do
-    IO.puts("handle_info manager")
     case broadcast_id do
       id when id == socket.assigns.broadcast_id ->
         {:noreply, fetch(socket, :room_changed)}
@@ -56,37 +56,31 @@ defmodule HergettoWeb.VideoLive do
 
   @impl true
   def handle_info("update_playback_postion", socket) do
-    IO.puts("updating current playback_position")
     {:noreply, fetch(socket, :update_playback_postion)}
   end
 
   @impl true
   def handle_info("changed_cur_vid", socket) do
-    IO.puts("current video changed")
     {:noreply, fetch(socket, :change_video)}
   end
 
   @impl true
   def handle_info("changed_playlist", socket) do
-    IO.puts("playlist changed")
     {:noreply, fetch(socket, :room_changed)}
   end
 
   @impl true
   def handle_info("play_video", socket) do
-    IO.puts("Video is playing")
     {:noreply, fetch(socket, :play_video)}
   end
 
   @impl true
   def handle_info("pause_video", socket) do
-    IO.puts("Video is paused")
     {:noreply, fetch(socket, :pause_video)}
   end
 
   @impl true
   def handle_info("changed_playback_rate", socket) do
-    IO.puts("playback_rate changed")
     {:noreply, fetch(socket, :playback_rate_changed)}
   end
 
@@ -95,6 +89,7 @@ defmodule HergettoWeb.VideoLive do
     room_changes =
       vid_index
       |> VideoHelper.set_current_video(socket.assigns.room.playlist, %{})
+      |> VideoHelper.add_to_played_playlist(socket.assigns.room.playlist, socket.assigns.room.played_playlist, vid_index)
       |> VideoHelper.delete_video(socket.assigns.room.playlist, vid_index)
 
     case Rooms.update_room(socket.assigns.room, room_changes) do
@@ -127,7 +122,6 @@ defmodule HergettoWeb.VideoLive do
 
   @impl true
   def handle_event("validate_video", %{"video" => video}, socket) do
-    IO.inspect(video)
     changeset =
     %Video{}
     |> Video.changeset(video)
@@ -291,6 +285,7 @@ defmodule HergettoWeb.VideoLive do
           %{id: id} ->
             time = case Rooms.get_room(socket.assigns.room.uuid, :uuid) do
               %Room{} = room ->
+                # raw_time = Map.get(room, :playback_position) / 1000
                 raw_time = Map.get(room, :playback_position) / 10
                 {time, _} = Integer.parse("#{raw_time}")
                 time

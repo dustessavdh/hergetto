@@ -4,7 +4,7 @@
         <div class="video-player">
             <%= if @room.current_video do %>
                 <div class="embed-responsive embed-responsive-16by9" phx-hook="vid_player" id="vid_player">
-                    <iframe id="player"
+                    <iframe id="player:<%= @room.uuid %>"
                             class="embed-responsive-item"
                             src="https://www.youtube.com/embed/<%= @load_id %>&enablejsapi=1"
                             frameborder="0"
