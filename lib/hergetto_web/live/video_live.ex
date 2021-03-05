@@ -6,14 +6,6 @@ defmodule HergettoWeb.VideoLive do
   alias HergettoWeb.RoomHelper
   alias HergettoWeb.VideoHelper
 
-  # TODO:
-  # wanneer er een video wordt toegevoegd en de socket.assigns.ended is true dan gelijk die video afspelen
-  # playlist maken waar alle verwijderde playlist items naar toe gaan
-  # skip knop maken
-  # vorige knop maken
-  # alle kleine errors fixen
-  # styling
-
   @impl true
   def mount(params, session, socket) do
     case connected?(socket) do
