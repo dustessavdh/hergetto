@@ -36,6 +36,7 @@ export default class Player {
     }
 
     onPlayerStateChange(event) {
+        // console.log('player state changed!', event.data)
         switch (event.data) {
             case YT.PlayerState.UNSTARTED:
                 break;
@@ -84,7 +85,6 @@ export default class Player {
     setCurrentVideoByUrl(videoUrl, startTime) {
         this.startEventQueue([YT.PlayerState.UNSTARTED, YT.PlayerState.BUFFERING, YT.PlayerState.UNSTARTED, YT.PlayerState.PLAYING])
         this.player.loadVideoByUrl(videoUrl, startTime)
-        this.player.seekTo(startTime)
     }
 
     playVideo(playback_position) {
@@ -129,13 +129,17 @@ export default class Player {
     }
 
     queuedPlayerStateChange(event) {
+        // console.log("queued", event.data)
         if (this.eventQueue == []) {
             this.resumePlayerStateChange(event)
         } else if (event.data == YT.PlayerState.PLAYING && (this.eventQueue[0] == YT.PlayerState.BUFFERING && this.eventQueue[1] == YT.PlayerState.PLAYING)) {
             this.eventQueue = []
+        } else if (event.data == YT.PlayerState.PAUSED  && (this.eventQueue[0] == YT.PlayerState.UNSTARTED && this.eventQueue[1] == YT.PlayerState.BUFFERING)) {
+            // do nothing
         } else if (event.data == this.eventQueue[0]) {
             this.eventQueue.splice(0, 1)
         } else if (event.data != this.eventQueue[0]) {
+            // console.log("Event not in queue", event.data)
             this.eventQueue = []
             this.resumePlayerStateChange(event)
         }
