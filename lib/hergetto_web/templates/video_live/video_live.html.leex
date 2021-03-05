@@ -12,19 +12,21 @@
                             allowfullscreen
                     ></iframe>
                 </div>
-                <div class="button-toolbar mt-3">
-                    <div class="btn-group" role="group" aria-label="previous buttons">
-                        <button phx-click="skip_vid" class="btn btn-info" value="previous">
-                            <i class="fas fa-backward"></i> Previous
-                        </button>
-                    </div>
+                <%= if Enum.count(@room.playlist) > 0 do %>
+                    <div class="button-toolbar mt-3">
+                        <!--<div class="btn-group" role="group" aria-label="previous buttons">
+                            <button phx-click="skip_vid" class="btn btn-info" value="previous">
+                                <i class="fas fa-backward"></i> Previous
+                            </button>
+                        </div>-->
 
-                    <div class="btn-group" role="group" aria-label="next buttons">
-                        <button phx-click="skip_vid" class="btn btn-info" value="next">
-                            <i class="fas fa-forward"></i> Next
-                        </button>
+                        <div class="btn-group" role="group" aria-label="next buttons">
+                            <button phx-click="skip_vid" class="btn btn-info" value="next">
+                                <i class="fas fa-forward"></i> Next Video
+                            </button>
+                        </div>
                     </div>
-                </div>
+                <% end %>
             <% else %>
                 <div class="embed-responsive embed-responsive-1by1" style="max-height: 400px;">
                     <video class="embed-responsive-item" autoplay muted loop>

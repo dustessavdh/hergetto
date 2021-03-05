@@ -107,7 +107,7 @@ defmodule HergettoWeb.VideoLive do
     case action do
       "next" ->
         IO.puts("next!")
-        {:noreply, socket}
+        handle_event("change_cur_vid", %{"value" => "0"}, socket)
       "previous" ->
         IO.puts("previous!")
         {:noreply, socket}
