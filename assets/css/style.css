@@ -106,3 +106,7 @@ body {
 .loading {
     max-height: calc(100vh - 82px - 60px - 45px);
 }
+
+.featurette-divider {
+    margin: 5rem 0;
+}
