@@ -17,3 +17,6 @@ styling:
   - assets/css/*
   - assets/static/*.ico
   - assets/static/images/*
+
+workflow:
+  - .github/workflows/*
