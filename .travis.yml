@@ -4,6 +4,12 @@ elixir:
 otp_release:
   - 22.3
 
+addons:
+  postgresql: '13.1'
+
+services:
+  - postgresql
+
 script:
   - MIX_ENV=test mix do compile --warnings-as-errors, coveralls.json
 
