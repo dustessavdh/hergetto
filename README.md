@@ -1,5 +1,8 @@
 # Hergetto
 
+![Test status](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml/badge.svg)
+
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
