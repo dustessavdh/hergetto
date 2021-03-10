@@ -10,7 +10,13 @@ defmodule Hergetto.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: [
+        "coveralls": :test,
+        "coveralls.html": :test,
+        "coveralls.json": :test,
+      ],
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
@@ -50,7 +56,7 @@ defmodule Hergetto.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:elixir_uuid, "~> 1.2"},
       {:videx, "~> 0.2.0"},
-      {:excoveralls, "~> 0.14.0"}
+      {:excoveralls, "~> 0.14.0", only: :test}
     ]
   end
 
