@@ -10,6 +10,9 @@ addons:
 services:
   - postgresql
 
+before_script:
+  - cp config/travis_config.exs config/test.exs
+
 script:
   - MIX_ENV=test mix do compile --warnings-as-errors, coveralls.json
 
