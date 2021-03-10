@@ -1,19 +1,19 @@
 test:
   - test/*
   - test/**/*
- 
- database:
+
+database:
   - priv/repo/*
   - priv/repo/**/*
   - lib/hergetto/models/*
   - lib/hergetto/moddels/**/*
- 
- frontend:
+
+frontend:
   - lib/hergetto_web/templates/**/*
   - assets/*
   - assets/**/*
   
- styling:
+styling:
   - assets/css/*
   - assets/static/*.ico
   - assets/static/images/*
