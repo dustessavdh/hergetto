@@ -27,3 +27,7 @@ cache:
   directories:
     - _build
     - deps
+
+branches:
+  only: 
+    - main
