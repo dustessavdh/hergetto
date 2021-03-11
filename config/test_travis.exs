@@ -8,7 +8,7 @@ use Mix.Config
 config :hergetto, Hergetto.Repo,
   username: "postgres",
   password: "",
-  database: "hergetto_test#{System.get_env("MIX_TEST_PARTITION")}",
+  database: "hergetto_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 

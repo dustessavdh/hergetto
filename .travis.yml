@@ -4,17 +4,26 @@ elixir:
 otp_release:
   - 22.3
 
+env:
+  - MIX_ENV=test
+
 addons:
-  postgresql: '13.1'
+  postgresql: '9.6'
 
 services:
   - postgresql
 
 before_script:
-  - cp config/travis_config.exs config/test.exs
+  - cp config/travis.exs config/test.exs
+  - mix do ecto.create, ecto.migrate
 
 script:
-  - MIX_ENV=test mix do compile --warnings-as-errors, coveralls.json
+  - mix do compile --warnings-as-errors, coveralls.json
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+cache:
+  directories:
+    - _build
+    - deps
