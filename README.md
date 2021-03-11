@@ -1,7 +1,8 @@
 # Hergetto
 
 ![Test status](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml/badge.svg)
-
+[![codecov](https://codecov.io/gh/dusthijsvdh/hergetto/branch/main/graph/badge.svg?token=URVHVQXE9O)](https://codecov.io/gh/dusthijsvdh/hergetto)
+![Travis build](https://travis-ci.com/dusthijsvdh/hergetto.svg?branch=main)
 
 To start your Phoenix server:
 
