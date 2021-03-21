@@ -60,7 +60,7 @@ defmodule HergettoWeb.RoomsLive do
     |> assign(rooms: Rooms.list_public_rooms())
   end
 
-  @doc """"
+  @doc """
   Get the youtube id of a url using the Videx module.
   """
   def get_yt_id(url) do
