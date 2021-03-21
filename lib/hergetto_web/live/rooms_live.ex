@@ -62,6 +62,11 @@ defmodule HergettoWeb.RoomsLive do
 
   @doc """
   Get the youtube id of a url using the Videx module.
+
+  ## Parameters
+
+  - url: The url to parse
+
   """
   def get_yt_id(url) do
     %{id: id} = Videx.parse(url)

@@ -1,4 +1,8 @@
 defmodule HergettoWeb.VideoLive do
+  @moduledoc """
+  The page where people watch videos together.
+  """
+
   use HergettoWeb, :live_view
   alias Hergetto.Rooms
   alias Hergetto.Rooms.Room
@@ -6,6 +10,18 @@ defmodule HergettoWeb.VideoLive do
   alias HergettoWeb.RoomHelper
   alias HergettoWeb.VideoHelper
 
+  @doc """
+  When someone goes to this page it checks if it's connected.
+  If not then it shows the loading screen until it's connected.
+  Else it runs the setup function and the user can start watching!
+
+  ## Parameters
+
+  - params: parameters from the url.
+  - session: The current session.
+  - socket: The socket containing all the information we need to access later.
+
+  """
   @impl true
   def mount(params, session, socket) do
     case connected?(socket) do
@@ -14,28 +30,74 @@ defmodule HergettoWeb.VideoLive do
     end
   end
 
+  @doc """
+  Called when the user is fully connected.
+
+  ## Parameters
+
+  - id: The id of the room.
+  - session: The current session, which is not used.
+  - socket: The socket containing all the information we need to access later.
+  """
   def connected_mount(%{"id" => id}, _session, socket) do
     RoomHelper.subscribe(id)
     {:ok, fetch(socket, :setup, id)}
   end
 
+  @doc """
+  Renders the loading page.
+
+  ## Parameters
+
+  - assigns: Contains the loading value so we know we need to render the loading page.
+
+  """
   @impl true
   def render(%{page: "loading"} = assigns) do
     Phoenix.View.render(HergettoWeb.LayoutView, "loading.html", assigns)
   end
 
+  @doc """
+  Renders the video page.
+
+  ## Parameters
+
+  - assigns: Contains all the values used in the actual page.
+
+  """
   @impl true
   def render(assigns) do
     # Phoenix.View.render(HergettoWeb.LayoutView, "loading.html", assigns)
     Phoenix.View.render(HergettoWeb.VideoLiveView, "video_live.html", assigns)
   end
 
+  @doc """
+  Called when the user leaves the page.
+  We remove the participant from the database when the user leaves the page.
+
+  ## Parameters
+
+  - reason: Not used, but contains the reason for the terminate.
+  - socket: The socket containing all the information we need to access later.
+
+  """
   @impl true
   def terminate(_reason, socket) do
     RoomHelper.remove_participant(socket.assigns.room, socket.assigns.broadcast_id)
     :normal
   end
 
+  @doc """
+  The global `handle_info` function.
+  This manages if it was our own handle_info call or from another broadcast_id.
+
+  ## Parameters
+
+  - event_type: The type of event that happened.
+  - broadcast_id: The broadcast id of the person who caused the event.
+  - socket: The socket containing all the information we need to access later.
+
+  """
   @impl true
   def handle_info(%{event_type: event_type, broadcast_id: broadcast_id}, socket) do
     case broadcast_id do
@@ -244,6 +306,14 @@ defmodule HergettoWeb.VideoLive do
     end
   end
 
+  @doc """
+  Fetch the current room with the given id and load the needed data in the socket.
+
+  ## Parameters
+
+  - socket: The socket containing all the information we need to access later.
+  - id: The id of the current room.
+  """
   def fetch(socket, :room, id) do
     case Rooms.get_room(id, :uuid) do
       %Room{} = room ->
