@@ -25,7 +25,11 @@
 		<%= for room <- @rooms do %>
 			<div class="col-md-4">
 				<div class="card">
-					<img class="card-img-top" src="https://img.youtube.com/vi/<%= HergettoWeb.VideoHelper.get_yt_id(room.current_video) %>/mqdefault.jpg" alt="yt thumbnail">
+					<%= if room.current_video != nil do %>
+						<img class="card-img-top" src="https://img.youtube.com/vi/<%= HergettoWeb.VideoHelper.get_yt_id(room.current_video) %>/mqdefault.jpg" alt="yt thumbnail">
+					<% else %>
+						<img class="card-img-top" src="<%= Routes.static_path(@socket, "/images/Logo.png") %>" alt="thumbnail not found">
+					<% end %>
 					<div class="card-body">
 						<h5 class="card-title"><%= room.uuid %></h5>
 						<p class="card-text">Participants: <%= Enum.count(room.participants) %></p>
