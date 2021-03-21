@@ -1,4 +1,9 @@
 defmodule Hergetto.Rooms.Room do
+  @moduledoc """
+  The room model.
+  Contains all the information about a room in hergetto.
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

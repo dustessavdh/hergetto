@@ -1,4 +1,8 @@
 defmodule HergettoWeb.RoomsLive do
+  @moduledoc """
+  The page where a user can view all the public rooms or create a new room.
+  """
+
   use HergettoWeb, :live_view
   alias Hergetto.Rooms
 
@@ -17,6 +21,10 @@ defmodule HergettoWeb.RoomsLive do
     {:noreply, fetch(socket)}
   end
 
+  @doc """
+  Handles the `create_room` event.
+  When called it creates a new room and redirects the user to the created room if it was successful.
+  """
   @impl true
   def handle_event("create_room", %{"private" => %{"is_private" => private?}}, socket) do
     new_room = %{
@@ -52,6 +60,9 @@ defmodule HergettoWeb.RoomsLive do
     |> assign(rooms: Rooms.list_public_rooms())
   end
 
+  @doc """"
+  Get the youtube id of a url using the Videx module.
+  """
   def get_yt_id(url) do
     %{id: id} = Videx.parse(url)
     id
