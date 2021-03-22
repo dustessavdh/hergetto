@@ -18,7 +18,7 @@ defmodule HergettoWeb.RoomHelper do
   @doc """
   Subscribes to a specific topic with Pubsub.
 
-   ## Parameters
+  ## Parameters
 
     - id: String that represents uuid of the room to subscribe to.
 
@@ -30,7 +30,7 @@ defmodule HergettoWeb.RoomHelper do
   @doc """
   Subscribes to a specific participant in the room with Pubsub.
 
-   ## Parameters
+  ## Parameters
 
     - id: String that represents uuid of the room to subscribe to.
     - participant: String that represents the uuid of the participant in a room to subscribe to.
