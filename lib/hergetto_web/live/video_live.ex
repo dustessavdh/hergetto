@@ -5,6 +5,7 @@ defmodule HergettoWeb.VideoLive do
   alias Hergetto.Rooms.Video
   alias HergettoWeb.RoomHelper
   alias HergettoWeb.VideoHelper
+  alias HergettoWeb.Services.ChatManager
 
   @impl true
   def mount(params, session, socket) do
@@ -74,6 +75,11 @@ defmodule HergettoWeb.VideoLive do
   @impl true
   def handle_info("changed_playback_rate", socket) do
     {:noreply, fetch(socket, :playback_rate_changed)}
+  end
+
+  @impl true
+  def handle_info("sent_message", socket) do
+    {:noreply, fetch(socket, :chat)}
   end
 
   @impl true
@@ -244,6 +250,12 @@ defmodule HergettoWeb.VideoLive do
     end
   end
 
+  @impl true
+  def handle_event("send_message", %{"message" => message}, socket) do
+    ChatManager.send_message(socket.assigns.room.uuid, socket.assigns.broadcast_id, message)
+    {:noreply, socket}
+  end
+
   def fetch(socket, :room, id) do
     case Rooms.get_room(id, :uuid) do
       %Room{} = room ->
@@ -252,6 +264,7 @@ defmodule HergettoWeb.VideoLive do
           socket
           |> assign(room: room)
           |> assign(changeset: Video.changeset(%Video{}, %{}))
+          |> assign(chat: ChatManager.get_chat(room.uuid))
         }
       nil ->
         {
@@ -264,6 +277,7 @@ defmodule HergettoWeb.VideoLive do
   end
 
   def fetch(socket, :setup, id) do
+    ChatManager.subscribe(id)
     case fetch(socket, :room, id) do
       {:ok, socket} ->
         broadcast_id = UUID.uuid4()
@@ -292,6 +306,7 @@ defmodule HergettoWeb.VideoLive do
         |> assign(room: RoomHelper.set_participant(socket.assigns.room, broadcast_id))
         |> assign(load_id: load_id)
         |> assign(ended: false)
+        |> assign(chat: ChatManager.get_chat(id))
       {:error, socket} ->
         socket
     end
@@ -378,5 +393,10 @@ defmodule HergettoWeb.VideoLive do
       {:error, socket} ->
         socket
     end
+  end
+
+  def fetch(socket, :chat) do
+    socket
+    |> assign(chat: ChatManager.get_chat(socket.assigns.room.uuid))
   end
 end
