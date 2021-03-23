@@ -22,8 +22,10 @@ defmodule Hergetto.Rooms do
   end
 
   def list_public_rooms do
-    query = from r in Room,
-            where: r.private == false
+    query =
+      from r in Room,
+        where: r.private == false
+
     Repo.all(query)
   end
 

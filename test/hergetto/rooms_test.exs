@@ -2,6 +2,7 @@ defmodule Hergetto.RoomsTest do
   use Hergetto.DataCase
 
   alias Hergetto.Rooms
+
   describe "rooms" do
     alias Hergetto.Rooms.Room
 

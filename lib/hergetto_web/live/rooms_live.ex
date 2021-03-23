@@ -40,12 +40,17 @@ defmodule HergettoWeb.RoomsLive do
           |> put_flash(:info, "Room created!")
           |> push_redirect(to: Routes.video_path(socket, :index, room.uuid))
         }
+
       {:error, changeset} ->
         IO.inspect(changeset)
+
         {
           :noreply,
           fetch(socket)
-          |> put_flash(:error, "Something went wrong when creating a room! Try again in a few minutes!")
+          |> put_flash(
+            :error,
+            "Something went wrong when creating a room! Try again in a few minutes!"
+          )
         }
     end
   end

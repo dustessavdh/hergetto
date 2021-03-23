@@ -20,8 +20,7 @@ config :hergetto, HergettoWeb.Endpoint,
     transport_options: [socket_opts: [:inet6]]
   ]
 
-config :hergetto, HergettoWeb.Endpoint,
-  force_ssl: [hsts: true]
+config :hergetto, HergettoWeb.Endpoint, force_ssl: [hsts: true]
 
 # Do not print debug messages in production
 config :logger, level: :info

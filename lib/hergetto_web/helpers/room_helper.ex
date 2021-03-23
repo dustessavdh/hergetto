@@ -76,7 +76,10 @@ defmodule HergettoWeb.RoomHelper do
 
   """
   def broadcast(id, broadcast_id, event_type) do
-    Phoenix.PubSub.broadcast(Hergetto.PubSub, "#{@topic}:#{id}", %{event_type: event_type, broadcast_id: broadcast_id})
+    Phoenix.PubSub.broadcast(Hergetto.PubSub, "#{@topic}:#{id}", %{
+      event_type: event_type,
+      broadcast_id: broadcast_id
+    })
   end
 
   @doc """
@@ -91,7 +94,10 @@ defmodule HergettoWeb.RoomHelper do
 
   """
   def broadcast_to_participant(id, broadcast_id, participant, event_type) do
-    Phoenix.PubSub.broadcast(Hergetto.PubSub, "#{@topic}:#{id}:#{participant}", %{event_type: event_type, broadcast_id: broadcast_id})
+    Phoenix.PubSub.broadcast(Hergetto.PubSub, "#{@topic}:#{id}:#{participant}", %{
+      event_type: event_type,
+      broadcast_id: broadcast_id
+    })
   end
 
   @doc """
@@ -104,15 +110,19 @@ defmodule HergettoWeb.RoomHelper do
 
   """
   def set_participant(%Room{} = room, participant) do
-    room_changes = cond do
-      room.owner == nil ->
-        %{owner: participant, participants: room.participants ++ [participant]}
-      true ->
-        %{participants: room.participants ++ [participant]}
-    end
+    room_changes =
+      cond do
+        room.owner == nil ->
+          %{owner: participant, participants: room.participants ++ [participant]}
+
+        true ->
+          %{participants: room.participants ++ [participant]}
+      end
+
     case Rooms.update_room(room, room_changes) do
       {:ok, room} ->
         room
+
       {:error, _changeset} ->
         room
     end
@@ -129,15 +139,19 @@ defmodule HergettoWeb.RoomHelper do
   """
   def remove_participant(%Room{} = room, participant) do
     # TODO Fix
-    room_changes = cond do
-      room.owner == participant ->
-        %{owner: nil, participants: room.participants -- [participant]}
-      true ->
-        %{participants: room.participants -- [participant]}
-    end
+    room_changes =
+      cond do
+        room.owner == participant ->
+          %{owner: nil, participants: room.participants -- [participant]}
+
+        true ->
+          %{participants: room.participants -- [participant]}
+      end
+
     case Rooms.update_room(room, room_changes) do
       {:ok, room} ->
         room
+
       {:error, _changeset} ->
         room
     end

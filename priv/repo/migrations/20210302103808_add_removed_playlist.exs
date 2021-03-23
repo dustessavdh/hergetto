@@ -3,7 +3,7 @@ defmodule Hergetto.Repo.Migrations.AddRemovedPlaylist do
 
   def change do
     alter table(:rooms) do
-  		add :played_playlist, {:array, :string}, default: []
-  	end
+      add :played_playlist, {:array, :string}, default: []
+    end
   end
 end

@@ -38,7 +38,7 @@ defmodule Hergetto.Rooms.Room do
       :owner,
       :participants,
       :private
-      ])
+    ])
     |> validate_required([
       :uuid
     ])
