@@ -51,7 +51,9 @@ defmodule Hergetto.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:elixir_uuid, "~> 1.2"},
       {:videx, "~> 0.2.0"},
-      {:excoveralls, "~> 0.14.0"}
+      {:excoveralls, "~> 0.14.0"},
+      {:quantum, "~> 3.3"},
+      {:crontab, "~> 1.1"}
     ]
   end
 
