@@ -1,6 +1,6 @@
 # Hergetto
 
-[![Hergetto](https://file.coffee/u/MtQpvLfydk.png)](https://github.com/dusthijsvdh/hergetto/)
+[![Hergetto](assets\static\images\hergetto_color.png)](#hergetto)
 
 ## Hergetto stands for Together
 
