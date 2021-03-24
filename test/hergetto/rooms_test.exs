@@ -16,7 +16,7 @@ defmodule Hergetto.RoomsTest do
       played_playlist: [],
       uuid: UUID.uuid4(),
       owner: UUID.uuid4(),
-      participant: [],
+      participants: [],
       private: true
     }
     @update_attrs %{
@@ -29,7 +29,7 @@ defmodule Hergetto.RoomsTest do
       played_playlist: [],
       uuid: UUID.uuid4(),
       owner: UUID.uuid4(),
-      participant: [],
+      participants: [],
       private: false
     }
     @invalid_attrs %{
@@ -42,7 +42,7 @@ defmodule Hergetto.RoomsTest do
       played_playlist: nil,
       uuid: nil,
       owner: nil,
-      participant: nil,
+      participants: nil,
       private: nil
     }
 
