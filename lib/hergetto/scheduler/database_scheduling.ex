@@ -17,7 +17,7 @@ defmodule Hergetto.DatabaseScheduling do
     Logger.notice("Cleaning stale rooms older than a day!")
 
     query = from r in Room,
-            where: r.updated_at <= ^get_x_ago_datetime(86000),
+            where: r.updated_at <= ago(1, "day"),
             select: {r.uuid, r.updated_at}
 
     deleted_rooms = Rooms.delete_rooms_with_query(query)
@@ -32,7 +32,7 @@ defmodule Hergetto.DatabaseScheduling do
   def clean_empty_rooms do
     Logger.notice("Cleaning empty rooms!")
     query = from r in Room,
-            where: r.updated_at <= ^get_x_ago_datetime(1800) and fragment("? = '{}'", r.participants),
+            where: r.updated_at <= ago(30, "minute") and fragment("? = '{}'", r.participants),
             select: {r.uuid, r.updated_at}
 
     deleted_rooms = Rooms.delete_rooms_with_query(query)
@@ -40,7 +40,15 @@ defmodule Hergetto.DatabaseScheduling do
     deleted_rooms
   end
 
-  defp get_x_ago_datetime(seconds) do
+  @doc """
+  Returns the datatime x seconds ago from the current datetime.
+
+  ## Parameters
+
+    - seconds: seconds to subtract from the current datetime.
+
+  """
+  def get_x_ago_datetime(seconds) do
     NaiveDateTime.utc_now()
     |> NaiveDateTime.add(-seconds, :second)
   end

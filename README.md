@@ -1,5 +1,14 @@
 # Hergetto
 
+[![Hergetto](assets\static\images\hergetto_color.png)](#hergetto)
+
+## Hergetto stands for Together
+
+This project was created during the lockdown.
+Normally you could just go to a friends house and start watching videos together, but now you can't do that anymore.
+So that's why hergetto was created!
+Watch videos together from the comfort of your own room!
+
 [![Elixir Tests](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml/badge.svg)](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml)
 [![codecov](https://codecov.io/gh/dusthijsvdh/hergetto/branch/main/graph/badge.svg?token=URVHVQXE9O)](https://codecov.io/gh/dusthijsvdh/hergetto)
 [![Travis build](https://travis-ci.com/dusthijsvdh/hergetto.svg?branch=main)](https://travis-ci.com/github/dusthijsvdh/hergetto)
