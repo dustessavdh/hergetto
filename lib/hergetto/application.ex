@@ -14,10 +14,13 @@ defmodule Hergetto.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Hergetto.PubSub},
       # Start the Endpoint (http/https)
-      HergettoWeb.Endpoint
+      HergettoWeb.Endpoint,
       # Start a worker by calling: Hergetto.Worker.start_link(arg)
       # {Hergetto.Worker, arg}
+      Hergetto.Scheduler
     ]
+
+    # :observer.start()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
