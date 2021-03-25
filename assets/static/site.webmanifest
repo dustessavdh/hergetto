@@ -1,0 +1,91 @@
+{
+    "short_name": "Hergeto",
+    "name": "Hergetto",
+    "lang": "en",
+    "description": "A website to watch videos together! Together in a safe way!",
+    "categories": [
+        "entertainment",
+        "video"
+    ],
+    "start_url": ".",
+    "background_color": "#3d065f",
+    "theme_color": "#9f19ab",
+    "dir": "ltr",
+    "display": "browser",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "images/icons/android-icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "images/icons/apple-icon-180x180.png",
+            "type": "image/png",
+            "sizes": "180x180"
+        },
+        {
+            "src": "images/icons/apple-icon-152x152.png",
+            "type": "image/png",
+            "sizes": "152x152"
+        },
+        {
+            "src": "images/icons/apple-icon-144x144.png",
+            "type": "image/png",
+            "sizes": "144x144"
+        },
+        {
+            "src": "images/icons/apple-icon-120x120.png",
+            "type": "image/png",
+            "sizes": "120x120"
+        },
+        {
+            "src": "images/icons/apple-icon-114x114.png",
+            "type": "image/png",
+            "sizes": "114x114"
+        },
+        {
+            "src": "images/icons/favicon-96x96.png",
+            "type": "image/png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "images/icons/apple-icon-76x76.png",
+            "type": "image/png",
+            "sizes": "76x76"
+        },
+        {
+            "src": "images/icons/apple-icon-72x72.png",
+            "type": "image/png",
+            "sizes": "72x72"
+        },
+        {
+            "src": "images/icons/apple-icon-60x60.png",
+            "type": "image/png",
+            "sizes": "60x60"
+        },
+        {
+            "src": "images/icons/apple-icon-57x57.png",
+            "type": "image/png",
+            "sizes": "57x57"
+        },
+        {
+            "src": "images/icons/favicon-32x32.png",
+            "type": "image/png",
+            "sizes": "32x32"
+        },
+        {
+            "src": "images/icons/favicon-16x16.png",
+            "type": "image/png",
+            "sizes": "16x16"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Create or Find a Room",
+            "url": " /watch",
+            "description": "Page where you can either join a public room or create a room for yourself"
+        }
+    ],
+    "prefer_related_applications": false
+}
