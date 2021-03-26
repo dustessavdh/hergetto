@@ -1,7 +1,7 @@
 defmodule Hergetto.RoomsCase do
   use ExUnit.CaseTemplate
 
-  setup_all tags do
+  setup_all do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Hergetto.Repo)
     # we are setting :auto here so that the data persists for all tests,
     # normally (with :shared mode) every process runs in a transaction

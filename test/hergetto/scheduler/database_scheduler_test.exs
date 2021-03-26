@@ -88,7 +88,7 @@ defmodule Hergetto.DatabaseSchedulerTest do
     end
 
     test "clean_empty_rooms/0 with no empty rooms does not remove any rooms" do
-      assert {:ok, %Room{} = room} = Rooms.create_room(@not_empty_attrs)
+      assert {:ok, %Room{} = _room} = Rooms.create_room(@not_empty_attrs)
       assert {0, []} == DatabaseScheduling.clean_empty_rooms()
     end
   end

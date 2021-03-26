@@ -4,8 +4,6 @@ defmodule HergettoWeb.VideoLiveTest do
   use Hergetto.RoomsCase
 
   import Phoenix.LiveViewTest
-  alias Hergetto.Rooms
-  alias Hergetto.Rooms.Room
 
   test "disconnected and connected render", %{conn: conn, room: room} do
     {:ok, video_live, disconnected_html} = live(conn, "/watch/#{room.uuid}")

@@ -67,6 +67,7 @@ defmodule Hergetto.Rooms do
   """
   def get_room!(id), do: Repo.get!(Room, id)
   def get_room(id), do: Repo.get(Room, id)
+  def get_room!(id, :uuid), do: Repo.get_by!(Room, uuid: id)
   def get_room(id, :uuid), do: Repo.get_by(Room, uuid: id)
 
   @doc """

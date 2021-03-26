@@ -44,14 +44,6 @@ defmodule HergettoWeb.VideoLive do
     {:ok, fetch(socket, :setup, id)}
   end
 
-  @doc """
-  Renders the loading page.
-
-  ## Parameters
-
-  - assigns: Contains the loading value so we know we need to render the loading page.
-
-  """
   @impl true
   def render(%{page: "loading"} = assigns) do
     Phoenix.View.render(HergettoWeb.LayoutView, "loading.html", assigns)
@@ -89,6 +81,7 @@ defmodule HergettoWeb.VideoLive do
 
   @doc """
   The global `handle_info` function.
+  Handles the info events and passes them down to the correct handle_info.
   This manages if it was our own handle_info call or from another broadcast_id.
 
   ## Parameters
@@ -354,7 +347,7 @@ defmodule HergettoWeb.VideoLive do
   - id: The id of the current room.
   """
   def fetch(socket, :room, id) do
-    case Rooms.get_room(id, :uuid) do
+    case Rooms.get_room!(id, :uuid) do
       %Room{} = room ->
         {
           :ok,
@@ -363,7 +356,7 @@ defmodule HergettoWeb.VideoLive do
           |> assign(changeset: Video.changeset(%Video{}, %{}))
         }
 
-      nil ->
+      _ ->
         {
           :error,
           socket

@@ -4,6 +4,24 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Hergetto · Together in a safe way!">
+    <meta name="description" content="Watch videos together in a safe way!">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hergetto.live/">
+    <meta property="og:title" content="Hergetto · Together in a safe way!">
+    <meta property="og:description" content="Watch videos together in a safe way!">
+    <meta property="og:image" content="<%= Routes.static_path(@conn, "/images/oembed.png") %>">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hergetto.live/">
+    <meta property="twitter:title" content="Hergetto · Together in a safe way!">
+    <meta property="twitter:description" content="Watch videos together in a safe way!">
+    <meta property="twitter:image" content="<%= Routes.static_path(@conn, "/images/oembed.png") %>">
+
     <%= csrf_meta_tag() %>
     <%= live_title_tag assigns[:page_title] || "Hergetto", suffix: " · Together in a safe way!" %>
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
