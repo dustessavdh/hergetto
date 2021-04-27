@@ -138,7 +138,6 @@ defmodule HergettoWeb.RoomHelper do
 
   """
   def remove_participant(%Room{} = room, participant) do
-    # TODO Fix
     room_changes =
       cond do
         room.owner == participant ->
