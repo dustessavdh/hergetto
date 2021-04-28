@@ -6,6 +6,8 @@ defmodule HergettoWeb.VideoLive do
   alias HergettoWeb.RoomHelper
   alias HergettoWeb.VideoHelper
   alias HergettoWeb.Services.ChatManager
+  alias HergettoWeb.NameHelper
+  alias Chameleon
 
   @impl true
   def mount(params, session, socket) do
@@ -252,8 +254,18 @@ defmodule HergettoWeb.VideoLive do
 
   @impl true
   def handle_event("send_message", %{"message" => message}, socket) do
-    ChatManager.send_message(socket.assigns.room.uuid, socket.assigns.broadcast_id, message)
-    {:noreply, socket}
+    case message do
+      "" ->
+        { :noreply, socket }
+
+      _message ->
+        ChatManager.send_message(socket.assigns.room.uuid, socket.assigns.broadcast_id, socket.assigns.username, socket.assigns.usercolor, message)
+        {
+          :noreply,
+          socket
+          |> push_event("clear_text", %{})
+        }
+    end
   end
 
   def fetch(socket, :room, id) do
@@ -281,6 +293,16 @@ defmodule HergettoWeb.VideoLive do
     case fetch(socket, :room, id) do
       {:ok, socket} ->
         broadcast_id = UUID.uuid4()
+        username = NameHelper.generate()
+
+        [r, g, b | _tail] = :crypto.hash(:md5, username)
+        |> :binary.bin_to_list
+
+        %Chameleon.Hex{hex: userhex} = Chameleon.RGB.new(r, g, b)
+        |> Chameleon.convert(Chameleon.Hex)
+
+        usercolor = "##{userhex}"
+
         RoomHelper.subscribe(socket.assigns.room.uuid, broadcast_id)
         if socket.assigns.room.owner do
           RoomHelper.broadcast_to_participant(socket.assigns.room.uuid, broadcast_id, socket.assigns.room.owner, "update_playback_postion")
@@ -303,6 +325,8 @@ defmodule HergettoWeb.VideoLive do
         end
         socket
         |> assign(broadcast_id: broadcast_id)
+        |> assign(username: username)
+        |> assign(usercolor: usercolor)
         |> assign(room: RoomHelper.set_participant(socket.assigns.room, broadcast_id))
         |> assign(load_id: load_id)
         |> assign(ended: false)

@@ -19,8 +19,8 @@ defmodule HergettoWeb.Services.Chat do
     {:reply, state, state}
   end
 
-  def handle_cast({:send, {broadcast_id, message}}, state) do
-    message = %{sender: broadcast_id, message: message}
+  def handle_cast({:send, {broadcast_id, username, usercolor, message}}, state) do
+    message = %{sender: broadcast_id, username: username, usercolor: usercolor, message: message}
     {:noreply, [message | state]}
   end
 end

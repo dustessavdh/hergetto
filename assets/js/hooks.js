@@ -1,7 +1,10 @@
 import Player from './player'
+import Chat from './chat'
+import ScrollHelper from './scrollHelper'
 
-let Hooks = {}
+let Hooks = {};
 let player = {};
+let chat = {};
 // Player
 Hooks.vid_player = {
     mounted() {
@@ -32,6 +35,21 @@ Hooks.vid_player = {
             player.deconstruct()
         }
         player = {}
+    }
+}
+
+Hooks.chat = {
+    mounted() {
+        chat = new Chat(this)
+        const element = this.el
+        chat.scrollToBottom(true)
+        this.handleEvent('clear_text', (event) => {
+            document.getElementById('message').value = ''
+        })
+    },
+
+    updated() {
+        chat.scrollToBottom()
     }
 }
 

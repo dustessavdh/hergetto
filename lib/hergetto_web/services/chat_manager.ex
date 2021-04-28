@@ -22,8 +22,8 @@ defmodule HergettoWeb.Services.ChatManager do
     end
   end
 
-  def send_message(room_id, broadcast_id, message) do
-    GenServer.cast(Process.whereis(__MODULE__), {:send, {room_id, broadcast_id, message}})
+  def send_message(room_id, broadcast_id, username, usercolor, message) do
+    GenServer.cast(Process.whereis(__MODULE__), {:send, {room_id, broadcast_id, username, usercolor, message}})
   end
 
   def get_chat(room_id) do
@@ -61,16 +61,16 @@ defmodule HergettoWeb.Services.ChatManager do
     end
   end
 
-  def handle_cast({:send, {room_id, broadcast_id, message}}, chats) do
+  def handle_cast({:send, {room_id, broadcast_id, username, usercolor, message}}, chats) do
     case chat_exists?(room_id) do
       true ->
-        GenServer.cast(Map.get(chats, room_id), {:send, {broadcast_id, message}})
+        GenServer.cast(Map.get(chats, room_id), {:send, {broadcast_id, username, usercolor, message}})
         broadcast(room_id, "sent_message")
         {:noreply, chats}
 
       false ->
         {:ok, pid} = Chat.start_link(room_id)
-        GenServer.cast(pid, {:send, {broadcast_id, message}})
+        GenServer.cast(pid, {:send, {broadcast_id, username, usercolor, message}})
         broadcast(room_id, "sent_message")
         {:noreply, Map.put(chats, room_id, pid)}
     end
