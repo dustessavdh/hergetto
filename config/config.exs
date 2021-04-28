@@ -23,8 +23,28 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+config :hergetto, Hergetto.Scheduler,
+  debug_logging: true
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# Configures the job scheduler
+config :hergetto, Hergetto.Scheduler,
+  jobs: [
+    greetings: [
+      schedule: "@reboot",
+      task: {Hergetto.GreetingsScheduling, :greetings, []}
+    ],
+    remove_old_rooms: [
+      schedule: "@midnight",
+      task: {Hergetto.DatabaseScheduling, :clean_stale_rooms, []}
+    ],
+    remove_empty_rooms: [
+      schedule: "@hourly",
+      task: {Hergetto.DatabaseScheduling, :clean_empty_rooms, []}
+    ]
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

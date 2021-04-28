@@ -11,7 +11,18 @@ defmodule Hergetto.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      test_coverage: [tool: ExCoveralls]
+      test_coverage: [tool: ExCoveralls],
+
+      # Docs
+      name: "Hergetto",
+      source_url: "https://github.com/dusthijsvdh/hergetto",
+      homepage_url: "https://hergetto.live",
+      docs: [
+        main: "readme",
+        logo: "./assets/static/images/Logo.png",
+        source_ref: "main",
+        extras: ["README.md"]
+      ]
     ]
   end
 
@@ -52,6 +63,9 @@ defmodule Hergetto.MixProject do
       {:elixir_uuid, "~> 1.2"},
       {:videx, "~> 0.2.0"},
       {:excoveralls, "~> 0.14.0"},
+      {:ex_doc, "~> 0.24", only: :dev, runtime: false},
+      {:quantum, "~> 3.3"},
+      {:crontab, "~> 1.1"},
       {:chameleon, "~> 2.3"}
     ]
   end

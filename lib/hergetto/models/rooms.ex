@@ -21,9 +21,33 @@ defmodule Hergetto.Rooms do
     Repo.all(Room)
   end
 
+
+  @doc """
+  returns the list of public rooms.
+  """
   def list_public_rooms do
-    query = from r in Room,
-            where: r.private == false
+    query =
+      from r in Room,
+        where: r.private == false
+
+    Repo.all(query)
+  end
+
+  @doc """
+  Returns the list of rooms matching the given query.
+
+  ## Parameters
+
+    - query: the query to execute.
+
+  ## Examples
+
+      iex> query = from r in Room, where: r.paused == true
+      iex> list_rooms_with_query(query)
+      [%Room{}, ...]
+
+  """
+  def list_rooms_with_query(query) do
     Repo.all(query)
   end
 
@@ -43,6 +67,7 @@ defmodule Hergetto.Rooms do
   """
   def get_room!(id), do: Repo.get!(Room, id)
   def get_room(id), do: Repo.get(Room, id)
+  def get_room!(id, :uuid), do: Repo.get_by!(Room, uuid: id)
   def get_room(id, :uuid), do: Repo.get_by(Room, uuid: id)
 
   @doc """
@@ -95,6 +120,19 @@ defmodule Hergetto.Rooms do
   """
   def delete_room(%Room{} = room) do
     Repo.delete(room)
+  end
+
+
+  @doc """
+  Deletes all rooms matching the given query.
+
+  ## Parameters
+
+    - query: the query to execute.
+
+  """
+  def delete_rooms_with_query(query) do
+    Repo.delete_all(query)
   end
 
   @doc """

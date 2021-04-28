@@ -1,18 +1,18 @@
 body {
-    background-color: #3D065F;
+  background-color: #3D065F;
 }
 
 .relative {
-    position: relative;
-    min-height: 100vh;
+  position: relative;
+  min-height: 100vh;
 }
 
 .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    line-height: 60px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
 }
 
 .footer span {
@@ -28,68 +28,68 @@ body {
 }
 
 .bg-hergetto-light {
-    background-color: #9F19AB;
+  background-color: #9F19AB;
 }
 
 .nav-link {
-    color: #fadfef;
+  color: #fadfef;
 }
 
 .nav-link:hover {
-    color: #fff;
+  color: #fff;
 }
 
 .card {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .btn-primary {
-    background-color: #9F19AB;
-    border-color: #9F19AB;
+  background-color: #9F19AB;
+  border-color: #9F19AB;
 }
 
 .btn-primary:active {
-    color: #fff;
-    background-color: #91189c;
-    border-color: #81189c;
+  color: #fff;
+  background-color: #91189c;
+  border-color: #81189c;
 }
 
 .btn-primary:focus {
-    color: #fff;
-    background-color: #91189c;
-    border-color: #81189c;
-    box-shadow: 0 0 0 0.2rem rgb(206 38 255 / 50%);
+  color: #fff;
+  background-color: #91189c;
+  border-color: #81189c;
+  box-shadow: 0 0 0 0.2rem rgb(206 38 255 / 50%);
 }
 
 .btn-primary:hover {
-    color: #fff;
-    background-color: #91189c;
-    border-color: #81189c;
+  color: #fff;
+  background-color: #91189c;
+  border-color: #81189c;
 }
 
 .btn-primary:disabled {
-    color: #fff;
-    background-color: #b03dbb;
-    border-color: #b03dbb;
+  color: #fff;
+  background-color: #b03dbb;
+  border-color: #b03dbb;
 }
 
 .ow {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    -ms-word-break: break-all;
-    word-break: break-all;
-
-    /* Non standard for WebKit */
-    word-break: break-word;
-
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    hyphens: auto;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  -epub-word-break: break-all;
+  word-break: break-all;
+  /* Non standard for WebKit */
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -epub-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
 
 .table-scrollable {
-    overflow-y: auto;
-    max-height: 400px;
+  overflow-y: auto;
+  max-height: 400px;
 }
 
 .scrollbar {
@@ -99,26 +99,25 @@ body {
 }
 
 .scrollbar::-webkit-scrollbar {
-    width: 15px;
+  width: 15px;
 }
 
-
 .scrollbar::-webkit-scrollbar-track {
-    background: #EBEBEB;
-    border-radius: 10px;
+  background: #EBEBEB;
+  border-radius: 10px;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-    background: #433C76;
-    border-radius: 10px;
+  background: #433C76;
+  border-radius: 10px;
 }
 
 .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #675D9B;
+  background: #675D9B;
 }
 
 .loading {
-    max-height: calc(100vh - 82px - 60px - 45px);
+  max-height: calc(100vh - 82px - 60px - 45px);
 }
 
 .featurette-divider {

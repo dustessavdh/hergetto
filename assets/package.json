@@ -7,7 +7,7 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.2",
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "bootstrap": "^4.6.0",
     "nprogress": "^0.2.0",
     "phoenix": "file:../deps/phoenix",
@@ -15,10 +15,10 @@
     "phoenix_live_view": "file:../deps/phoenix_live_view"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.12",
     "babel-loader": "^8.0.0",
-    "copy-webpack-plugin": "^5.1.1",
+    "copy-webpack-plugin": "^5.1.2",
     "css-loader": "^3.4.2",
     "file-loader": "^6.2.0",
     "hard-source-webpack-plugin": "^0.13.1",
@@ -28,6 +28,8 @@
     "sass-loader": "^8.0.2",
     "terser-webpack-plugin": "^2.3.2",
     "webpack": "4.41.5",
-    "webpack-cli": "^3.3.2"
+    "webpack-cli": "^3.3.2",
+    "ssri": ">=8.0.1",
+    "is-svg": ">=4.2.2"
   }
 }
