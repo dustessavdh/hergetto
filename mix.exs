@@ -65,7 +65,8 @@ defmodule Hergetto.MixProject do
       {:excoveralls, "~> 0.14.0"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false},
       {:quantum, "~> 3.3"},
-      {:crontab, "~> 1.1"}
+      {:crontab, "~> 1.1"},
+      {:chameleon, "~> 2.3"}
     ]
   end
 

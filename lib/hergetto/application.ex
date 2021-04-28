@@ -17,6 +17,7 @@ defmodule Hergetto.Application do
       HergettoWeb.Endpoint,
       # Start a worker by calling: Hergetto.Worker.start_link(arg)
       # {Hergetto.Worker, arg}
+      {HergettoWeb.Services.ChatManager, [[]]},
       Hergetto.Scheduler
     ]
 

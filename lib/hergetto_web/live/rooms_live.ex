@@ -5,6 +5,7 @@ defmodule HergettoWeb.RoomsLive do
 
   use HergettoWeb, :live_view
   alias Hergetto.Rooms
+  alias HergettoWeb.Services.ChatManager
 
   @impl true
   def mount(_params, _session, socket) do
@@ -34,6 +35,7 @@ defmodule HergettoWeb.RoomsLive do
 
     case Rooms.create_room(new_room) do
       {:ok, room} ->
+        ChatManager.create_chat_for(room.uuid)
         {
           :noreply,
           socket

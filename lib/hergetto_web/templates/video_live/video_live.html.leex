@@ -40,9 +40,7 @@
 
     <div class="col-xl-5">
         <div class="card mt-4">
-            <div class="card-header">
-                <h5>Playlist</h5>
-            </div>
+            <h5 class="card-header">Playlist</h5>
             <div class="card-body">
                 <div class="mb-2">
                     <%= form_for @changeset, "#", [phx_change: :validate_video, phx_submit: :add_vid, class: "form-inline"], fn f -> %>
@@ -84,6 +82,56 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-xl-7">
+        <div class="card">
+            <h5 class="card-header">Chat</h5>
+            <div class="card-body">
+                <div id="chat" class="chat scrollbar" phx-hook="chat">
+                    <!-- TODO if statement if no entries exist -->
+                    <%= for entry <- @chat do %>
+                        <div class="chat-item">
+                            <span class="chat-name" style="color: <%= entry.usercolor %>;"><%= entry.username %></span>
+                            <span class="chat-message-separator">: </span>
+                            <span class="chat-message"><%= entry.message %></span>
+                        </div>
+                    <% end %>
+                </div>
+
+                <form phx-submit="send_message" class="mt-4">
+                     <div class="form-group">
+                        <label for="message">Message:</label>
+                        <input type="text" name="message" id="message" class="form-control" placeholder="Say something nice!" autocomplete="off">
+                     </div>
+                     <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-5">
+        <div class="card">
+            <h5 class="card-header">News</h5>
+            <div class="card-body">
+                <h5 class="card-title">Rework coming!</h5>
+                <p class="card-text">
+                Wow! Have you heard the news?
+                Hergetto is going to get a rework!
+                <br><br>
+                There will be a new design, because the current one isn't all that flattering.
+                Also, the server will perform even better!
+                <br><br>
+                "But how long will this take?" you might ask. Well this depends.
+                Might take a few months, but it'll be worth the wait!
+                <br><br>
+                For the geeky people you can check the state of the rework on the website below.
+                </p>
+                <a href="https://github.com/dusthijsvdh/hergetto" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Check progress on GitHub <i class="fas fa-external-link-alt"></i></a>
             </div>
         </div>
     </div>

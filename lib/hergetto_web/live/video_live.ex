@@ -9,6 +9,9 @@ defmodule HergettoWeb.VideoLive do
   alias Hergetto.Rooms.Video
   alias HergettoWeb.RoomHelper
   alias HergettoWeb.VideoHelper
+  alias HergettoWeb.Services.ChatManager
+  alias HergettoWeb.NameHelper
+  alias Chameleon
 
   @doc """
   When someone goes to this page it checks if it's connected.
@@ -130,6 +133,11 @@ defmodule HergettoWeb.VideoLive do
   @impl true
   def handle_info("changed_playback_rate", socket) do
     {:noreply, fetch(socket, :playback_rate_changed)}
+  end
+
+  @impl true
+  def handle_info("sent_message", socket) do
+    {:noreply, fetch(socket, :chat)}
   end
 
   @impl true
@@ -338,6 +346,22 @@ defmodule HergettoWeb.VideoLive do
     end
   end
 
+  @impl true
+  def handle_event("send_message", %{"message" => message}, socket) do
+    case message do
+      "" ->
+        { :noreply, socket }
+
+      _message ->
+        ChatManager.send_message(socket.assigns.room.uuid, socket.assigns.broadcast_id, socket.assigns.username, socket.assigns.usercolor, message)
+        {
+          :noreply,
+          socket
+          |> push_event("clear_text", %{})
+        }
+    end
+  end
+
   @doc """
   Fetch the current room with the given id and load the needed data in the socket.
 
@@ -354,6 +378,7 @@ defmodule HergettoWeb.VideoLive do
           socket
           |> assign(room: room)
           |> assign(changeset: Video.changeset(%Video{}, %{}))
+          |> assign(chat: ChatManager.get_chat(room.uuid))
         }
 
       _ ->
@@ -367,9 +392,20 @@ defmodule HergettoWeb.VideoLive do
   end
 
   def fetch(socket, :setup, id) do
+    ChatManager.subscribe(id)
     case fetch(socket, :room, id) do
       {:ok, socket} ->
         broadcast_id = UUID.uuid4()
+        username = NameHelper.generate()
+
+        [r, g, b | _tail] = :crypto.hash(:md5, username)
+        |> :binary.bin_to_list
+
+        %Chameleon.Hex{hex: userhex} = Chameleon.RGB.new(r, g, b)
+        |> Chameleon.convert(Chameleon.Hex)
+
+        usercolor = "##{userhex}"
+
         RoomHelper.subscribe(socket.assigns.room.uuid, broadcast_id)
 
         if socket.assigns.room.owner do
@@ -408,9 +444,12 @@ defmodule HergettoWeb.VideoLive do
 
         socket
         |> assign(broadcast_id: broadcast_id)
+        |> assign(username: username)
+        |> assign(usercolor: usercolor)
         |> assign(room: RoomHelper.set_participant(socket.assigns.room, broadcast_id))
         |> assign(load_id: load_id)
         |> assign(ended: false)
+        |> assign(chat: ChatManager.get_chat(id))
 
       {:error, socket} ->
         socket
@@ -512,5 +551,10 @@ defmodule HergettoWeb.VideoLive do
       {:error, socket} ->
         socket
     end
+  end
+
+  def fetch(socket, :chat) do
+    socket
+    |> assign(chat: ChatManager.get_chat(socket.assigns.room.uuid))
   end
 end

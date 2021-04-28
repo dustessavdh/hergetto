@@ -16,7 +16,15 @@ body {
 }
 
 .footer span {
-  color: white;
+    color: #FFFFFF;
+}
+
+.footer a {
+    color: #FFFFFF;
+}
+
+.footer a:hover {
+    color: #9ecbe9;
 }
 
 .bg-hergetto-light {
@@ -84,6 +92,12 @@ body {
   max-height: 400px;
 }
 
+.scrollbar {
+    overflow-y: auto;
+    scrollbar-color: #433C76 #EBEBEB;
+    scrollbar-width: thin;
+}
+
 .scrollbar::-webkit-scrollbar {
   width: 15px;
 }
@@ -107,5 +121,14 @@ body {
 }
 
 .featurette-divider {
-  margin: 5rem 0;
+    margin: 5rem 0;
+}
+
+.chat {
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.chat-item p {
+    margin-bottom: 0.5rem !important;
 }
