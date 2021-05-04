@@ -10,17 +10,8 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :hergetto, HergettoWeb.Endpoint,
-  url: [host: "hergetto.live", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json",
-  https: [
-    port: 443,
-    cipher_suite: :strong,
-    keyfile: Path.expand("../../../etc/letsencrypt/live/hergetto.live/privkey.pem", __DIR__),
-    certfile: Path.expand("../../../etc/letsencrypt/live/hergetto.live/fullchain.pem", __DIR__),
-    transport_options: [socket_opts: [:inet6]]
-  ]
-
-config :hergetto, HergettoWeb.Endpoint, force_ssl: [hsts: true]
+  url: [host: "example.com", port: 80],
+  cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
 config :logger, level: :info

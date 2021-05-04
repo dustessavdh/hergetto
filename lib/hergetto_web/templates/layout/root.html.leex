@@ -4,55 +4,27 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!-- Primary Meta Tags -->
-    <meta name="title" content="Hergetto · Together in a safe way!">
-    <meta name="description" content="Watch videos together in a safe way!">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://hergetto.live/">
-    <meta property="og:title" content="Hergetto · Together in a safe way!">
-    <meta property="og:description" content="Watch videos together in a safe way!">
-    <meta property="og:image" content="<%= Routes.static_path(@conn, "/images/oembed.png") %>">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://hergetto.live/">
-    <meta property="twitter:title" content="Hergetto · Together in a safe way!">
-    <meta property="twitter:description" content="Watch videos together in a safe way!">
-    <meta property="twitter:image" content="<%= Routes.static_path(@conn, "/images/oembed.png") %>">
-
     <%= csrf_meta_tag() %>
-    <%= live_title_tag assigns[:page_title] || "Hergetto", suffix: " · Together in a safe way!" %>
+    <%= live_title_tag assigns[:page_title] || "Hergetto", suffix: " · Phoenix Framework" %>
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-    <link rel="manifest" href="<%= Routes.static_path(@conn, "/site.webmanifest") %>">
   </head>
   <body>
-    <div class="relative">
-      <header class="bg-hergetto-light">
-        <section class="mx-4">
-          <nav role="navigation">
-            <ul class="nav nav-pills">
-              <li class="nav-item"><a href="/" class="nav-link">home</a></li>
-              <li class="nav-item"><%= live_redirect "find a room", to: Routes.rooms_path(@conn, :index), class: "nav-link"%></li>
-            </ul>
-          </nav>
-          <a href="/" class="phx-logo img-fluid">
-            <img src="<%= Routes.static_path(@conn, "/images/hergetto.png") %>" alt="Hergetto Logo"/>
-          </a>
-        </section>
-      </header>
-      <%= @inner_content %>
-      <br><br><br>
-      <footer class="footer bg-hergetto-light">
-        <div class="container">
-          <span class="text mr-5">Together in a safe way!</span>
-            <a href="https://github.com/dusthijsvdh/hergetto" target="_blank" rel="noopener noreferrer" class="float-right">
-            Check us out on GitHub: <i class="fab fa-github"></i>
-            </a>
-        </div>
-      </footer>
-    </div>
+    <header>
+      <section class="container">
+        <nav role="navigation">
+          <ul>
+            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+            <% end %>
+          </ul>
+        </nav>
+        <a href="https://phoenixframework.org/" class="phx-logo">
+          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
+        </a>
+      </section>
+    </header>
+    <%= @inner_content %>
   </body>
 </html>

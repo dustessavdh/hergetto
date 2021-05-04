@@ -1,24 +1,48 @@
-<div class="jumbotron bg-white">
-  <h1 class="display-4">Welcome to Hergetto!</h1>
-  <h5 class="text-muted">Together in a safe way!</h5>
-  <p class="lead">Wanna watch videos together on a couch, but online? You can do that here!</p>
-  <hr class="my-4">
-  <p>Find or create a room, send the link to your friends and start watching together.</p>
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="<%= Routes.rooms_path(@socket, :index) %>" role="button">Find a room!</a>
-  </p>
-</div>
+<section class="phx-hero">
+  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
+  <p>Peace of mind from prototype to production</p>
 
-<hr class="featurette-divider">
+  <form phx-change="suggest" phx-submit="search">
+    <input type="text" name="q" value="<%= @query %>" placeholder="Live dependency search" list="results" autocomplete="off"/>
+    <datalist id="results">
+      <%= for {app, _vsn} <- @results do %>
+        <option value="<%= app %>"><%= app %></option>
+      <% end %>
+    </datalist>
+    <button type="submit" phx-disable-with="Searching...">Go to Hexdocs</button>
+  </form>
+</section>
 
-<div class="row featurette">
-  <div class="col-md-7">
-    <h2 class="featurette-heading text-white">About Hergetto</h2>
-    <p class="lead text-white">
-      Hergetto stands for Together. This project was created during the lockdown. Normally you could just go to a friends house and start watching videos together, but now you can't do that anymore. So that's why hergetto was created! Watch videos together from the comfort of your own room!
-    </p>
-  </div>
-  <div class="col-md-5">
-    <img src="<%= Routes.static_path(@socket, "/images/Logo.png") %>" class="img-fluid mx-auto" alt="Logo">
-  </div>
-</div>
+<section class="row">
+  <article class="column">
+    <h2>Resources</h2>
+    <ul>
+      <li>
+        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
+      </li>
+      <li>
+        <a href="https://github.com/phoenixframework/phoenix">Source</a>
+      </li>
+      <li>
+        <a href="https://github.com/phoenixframework/phoenix/blob/v1.5/CHANGELOG.md">v1.5 Changelog</a>
+      </li>
+    </ul>
+  </article>
+  <article class="column">
+    <h2>Help</h2>
+    <ul>
+      <li>
+        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
+      </li>
+      <li>
+        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
+      </li>
+      <li>
+        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
+      </li>
+      <li>
+        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
+      </li>
+    </ul>
+  </article>
+</section>

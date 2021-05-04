@@ -18,8 +18,6 @@ defmodule HergettoWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
-    live "/watch", RoomsLive, :index
-    live "/watch/:id", VideoLive, :index
   end
 
   # Other scopes may use custom stacks.
@@ -39,7 +37,7 @@ defmodule HergettoWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: HergettoWeb.Telemetry, ecto_repos: [Hergetto.Repo]
+      live_dashboard "/dashboard", metrics: HergettoWeb.Telemetry
     end
   end
 end
