@@ -11,7 +11,7 @@ For both there are templates ready to go and use as a general structure to repor
 
 ## Adding code
 
-Want to write some code for Hergetto? Make an fork of this project and start writing!
-Once you're done you can make an pull request and we'll take a look.
+Want to write some code for Hergetto? Make a fork of this project and start writing!
+Once you're done you can make a pull request, and we'll take a look.
 
 There are some automated checks, so if any fail try to fix those first. This will help maintain a certain level of code quality.

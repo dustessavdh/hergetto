@@ -61,12 +61,8 @@ defmodule Hergetto.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:elixir_uuid, "~> 1.2"},
-      {:videx, "~> 0.2.0"},
       {:excoveralls, "~> 0.14.0"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false},
-      {:quantum, "~> 3.3"},
-      {:crontab, "~> 1.1"},
-      {:chameleon, "~> 2.3"}
     ]
   end
 
