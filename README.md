@@ -10,7 +10,7 @@ So that's why hergetto was created!
 Watch videos together from the comfort of your own room!
 
 [![Elixir Tests](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml/badge.svg)](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml)
-[![codecov](https://codecov.io/gh/dusthijsvdh/hergetto/branch/main/graph/badge.svg?token=URVHVQXE9O)](https://codecov.io/gh/dusthijsvdh/hergetto)
+[![codecov](https://codecov.io/gh/dusthijsvdh/hergetto/branch/development/graph/badge.svg?token=URVHVQXE9O)](https://codecov.io/gh/dusthijsvdh/hergetto)
 [![Travis build](https://travis-ci.com/dusthijsvdh/hergetto.svg?branch=main)](https://travis-ci.com/github/dusthijsvdh/hergetto)
 [![Mozilla observatory](https://img.shields.io/mozilla-observatory/grade-score/hergetto.live?publish)](https://observatory.mozilla.org/analyze/hergetto.live)
 [![Uptime Robot ratio (7 days)](https://img.shields.io/uptimerobot/ratio/7/m787479878-c7fbde79796c14354d41e123)](https://stats.uptimerobot.com/XpPBpun2Pl)
