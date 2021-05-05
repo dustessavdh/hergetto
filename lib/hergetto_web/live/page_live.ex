@@ -3,7 +3,23 @@ defmodule HergettoWeb.PageLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, query: "", results: %{})}
+    meta_attrs = [
+      %{name: "title", content: "Hergetto · Together in a safe way!"},
+      %{name: "keywords", content: "phoenix watch youtube videos together hergetto"},
+      %{name: "tags", content: "phoenix,watch,youtube,videos,together,hergetto"},
+      %{name: "description", content: "Wanna watch videos together on a couch, but online? You can do that here! Find or create a room, send the link to your friends and start watching together. Hergetto stands for Together."},
+      %{property: "og:type", content: "website"},
+      %{property: "og:url", content: "https://hergetto.live/"},
+      %{property: "og:title", content: "Hergetto · Together in a safe way!"},
+      %{property: "og:description", content: "Wanna watch videos together on a couch, but online? You can do that here! Find or create a room, send the link to your friends and start watching together. Hergetto stands for Together."},
+      %{property: "og:image", content: Routes.static_path(socket, "/images/oembed_logo.png")},
+      %{name: "twitter:card", content: "summary"},
+      %{name: "twitter:url", content: "https://hergetto.live"},
+      %{name: "twitter:title", content: "Hergetto · Together in a safe way!"},
+      %{name: "twitter:image", content: Routes.static_path(socket, "/images/oembed_logo.png")}
+    ]
+
+    {:ok, assign(socket, query: "", results: %{}, meta_attrs: meta_attrs)}
   end
 
   @impl true
