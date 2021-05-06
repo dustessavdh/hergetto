@@ -1,13 +1,9 @@
 <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
-
+  <Example name="Phoenix" />
   <form phx-change="suggest" phx-submit="search">
-    <input type="text" name="q" value="<%= @query %>" placeholder="Live dependency search" list="results" autocomplete="off"/>
-    <datalist id="results">
-      <%= for {app, _vsn} <- @results do %>
-        <option value="<%= app %>"><%= app %></option>
-      <% end %>
+    <input type="text" name="q" :value={{ @query }} placeholder="Live dependency search" list="results" autocomplete="off"/>
+    <datalist id="results" :for={{ {app, _vsn} <- @results }}>
+        <option :value={{app}}>{{app}}</option>
     </datalist>
     <button type="submit" phx-disable-with="Searching...">Go to Hexdocs</button>
   </form>

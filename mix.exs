@@ -63,6 +63,7 @@ defmodule Hergetto.MixProject do
       {:elixir_uuid, "~> 1.2"},
       {:excoveralls, "~> 0.14.0"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false},
+      {:surface, "~> 0.3.0"}
     ]
   end
 

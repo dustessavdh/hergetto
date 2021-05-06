@@ -61,6 +61,7 @@ config :hergetto, HergettoWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/hergetto_web/(live|views)/.*(ex)$",
+      ~r"lib/my_app_web/live/.*(sface)$",
       ~r"lib/hergetto_web/templates/.*(eex)$"
     ]
   ]

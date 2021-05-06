@@ -59,6 +59,33 @@ defmodule HergettoWeb do
     end
   end
 
+  def surface_component do
+    quote do
+      use Surface.Component
+      alias Surface.Components.LivePatch
+
+      unquote(view_helpers())
+    end
+  end
+
+  def surface_live_component do
+    quote do
+      use Surface.LiveComponent
+      alias Surface.Components.LivePatch
+
+      unquote(view_helpers())
+    end
+  end
+
+  def surface do
+    quote do
+      use Surface.LiveView, layout: {HergettoWeb.LayoutView, "live.html"}
+      alias Surface.Components.LivePatch
+
+      unquote(view_helpers())
+    end
+  end
+
   def router do
     quote do
       use Phoenix.Router
