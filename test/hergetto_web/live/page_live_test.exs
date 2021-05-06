@@ -8,4 +8,10 @@ defmodule HergettoWeb.PageLiveTest do
     assert disconnected_html =~ "Welcome to Phoenix!"
     assert render(page_live) =~ "Welcome to Phoenix!"
   end
+
+  test "rendered meta tags", %{conn: conn} do
+    {:ok, _view, html} = live(conn, "/")
+    assert html =~ ~s|<meta content="Hergetto · Together in a safe way!" name="title"/>|
+    assert html =~ ~s|<meta content="phoenix watch youtube videos together hergetto" name="keywords"/>|
+  end
 end

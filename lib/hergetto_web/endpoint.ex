@@ -24,7 +24,8 @@ defmodule HergettoWeb.Endpoint do
     at: "/",
     from: :hergetto,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(css fonts images icons js favicon.ico robots.txt site.webmanifest),
+    headers: %{"cache-control" => "max-age=86400, private, must-revalidate"}
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
