@@ -1,5 +1,7 @@
 defmodule HergettoWeb.PageLive do
-  use HergettoWeb, :live_view
+  use HergettoWeb, :surface
+
+  alias HergettoWeb.Components.Example
 
   @impl true
   def mount(_params, _session, socket) do
