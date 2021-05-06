@@ -10,7 +10,10 @@ defmodule HergettoWeb.LayoutView do
   - attrs_list: The list of attributes
 
   To pass different attributes add them to the `assigns` of the `socket`/`conn`
-  Example: ```elixir
+
+  ### Example:
+
+  ```elixir
   def mount(_params, _session, socket) do
     meta_attrs = [
       %{name: "title", content: "Welcome!"},
@@ -21,13 +24,10 @@ defmodule HergettoWeb.LayoutView do
   ```
   """
   def meta_tags(attrs_list \\ %{}) do
-    default_list = Application.get_env(:hergetto, HergettoWeb.Meta)
-
-    Enum.map(default_list, fn attr ->
+    Enum.map(Application.get_env(:hergetto, HergettoWeb.Meta), fn attr ->
       case find_attr_index(attr, attrs_list) do
         nil -> attr
-        id ->
-          Map.merge(attr, Enum.at(attrs_list, id))
+        id -> Map.merge(attr, Enum.at(attrs_list, id))
       end
     end)
     |> Enum.map(&meta_tag/1)
@@ -39,11 +39,8 @@ defmodule HergettoWeb.LayoutView do
 
   defp find_attr_index(attr, search_list) do
     Enum.find_index(search_list, fn search_attrs ->
-      cond do
-        Map.has_key?(search_attrs, :name) && search_attrs[:name] == attr[:name] -> true
-        Map.has_key?(search_attrs, :property) && search_attrs[:property] == attr[:property] -> true
-        true -> false
-      end
+      (Map.has_key?(search_attrs, :name) && search_attrs[:name] == attr[:name])
+      || Map.has_key?(search_attrs, :property) && search_attrs[:property] == attr[:property]
     end)
   end
 end
