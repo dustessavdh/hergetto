@@ -1,4 +1,8 @@
 defmodule Hergetto.Rooms.RoomCommunicationHelper do
+  @moduledoc """
+  This module handles the communication between the services and the live views.
+  """
+
   alias Phoenix.PubSub
   alias Hergetto.Structs.RoomEvent
 
