@@ -1,4 +1,8 @@
 defmodule Hergetto.Rooms.RoomManager do
+  @moduledoc """
+  This module manages and creates rooms.
+  """
+
   use GenServer
   require Logger
 
@@ -91,11 +95,10 @@ defmodule Hergetto.Rooms.RoomManager do
   end
 
   @doc """
-  Gets the participants for the specified `room`.
+  This function returns more specific information about a room.
+  The currently supported atoms are: `:participants`.
 
-  Returns `%{participants: [], length: 0}`.
-
-  ## Examples
+  ## Example for `:participants`.
 
       iex> room = RoomManager.create()
       "f2d97ea1-ddaf-4949-b1bc-63766ca8d52b"
