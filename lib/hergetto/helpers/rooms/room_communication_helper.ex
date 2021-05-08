@@ -20,7 +20,7 @@ defmodule Hergetto.Rooms.RoomCommunicationHelper do
 
   ## Examples
 
-      iex> RoomCommunicationHelper.broadcast("f2d97ea1-ddaf-4949-b1bc-63766ca8d52b", :pause, %{})
+      iex> RoomCommunicationHelper.broadcast("f2d97ea1-ddaf-4949-b1bc-63766ca8d52b", :pause, %{})
       :ok
 
   """
