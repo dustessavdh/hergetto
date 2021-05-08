@@ -3,5 +3,5 @@ defmodule Hergetto.Structs.RoomEvent do
   This module represents an event that gets broadcast by the RoomService.
   """
 
-  defstruct [:event, :data]
+  defstruct [:event, :data, :sender]
 end

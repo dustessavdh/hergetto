@@ -5,7 +5,7 @@ defmodule Hergetto.RoomCommunicationHelperTest do
 
   test "Recieve events on broadcast" do
     RoomCommunicationHelper.subscribe("non-existing-test-room")
-    RoomCommunicationHelper.broadcast("non-existing-test-room", :test, %{})
+    RoomCommunicationHelper.broadcast("non-existing-test-room", :test, %{}, "non-existing-event-sender")
     assert_receive(%RoomEvent{})
   end
 end

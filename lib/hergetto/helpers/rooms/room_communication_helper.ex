@@ -24,11 +24,11 @@ defmodule Hergetto.Rooms.RoomCommunicationHelper do
 
   ## Examples
 
-      iex> RoomCommunicationHelper.broadcast("f2d97ea1-ddaf-4949-b1bc-63766ca8d52b", :pause, %{})
+      iex> RoomCommunicationHelper.broadcast("f2d97ea1-ddaf-4949-b1bc-63766ca8d52b", :pause, %{}, "3f8e8ef9-fea8-42da-a37d-f5f2074077ef")
       :ok
 
   """
-  def broadcast(room, event, data) do
-    PubSub.broadcast(Hergetto.PubSub, room, %RoomEvent{event: event, data: data})
+  def broadcast(room, event, data, sender) do
+    PubSub.broadcast(Hergetto.PubSub, room, %RoomEvent{event: event, data: data, sender: sender})
   end
 end
