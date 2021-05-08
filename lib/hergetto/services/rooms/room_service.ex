@@ -1,4 +1,8 @@
 defmodule Hergetto.Rooms.RoomService do
+  @moduledoc """
+  This module represents a room, and manages the chat and video service.
+  """
+
   use GenServer
   require Logger
 
