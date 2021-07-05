@@ -4,7 +4,7 @@ export default class Player {
         this.eventQueue = [];
         window.onYouTubeIframeAPIReady = () => this.onIframeReady(domId)
         this.youtubeScriptTag = document.createElement("script")
-        this.youtubeScriptTag.src = "//www.youtube.com/iframe_api"
+        this.youtubeScriptTag.src = "https://www.youtube.com/iframe_api"
         document.head.appendChild(this.youtubeScriptTag)
     }
 
@@ -20,7 +20,7 @@ export default class Player {
         this.player = new YT.Player(domId, {
             events: {
                 "onReady": (event => this.onPlayerReady(event)),
-                "onStateChange": (event => setTimeout(() => {this.onPlayerStateChange(event)}, 0)),
+                "onStateChange": (event => this.onPlayerStateChange(event)),
                 "onPlaybackRateChange": (event => this.onPlaybackRateChange(event)),
                 "onError": (event => this.onPlayerError(event))
             }
@@ -125,7 +125,6 @@ export default class Player {
     startEventQueue(events) {
         this.eventQueue = events
         this.player.l.h[5] = (event => this.queuedPlayerStateChange(event))
-        this.player.i.i.events.onStateChange = (event => this.queuedPlayerStateChange(event))
     }
 
     queuedPlayerStateChange(event) {
@@ -147,7 +146,6 @@ export default class Player {
 
     resumePlayerStateChange(event) {
         this.player.l.h[5] = (event => this.onPlayerStateChange(event))
-        this.player.i.i.events.onStateChange = (event => this.onPlayerStateChange(event))
         this.onPlayerStateChange(event)
     }
 }
