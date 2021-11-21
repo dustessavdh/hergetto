@@ -41,3 +41,4 @@ erl_crash.dump
 /installer/deps
 
 # End of https://www.toptal.com/developers/gitignore/api/phoenix,elixir
+.DS_Store
