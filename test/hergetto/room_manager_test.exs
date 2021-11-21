@@ -1,6 +1,7 @@
 defmodule Hergetto.RoomManagerTest do
   use ExUnit.Case
   alias Hergetto.Rooms.RoomManager
+  alias Hergetto.Structs.RoomEvent
 
   test "creates a room" do
     assert RoomManager.create() != nil
@@ -38,5 +39,12 @@ defmodule Hergetto.RoomManagerTest do
     RoomManager.leave(session, room)
     participants = RoomManager.get(room, :participants)
     assert participants.length == 0
+  end
+
+  test "Recieve events on broadcast" do
+    room = RoomManager.create()
+    room |> RoomManager.join()
+    room |> RoomManager.trigger("", "", "")
+    assert_receive(%RoomEvent{})
   end
 end

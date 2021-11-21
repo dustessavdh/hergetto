@@ -8,6 +8,8 @@ defmodule Hergetto.Rooms.RoomManager do
 
   alias Hergetto.Structs.SessionRoom
   alias Hergetto.Rooms.RoomService
+  alias Hergetto.Rooms.RoomCommunicationHelper
+  alias Phoenix.PubSub
 
   # Client
 
@@ -24,7 +26,7 @@ defmodule Hergetto.Rooms.RoomManager do
   @doc """
   This function joins a room.
 
-  Returns `uuid`. This `uuid` represensts a session.
+  Returns `uuid`. This `uuid` represensts a session. This function also subscribes to events from the room via PubSub.
 
   ## Examples
 
@@ -35,6 +37,7 @@ defmodule Hergetto.Rooms.RoomManager do
 
   """
   def join(room) do
+    PubSub.subscribe(Hergetto.PubSub, room)
     session_room = %SessionRoom{session: UUID.uuid4(), room: room}
     GenServer.call(Process.whereis(__MODULE__), {:join, session_room})
   end
@@ -130,6 +133,27 @@ defmodule Hergetto.Rooms.RoomManager do
   """
   def room_exists(room) do
     GenServer.call(Process.whereis(__MODULE__), {:exists, room})
+  end
+
+  @doc """
+  Triggers an event in the specified `room`.
+
+  Returns `:ok` or `:noroom`.
+
+  ## Examples
+
+      iex> room = RoomManager.create()
+      "f2d97ea1-ddaf-4949-b1bc-63766ca8d52b"
+      iex> RoomManager.trigger(room, "play", nil, "93a628cc-cec1-4733-b513-aff5824b02da")
+      :ok
+  """
+  def trigger(room, event, data, sender) do
+    case room_exists(room) do
+      true ->
+        PubSub.broadcast(Hergetto.PubSub, room, RoomCommunicationHelper.create_event(event, data, sender))
+      _ ->
+        :noroom
+    end
   end
 
   # Server
