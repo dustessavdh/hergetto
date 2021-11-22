@@ -42,6 +42,12 @@ defmodule Hergetto.Videos.VideoService do
 
   @doc false
   @impl true
+  def handle_cast({:set_current, video}, state) do
+    {:noreply, %{state | current: video}}
+  end
+
+  @doc false
+  @impl true
   def handle_cast({:add, video}, state) do
     {:noreply, %{state | playlist: [video | state.playlist]}}
   end

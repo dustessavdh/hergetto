@@ -28,4 +28,12 @@ defmodule Hergetto.VideosTest do
     current_video = video_service |> Videos.get_current()
     assert current_video == nil
   end
+
+  test "set current video" do
+    {:ok, video_service} = Videos.create()
+    expected = %Video{}
+    video_service |> Videos.set_current(expected)
+    current = video_service |> Videos.get_current()
+    assert current == expected
+  end
 end

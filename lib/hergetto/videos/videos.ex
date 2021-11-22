@@ -41,6 +41,28 @@ defmodule Hergetto.Videos do
   end
 
   @doc """
+  This function sets the current video.
+
+  ## Examples
+
+      iex> {:ok, video_service} = Videos.create()
+      {:ok, "f2d97ea1-ddaf-4949-b1bc-63766ca8d52b"}
+      iex> video_service |> Videos.set(%Video{})
+      :ok
+
+  """
+  def set_current(video_service, video) do
+    case video_service |> exists() do
+      true ->
+        pid = Process.whereis(video_service |> generate_videos_service())
+        GenServer.cast(pid, {:set_current, video})
+        :ok
+      false ->
+        :novideoservice
+    end
+  end
+
+  @doc """
   This function returns the state of a video service.
 
   ## Examples
