@@ -23,6 +23,24 @@ defmodule Hergetto.VideosTest do
     assert length(playlist) == 2
   end
 
+  test "delete a video from the playlist" do
+    {:ok, video_service} = Videos.create()
+    video_service |> Videos.add(%Video{})
+    video_service |> Videos.add(%Video{})
+    video_service |> Videos.delete(0)
+    playlist = video_service |> Videos.get_playlist()
+    assert length(playlist) == 1
+  end
+
+  test "next video" do
+    {:ok, video_service} = Videos.create()
+    video_service |> Videos.add(%Video{name: "1"})
+    video_service |> Videos.add(%Video{name: "2"})
+    video_service |> Videos.next()
+    %Video{name: name} = video_service |> Videos.get_current()
+    assert name == "1"
+  end
+
   test "current video is nil" do
     {:ok, video_service} = Videos.create()
     current_video = video_service |> Videos.get_current()

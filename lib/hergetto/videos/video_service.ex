@@ -48,6 +48,12 @@ defmodule Hergetto.Videos.VideoService do
 
   @doc false
   @impl true
+  def handle_cast({:delete, index}, state) do
+    {:noreply, %{state | playlist: List.delete_at(state.playlist, index)}}
+  end
+
+  @doc false
+  @impl true
   def handle_cast({:add, video}, state) do
     {:noreply, %{state | playlist: [video | state.playlist]}}
   end

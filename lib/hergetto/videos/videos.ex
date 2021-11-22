@@ -63,6 +63,59 @@ defmodule Hergetto.Videos do
   end
 
   @doc """
+  This function plays the next video from the playlist
+
+  ## Examples
+
+      iex> {:ok, video_service} = Videos.create()
+      {:ok, "f2d97ea1-ddaf-4949-b1bc-63766ca8d52b"}
+      iex> video_service |> Videos.add(%Video{})
+      :ok
+      iex> video_service |> Videos.next()
+      :ok
+
+  """
+  def next(video_service) do
+    case video_service |> exists() do
+      true ->
+        playlist = video_service |> get_playlist()
+        case length(playlist) > 0 do
+          true ->
+            new_video = List.last(playlist)
+            video_service |> delete(length(playlist) - 1)
+            video_service |> set_current(new_video)
+            :ok
+          false ->
+            :novideos
+        end
+      false ->
+        :novideoservice
+    end
+  end
+
+  @doc """
+  This function deletes a video from the playlist.
+
+  ## Examples
+
+      iex> {:ok, video_service} = Videos.create()
+      {:ok, "f2d97ea1-ddaf-4949-b1bc-63766ca8d52b"}
+      iex> video_service |> Videos.add(%Video{})
+      :ok
+
+  """
+  def delete(video_service, index) do
+    case video_service |> exists() do
+      true ->
+        pid = Process.whereis(video_service |> generate_videos_service())
+        GenServer.cast(pid, {:delete, index})
+        :ok
+      false ->
+        :novideoservice
+    end
+  end
+
+  @doc """
   This function returns the state of a video service.
 
   ## Examples
