@@ -10,6 +10,7 @@ defmodule Hergetto.Rooms.RoomService do
 
   @doc false
   def start_link(room) do
+    Logger.info("Roomservice with id: #{room} starting.")
     GenServer.start_link(__MODULE__, %{room: room, participants: [], video_service: nil}, name: :"roomservice:#{room}")
   end
 
