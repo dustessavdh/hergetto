@@ -6,8 +6,6 @@ defmodule Hergetto.Rooms.RoomService do
   use GenServer
   require Logger
 
-  alias Hergetto.Structs.SessionRoom
-
   # Client
 
   @doc false
@@ -26,14 +24,14 @@ defmodule Hergetto.Rooms.RoomService do
 
   @doc false
   @impl true
-  def handle_cast({:join, %SessionRoom{session: session}}, state) do
+  def handle_cast({:join, session}, state) do
     Logger.info("Session #{session} joined room #{state.room_id}")
     {:noreply, %{state | participants: [session | state.participants]}}
   end
 
   @doc false
   @impl true
-  def handle_cast({:leave, %SessionRoom{session: session}}, state) do
+  def handle_cast({:leave, session}, state) do
     Logger.info("Session #{session} left room #{state.room_id}")
     {:noreply, %{state | participants: Enum.filter(state.participants, fn p -> p != session end)}}
   end
