@@ -18,6 +18,7 @@ defmodule Hergetto.Application do
       # Start a worker by calling: Hergetto.Worker.start_link(arg)
       # {Hergetto.Worker, arg}
       {DynamicSupervisor, strategy: :one_for_one, name: Hergetto.Rooms.RoomSupervisor},
+      {DynamicSupervisor, strategy: :one_for_one, name: Hergetto.Videos.VideoSupervisor},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
