@@ -2,6 +2,8 @@ defmodule Hergetto.Rooms do
   alias Hergetto.Rooms.RoomSupervisor
   alias Hergetto.Rooms.RoomService
   alias Hergetto.Structs.RoomEvent
+  alias Hergetto.Helpers.ServiceStartHelper
+  alias Hergetto.Videos
   alias Phoenix.PubSub
 
   @doc """
@@ -11,18 +13,14 @@ defmodule Hergetto.Rooms do
 
   ## Examples
 
-      iex> Room.create()
+      iex> Rooms.create()
       {:ok, "f2d97ea1-ddaf-4949-b1bc-63766ca8d52b"}
 
   """
   def create() do
-    room = UUID.uuid4()
-    case DynamicSupervisor.start_child(RoomSupervisor, {RoomService, room}) do
-      {:ok, _pid} ->
-        {:ok, room}
-      _ ->
-        {:error, :nostart}
-    end
+    {:ok, room} = return = ServiceStartHelper.start(RoomSupervisor, RoomService)
+    add_video_service(room)
+    return
   end
 
   @doc """
@@ -42,7 +40,7 @@ defmodule Hergetto.Rooms do
     session = UUID.uuid4()
     case room |> exists() do
       true ->
-        pid = Process.whereis(room |> generate_room())
+        pid = Process.whereis(room |> generate_room_id())
         GenServer.cast(pid, {:join, session})
         PubSub.subscribe(Hergetto.PubSub, room)
         {:ok, session}
@@ -69,7 +67,7 @@ defmodule Hergetto.Rooms do
   def leave(session, room) do
     case room |> exists() do
       true ->
-        pid = Process.whereis(room |> generate_room())
+        pid = Process.whereis(room |> generate_room_id())
         GenServer.cast(pid, {:leave, session})
         :ok
       false ->
@@ -88,21 +86,37 @@ defmodule Hergetto.Rooms do
       "f2d97ea1-ddaf-4949-b1bc-63766ca8d52b"
       iex> room |> Rooms.join()
       "3f8e8ef9-fea8-42da-a37d-f5f2074077ef"
-      iex> room |> Rooms.get()
+      iex> room |> Rooms.get(:all)
       %{
         participants: ["3f8e8ef9-fea8-42da-a37d-f5f2074077ef"],
-        room_id: "f2d97ea1-ddaf-4949-b1bc-63766ca8d52b"
+        room_id: "f2d97ea1-ddaf-4949-b1bc-63766ca8d52b",
+        video_service: nil
       }
 
   """
-  def get(room) do
+  def get(room, type) do
     case room |> exists() do
       true ->
-        pid = Process.whereis(room |> generate_room())
-        GenServer.call(pid, :get)
+        pid = Process.whereis(room |> generate_room_id())
+        GenServer.call(pid, {:get, type})
       false ->
         {:error, :noroom}
     end
+  end
+
+  @doc false
+  def get_all(room) do
+    room |> get(:all)
+  end
+
+  @doc false
+  def get_participants(room) do
+    room |> get(:participants)
+  end
+
+  @doc false
+  def get_video_service(room) do
+    room |> get(:video_service)
   end
 
   @doc """
@@ -117,7 +131,7 @@ defmodule Hergetto.Rooms do
 
   """
   def exists(room) do
-    case Process.whereis(room |> generate_room()) do
+    case Process.whereis(room |> generate_room_id()) do
       nil ->
         false
       _ ->
@@ -148,7 +162,20 @@ defmodule Hergetto.Rooms do
   end
 
   @doc false
-  defp generate_room(room) do
+  defp add_video_service(room) do
+    case room |> exists() do
+      true ->
+        {:ok, video_service} = Videos.create()
+        pid = Process.whereis(room |> generate_room_id())
+        GenServer.cast(pid, {:video_service, video_service})
+        :ok
+      false ->
+        :noroom
+    end
+  end
+
+  @doc false
+  defp generate_room_id(room) do
     :"roomservice:#{room}"
   end
 

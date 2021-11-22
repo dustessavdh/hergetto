@@ -16,13 +16,13 @@ defmodule Hergetto.RoomsTest do
 
   test "get state for room" do
     {:ok, room} = Rooms.create()
-    assert room |> Rooms.get() != nil
+    assert room |> Rooms.get_all() != nil
   end
 
   test "get participants for room with one participant" do
     {:ok, room} = Rooms.create()
     {:ok, _session} = room |> Rooms.join()
-    %{participants: participants} = room |> Rooms.get()
+    %{participants: participants} = room |> Rooms.get_all()
     assert length(participants) == 1
   end
 
@@ -30,7 +30,7 @@ defmodule Hergetto.RoomsTest do
     {:ok, room} = Rooms.create()
     {:ok, _session} = room |> Rooms.join()
     {:ok, _session} = room |> Rooms.join()
-    %{participants: participants} = room |> Rooms.get()
+    %{participants: participants} = room |> Rooms.get_all()
     assert length(participants) == 2
   end
 
@@ -38,7 +38,7 @@ defmodule Hergetto.RoomsTest do
     {:ok, room} = Rooms.create()
     {:ok, session} = room |> Rooms.join()
     session |> Rooms.leave(room)
-    %{participants: participants} = room |> Rooms.get()
+    %{participants: participants} = room |> Rooms.get_all()
     assert length(participants) == 0
   end
 
