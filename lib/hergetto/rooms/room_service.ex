@@ -9,9 +9,9 @@ defmodule Hergetto.Rooms.RoomService do
   # Client
 
   @doc false
-  def start_link(room) do
+  def start_link({room, nil}) do
     Logger.info("Roomservice with id: #{room} starting.")
-    GenServer.start_link(__MODULE__, %{room: room, participants: [], video_service: nil}, name: :"roomservice:#{room}")
+    GenServer.start_link(__MODULE__, %{room: room, participants: [], video_service: nil, chat_service: nil}, name: :"roomservice:#{room}")
   end
 
   # Server
@@ -45,6 +45,13 @@ defmodule Hergetto.Rooms.RoomService do
 
   @doc false
   @impl true
+  def handle_cast({:chat_service, chat_service}, state) do
+    Logger.info("Chatservice #{chat_service} added to room #{state.room}")
+    {:noreply, %{state | chat_service: chat_service}}
+  end
+
+  @doc false
+  @impl true
   def handle_call({:get, :all}, _, state) do
     {:reply, state, state}
   end
@@ -59,5 +66,11 @@ defmodule Hergetto.Rooms.RoomService do
   @impl true
   def handle_call({:get, :video_service}, _, state) do
     {:reply, state.video_service, state}
+  end
+
+  @doc false
+  @impl true
+  def handle_call({:get, :chat_service}, _, state) do
+    {:reply, state.chat_service, state}
   end
 end
