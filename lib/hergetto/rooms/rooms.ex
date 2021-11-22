@@ -1,7 +1,6 @@
 defmodule Hergetto.Rooms do
   alias Hergetto.Rooms.RoomSupervisor
   alias Hergetto.Rooms.RoomService
-  alias Hergetto.Rooms.RoomCommunicationHelper
   alias Hergetto.Structs.RoomEvent
   alias Phoenix.PubSub
 
@@ -41,9 +40,9 @@ defmodule Hergetto.Rooms do
   """
   def join(room) do
     session = UUID.uuid4()
-    case room |> exists do
+    case room |> exists() do
       true ->
-        pid = Process.whereis(room |> generate_room)
+        pid = Process.whereis(room |> generate_room())
         GenServer.cast(pid, {:join, session})
         PubSub.subscribe(Hergetto.PubSub, room)
         {:ok, session}
@@ -68,9 +67,9 @@ defmodule Hergetto.Rooms do
 
   """
   def leave(session, room) do
-    case room |> exists do
+    case room |> exists() do
       true ->
-        pid = Process.whereis(room |> generate_room)
+        pid = Process.whereis(room |> generate_room())
         GenServer.cast(pid, {:leave, session})
         :ok
       false ->
@@ -97,7 +96,7 @@ defmodule Hergetto.Rooms do
 
   """
   def get(room) do
-    case room |> exists do
+    case room |> exists() do
       true ->
         pid = Process.whereis(room |> generate_room())
         GenServer.call(pid, :get)
@@ -118,7 +117,7 @@ defmodule Hergetto.Rooms do
 
   """
   def exists(room) do
-    case Process.whereis(:"roomservice:#{room}") do
+    case Process.whereis(room |> generate_room()) do
       nil ->
         false
       _ ->
@@ -139,7 +138,7 @@ defmodule Hergetto.Rooms do
       :ok
   """
   def trigger(room, event, data, sender) do
-    case room |> exists do
+    case room |> exists() do
       true ->
         PubSub.broadcast(Hergetto.PubSub, room, event |> create_event(data, sender))
         :ok
