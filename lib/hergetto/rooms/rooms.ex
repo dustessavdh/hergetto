@@ -40,7 +40,7 @@ defmodule Hergetto.Rooms do
     session = UUID.uuid4()
     case room |> exists() do
       true ->
-        pid = Process.whereis(room |> generate_room())
+        pid = Process.whereis(room |> generate_room_id())
         GenServer.cast(pid, {:join, session})
         PubSub.subscribe(Hergetto.PubSub, room)
         {:ok, session}
@@ -67,7 +67,7 @@ defmodule Hergetto.Rooms do
   def leave(session, room) do
     case room |> exists() do
       true ->
-        pid = Process.whereis(room |> generate_room())
+        pid = Process.whereis(room |> generate_room_id())
         GenServer.cast(pid, {:leave, session})
         :ok
       false ->
@@ -97,7 +97,7 @@ defmodule Hergetto.Rooms do
   def get(room, type) do
     case room |> exists() do
       true ->
-        pid = Process.whereis(room |> generate_room())
+        pid = Process.whereis(room |> generate_room_id())
         GenServer.call(pid, {:get, type})
       false ->
         {:error, :noroom}
@@ -131,7 +131,7 @@ defmodule Hergetto.Rooms do
 
   """
   def exists(room) do
-    case Process.whereis(room |> generate_room()) do
+    case Process.whereis(room |> generate_room_id()) do
       nil ->
         false
       _ ->
@@ -166,7 +166,7 @@ defmodule Hergetto.Rooms do
     case room |> exists() do
       true ->
         {:ok, video_service} = Videos.create()
-        pid = Process.whereis(room |> generate_room())
+        pid = Process.whereis(room |> generate_room_id())
         GenServer.cast(pid, {:video_service, video_service})
         :ok
       false ->
@@ -175,7 +175,7 @@ defmodule Hergetto.Rooms do
   end
 
   @doc false
-  defp generate_room(room) do
+  defp generate_room_id(room) do
     :"roomservice:#{room}"
   end
 

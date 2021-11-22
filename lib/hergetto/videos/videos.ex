@@ -32,7 +32,7 @@ defmodule Hergetto.Videos do
   def add(video_service, video) do
     case video_service |> exists() do
       true ->
-        pid = Process.whereis(video_service |> generate_videos_service())
+        pid = Process.whereis(video_service |> generate_videos_service_id())
         GenServer.cast(pid, {:add, video})
         :ok
       false ->
@@ -54,7 +54,7 @@ defmodule Hergetto.Videos do
   def set_current(video_service, video) do
     case video_service |> exists() do
       true ->
-        pid = Process.whereis(video_service |> generate_videos_service())
+        pid = Process.whereis(video_service |> generate_videos_service_id())
         GenServer.cast(pid, {:set_current, video})
         :ok
       false ->
@@ -107,7 +107,7 @@ defmodule Hergetto.Videos do
   def delete(video_service, index) do
     case video_service |> exists() do
       true ->
-        pid = Process.whereis(video_service |> generate_videos_service())
+        pid = Process.whereis(video_service |> generate_videos_service_id())
         GenServer.cast(pid, {:delete, index})
         :ok
       false ->
@@ -121,7 +121,7 @@ defmodule Hergetto.Videos do
   ## Examples
       iex> {:ok, video_service} = Videos.create()
       {:ok, "3e9dd45a-2aae-4288-a2a1-69406bf0df2f"}
-      iex> video_service |> Videos.get(:all)
+      iex> video_service |> Videos.get_all(:all)
       %{
         playlist: [
           %Hergetto.Structs.Video{name: nil, platform: nil, url: nil},
@@ -133,7 +133,7 @@ defmodule Hergetto.Videos do
   def get(video_service, scope) do
     case video_service |> exists() do
       true ->
-        pid = Process.whereis(video_service |> generate_videos_service())
+        pid = Process.whereis(video_service |> generate_videos_service_id())
         GenServer.call(pid, {:get, scope})
       false ->
         {:error, :novideoservice}
@@ -167,7 +167,7 @@ defmodule Hergetto.Videos do
 
   """
   def exists(video_service) do
-    case Process.whereis(video_service |> generate_videos_service()) do
+    case Process.whereis(video_service |> generate_videos_service_id()) do
       nil ->
         false
       _ ->
@@ -176,7 +176,7 @@ defmodule Hergetto.Videos do
   end
 
   @doc false
-  defp generate_videos_service(video_service) do
+  defp generate_videos_service_id(video_service) do
     :"video_service:#{video_service}"
   end
 end
