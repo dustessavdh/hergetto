@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 # Configure your database
 config :hergetto, Hergetto.Repo,
@@ -17,7 +17,7 @@ config :hergetto, Hergetto.Repo,
 # with webpack to recompile .js and .css sources.
 config :hergetto, HergettoWeb.Endpoint,
   http: [port: 4000],
-  debug_errors: true,
+  debug_errors: false,
   code_reloader: true,
   check_origin: false,
   watchers: [
@@ -61,7 +61,7 @@ config :hergetto, HergettoWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/hergetto_web/(live|views)/.*(ex)$",
-      ~r"lib/my_app_web/live/.*(sface)$",
+      ~r"lib/hergetto_web/live/.*(sface)$",
       ~r"lib/hergetto_web/templates/.*(eex)$"
     ]
   ]
