@@ -19,6 +19,7 @@
             <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
               <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+              <li><%= link "catalogue", to: Routes.live_path(@conn, Surface.Catalogue.PageLive) %></li>
             <% end %>
           </ul>
         </nav>

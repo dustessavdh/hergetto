@@ -18,6 +18,7 @@ import { LiveSocket } from "phoenix_live_view"
 import topbar from "topbar";
 import Hooks from "./_hooks"
 import Alpine from "alpinejs"
+
 Alpine.start()
 window.Alpine = Alpine
 

@@ -20,7 +20,6 @@ defmodule HergettoWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
-    live "/demo", Demo
   end
 
   # Other scopes may use custom stacks.
