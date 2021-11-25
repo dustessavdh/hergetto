@@ -1,6 +1,8 @@
 defmodule HergettoWeb.Router do
   use HergettoWeb, :router
 
+  import Surface.Catalogue.Router
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -18,6 +20,7 @@ defmodule HergettoWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    live "/demo", Demo
   end
 
   # Other scopes may use custom stacks.
@@ -38,6 +41,13 @@ defmodule HergettoWeb.Router do
     scope "/" do
       pipe_through :browser
       live_dashboard "/dashboard", metrics: HergettoWeb.Telemetry
+    end
+  end
+
+  if Mix.env() == :dev do
+    scope "/" do
+      pipe_through :browser
+      surface_catalogue "/catalogue"
     end
   end
 end

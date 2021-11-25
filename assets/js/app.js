@@ -16,7 +16,7 @@ import "phoenix_html"
 import { Socket } from "phoenix"
 import { LiveSocket } from "phoenix_live_view"
 import topbar from "topbar";
-import Hooks from "./hooks.js"
+import Hooks from "./_hooks"
 import 'alpinejs'
 Alpine.start()
 window.Alpine = Alpine

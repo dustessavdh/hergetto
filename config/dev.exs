@@ -56,13 +56,16 @@ config :hergetto, HergettoWeb.Endpoint,
 
 # Watch static and templates for browser reloading.
 config :hergetto, HergettoWeb.Endpoint,
+  reloadable_compilers: [:gettext, :elixir, :surface],
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/hergetto_web/(live|views)/.*(ex)$",
       ~r"lib/hergetto_web/live/.*(sface)$",
-      ~r"lib/hergetto_web/templates/.*(eex)$"
+      ~r"lib/hergetto_web/templates/.*(eex)$",
+      ~r"priv/catalogue/.*(ex)$",
+      ~r"lib/my_app_web/(live|components)/.*(ex|js)$"
     ]
   ]
 
