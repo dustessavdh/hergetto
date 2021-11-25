@@ -21,7 +21,7 @@ module.exports = (env, options) => {
     },
     output: {
       filename: '[name].js',
-      path: path.resolve(__dirname, '../priv/static/js'),
+      path: path.resolve(__dirname, '../priv/static/assets'),
       publicPath: '/js/'
     },
     devtool: devMode ? 'eval-cheap-module-source-map' : undefined,
@@ -57,9 +57,13 @@ module.exports = (env, options) => {
       ]
     },
     plugins: [
-      new MiniCssExtractPlugin({ filename: '../css/app.css' }),
+      new MiniCssExtractPlugin({ filename: '../assets/app.css' }),
       new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
     ]
-    .concat(devMode ? [new HardSourceWebpackPlugin()] : [])
+    .concat(devMode ? [new HardSourceWebpackPlugin({
+      configHash: function(webpackConfig) {
+        return require('node-object-hash')({sort: false}).hash(webpackConfig);
+      }
+    })] : [])
   }
 };
