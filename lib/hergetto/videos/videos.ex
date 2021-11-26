@@ -14,8 +14,8 @@ defmodule Hergetto.Videos do
       {:ok, "f2d97ea1-ddaf-4949-b1bc-63766ca8d52b"}
 
   """
-  def create() do
-    ServiceStartHelper.start(VideoSupervisor, VideoService)
+  def create(room) do
+    ServiceStartHelper.start(VideoSupervisor, VideoService, room)
   end
 
   @doc """

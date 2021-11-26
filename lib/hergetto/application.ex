@@ -19,6 +19,7 @@ defmodule Hergetto.Application do
       # {Hergetto.Worker, arg}
       {DynamicSupervisor, strategy: :one_for_one, name: Hergetto.Rooms.RoomSupervisor},
       {DynamicSupervisor, strategy: :one_for_one, name: Hergetto.Videos.VideoSupervisor},
+      {DynamicSupervisor, strategy: :one_for_one, name: Hergetto.Chats.ChatSupervisor},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
