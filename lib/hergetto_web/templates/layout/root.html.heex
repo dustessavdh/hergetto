@@ -6,10 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= meta_tags(assigns[:meta_attrs] || %{}) %>
     <%= csrf_meta_tag() %>
+
     <%= live_title_tag assigns[:page_title] || "Hergetto", suffix: " · Together in a safe way!" %>
+
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
-    <link rel="manifest" href="/site.webmanifest">
+
+    <link phx-track-static rel="icon" type="image/x-icon" href="favicon.ico">
+    <link phx-track-static rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link phx-track-static rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link phx-track-static rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link phx-track-static rel="manifest" href="/site.webmanifest">
   </head>
   <body>
     <header>
