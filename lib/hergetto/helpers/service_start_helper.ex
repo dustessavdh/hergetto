@@ -1,4 +1,6 @@
 defmodule Hergetto.Helpers.ServiceStartHelper do
+  require Logger
+
   def start(supervisor, service, room) do
     id = UUID.uuid4()
     case DynamicSupervisor.start_child(supervisor, {service, {id, room}}) do
