@@ -20,7 +20,7 @@
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
               <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
             <% end %>
-            <%= if function_exported?(Routes, :live_path, 3) do %>
+            <%= if function_exported?(Routes, :live_path, 3) && Mix.env() == :dev do %>
               <li><%= link "catalogue", to: Routes.live_path(@conn, Surface.Catalogue.PageLive, []) %></li>
             <% end  %>
           </ul>
