@@ -1,0 +1,10 @@
+// set the default colors
+@import "../../variables";
+
+$theme-colors: (
+  primary: $color-brand,
+  secondary: $color-dark,
+  info: $color-mid,
+  light: $color-light,
+  dark: $color-dark
+);

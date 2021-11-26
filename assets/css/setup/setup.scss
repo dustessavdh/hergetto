@@ -1,0 +1,13 @@
+@import "../variables.scss";
+
+:root {
+  --color-brand: $color-brand;
+  --color-dark: $color-dark;
+  --color-mid: $color-mid;
+  --color-light: $color-light;
+  --color-white: $color-white;
+  --color-black: $color-black;
+}
+
+@import "common";
+@import "bootstrap/bootstrap-setup"

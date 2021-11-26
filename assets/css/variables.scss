@@ -1,15 +1,27 @@
-$brand: #6D28D9;
-$dark:#0F172A;
-$mid:#64748B;
-$light: #CBD5E1;
-$white: #ffffff;
-$black: #000000;
+// most variables are from the design in figma
+// default colors
+$color-brand: #6D28D9;
+$color-brand-dark: #521EA6;
+$color-brand-light: #E4D8F8;
+$color-dark:#0F172A;
+$color-mid:#64748B;
+$color-light: #CBD5E1;
+$color-white: #ffffff;
+$color-black: #000000;
 
-:root {
-  --color-brand: $brand;
-  --color-dark: $dark;
-  --color-mid: $mid;
-  --color-light: $light;
-  --color-white: $white;
-  --color-black: $black;
-}
+$color-scrollbar-primary: rgba(0, 0, 0, 0.75);
+$color-scrollbar-secondary: rgba(0, 0, 0, 0.35);
+
+$color-text-input: rgba(0, 0, 0, 0.35);
+$color-text-input-placeholder: rgba(236, 240, 241, 0.65);
+
+//gradients
+$gradient-background: linear-gradient(327.1deg, $color-brand 65.62%, $color-brand-dark 100%);
+$gradient-background-light: linear-gradient(329.69deg, $color-white 57.61%, $color-brand 154.18%);
+$gradient-background-inverted: linear-gradient(327.1deg, $color-brand-dark 65.62%, $color-brand 100%);
+$gradient-mid-linear: linear-gradient(332.59deg, $color-mid 53.43%, #0F172A 204.37%);
+
+// shadows
+$shadow-low: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12);
+$shadow-medium: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+$shadow-high: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);

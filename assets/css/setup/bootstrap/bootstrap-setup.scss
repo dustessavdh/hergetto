@@ -3,13 +3,7 @@
 @import "bootstrap/scss/variables";
 
 // override default settings
-$theme-colors: (
-  primary: $brand,
-  secondary: $dark,
-  info: $mid,
-  light: $light,
-  dark: $dark
-);
+@import "./theme";
 
 @import "./button";
 
