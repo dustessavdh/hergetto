@@ -4,8 +4,8 @@ defmodule Hergetto.Helpers.ServiceStartHelper do
     case DynamicSupervisor.start_child(supervisor, {service, {id, room}}) do
       {:ok, _pid} ->
         {:ok, id}
-      d ->
-        IO.inspect(d)
+      _ ->
+        Logger.error("failed to start service: #{id}")
         {:error, :nostart}
     end
   end
