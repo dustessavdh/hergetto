@@ -1,5 +1,7 @@
 import Config
 
+# "none" | "errors-only" | "minimal" | "normal" | "detailed" | "verbose" | "errors-warnings"
+
 # Configure your database
 config :hergetto, Hergetto.Repo,
   username: "postgres",
@@ -22,10 +24,10 @@ config :hergetto, HergettoWeb.Endpoint,
   check_origin: false,
   watchers: [
     node: [
-      "node_modules/webpack/bin/webpack.js",
+      "node_modules/webpack-cli/bin/cli.js",
       "--mode",
       "development",
-      "--watch-stdin",
+      "--watch",
       cd: Path.expand("../assets", __DIR__)
     ]
   ]
@@ -65,7 +67,8 @@ config :hergetto, HergettoWeb.Endpoint,
       ~r"lib/hergetto_web/live/.*(sface)$",
       ~r"lib/hergetto_web/templates/.*(eex)$",
       ~r"priv/catalogue/.*(ex)$",
-      ~r"lib/my_app_web/(live|components)/.*(ex|js)$"
+      ~r"lib/my_app_web/(live|components)/.*(ex|js)$",
+      ~r"assets/css/.*(css|scss)"
     ]
   ]
 

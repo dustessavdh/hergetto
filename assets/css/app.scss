@@ -1,23 +1,10 @@
 @import "./variables";
 
-@import "../node_modules/nprogress/nprogress.css";
-@import "../node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
+@import "nprogress/nprogress";
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
 
 @import "./common";
 @import "./phoenix";
 
-// bootstrap setup
-@import "../node_modules/bootstrap/scss/functions";
-@import "../node_modules/bootstrap/scss/variables";
-
-$theme-colors: (
-  primary: $brand,
-  secondary: $dark,
-  info: $mid,
-  light: $light,
-  dark: $dark
-);
-
-@import "../node_modules/bootstrap/scss/bootstrap";
-
+@import "./bootstrap/bootstrap-setup"
 

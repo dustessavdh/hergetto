@@ -1,0 +1,17 @@
+// bootstrap setup
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+// override default settings
+$theme-colors: (
+  primary: $brand,
+  secondary: $dark,
+  info: $mid,
+  light: $light,
+  dark: $dark
+);
+
+@import "./button";
+
+// load bootstrap
+@import "bootstrap/scss/bootstrap";
