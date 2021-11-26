@@ -4,19 +4,19 @@ defmodule Hergetto.VideosTest do
   alias Hergetto.Structs.Video
 
   test "creates a video service" do
-    {:ok, video_service} = Videos.create()
+    {:ok, video_service} = Videos.create(nil)
     assert video_service != nil
   end
 
   test "add a video to the playlist" do
-    {:ok, video_service} = Videos.create()
+    {:ok, video_service} = Videos.create(nil)
     video_service |> Videos.add(%Video{})
     playlist = video_service |> Videos.get_playlist()
     assert length(playlist) == 1
   end
 
   test "add two videos to the playlist" do
-    {:ok, video_service} = Videos.create()
+    {:ok, video_service} = Videos.create(nil)
     video_service |> Videos.add(%Video{})
     video_service |> Videos.add(%Video{})
     playlist = video_service |> Videos.get_playlist()
@@ -24,7 +24,7 @@ defmodule Hergetto.VideosTest do
   end
 
   test "delete a video from the playlist" do
-    {:ok, video_service} = Videos.create()
+    {:ok, video_service} = Videos.create(nil)
     video_service |> Videos.add(%Video{})
     video_service |> Videos.add(%Video{})
     video_service |> Videos.delete(0)
@@ -33,7 +33,7 @@ defmodule Hergetto.VideosTest do
   end
 
   test "next video" do
-    {:ok, video_service} = Videos.create()
+    {:ok, video_service} = Videos.create(nil)
     video_service |> Videos.add(%Video{name: "1"})
     video_service |> Videos.add(%Video{name: "2"})
     video_service |> Videos.next()
@@ -42,13 +42,13 @@ defmodule Hergetto.VideosTest do
   end
 
   test "current video is nil" do
-    {:ok, video_service} = Videos.create()
+    {:ok, video_service} = Videos.create(nil)
     current_video = video_service |> Videos.get_current()
     assert current_video == nil
   end
 
   test "set current video" do
-    {:ok, video_service} = Videos.create()
+    {:ok, video_service} = Videos.create(nil)
     expected = %Video{}
     video_service |> Videos.set_current(expected)
     current = video_service |> Videos.get_current()

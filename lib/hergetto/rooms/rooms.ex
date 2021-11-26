@@ -4,6 +4,7 @@ defmodule Hergetto.Rooms do
   alias Hergetto.Structs.RoomEvent
   alias Hergetto.Helpers.ServiceStartHelper
   alias Hergetto.Videos
+  alias Hergetto.Chats
   alias Phoenix.PubSub
 
   @doc """
@@ -18,8 +19,9 @@ defmodule Hergetto.Rooms do
 
   """
   def create() do
-    {:ok, room} = return = ServiceStartHelper.start(RoomSupervisor, RoomService)
+    {:ok, room} = return = ServiceStartHelper.start(RoomSupervisor, RoomService, nil)
     add_video_service(room)
+    add_chat_service(room)
     return
   end
 
@@ -119,6 +121,11 @@ defmodule Hergetto.Rooms do
     room |> get(:video_service)
   end
 
+  @doc false
+  def get_chat_service(room) do
+    room |> get(:chat_service)
+  end
+
   @doc """
   Check if the specified `room` exists.
 
@@ -165,9 +172,22 @@ defmodule Hergetto.Rooms do
   defp add_video_service(room) do
     case room |> exists() do
       true ->
-        {:ok, video_service} = Videos.create()
+        {:ok, video_service} = Videos.create(room)
         pid = Process.whereis(room |> generate_room_id())
         GenServer.cast(pid, {:video_service, video_service})
+        :ok
+      false ->
+        :noroom
+    end
+  end
+
+  @doc false
+  defp add_chat_service(room) do
+    case room |> exists() do
+      true ->
+        {:ok, chat_service} = Chats.create(room)
+        pid = Process.whereis(room |> generate_room_id())
+        GenServer.cast(pid, {:chat_service, chat_service})
         :ok
       false ->
         :noroom
