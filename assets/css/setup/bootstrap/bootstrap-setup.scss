@@ -1,0 +1,11 @@
+// bootstrap setup
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+// override default settings
+@import "./theme";
+
+@import "./button";
+
+// load bootstrap
+@import "bootstrap/scss/bootstrap";

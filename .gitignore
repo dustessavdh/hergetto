@@ -42,3 +42,6 @@ erl_crash.dump
 
 # End of https://www.toptal.com/developers/gitignore/api/phoenix,elixir
 .DS_Store
+
+# Ignore generated js hook files for components
+assets/js/_hooks/

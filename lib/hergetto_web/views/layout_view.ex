@@ -1,6 +1,10 @@
 defmodule HergettoWeb.LayoutView do
   use HergettoWeb, :view
 
+  # Phoenix LiveDashboard is available only in development by default,
+  # so we instruct Elixir to not warn if the dashboard route is missing.
+  @compile {:no_warn_undefined, {Routes, :live_dashboard_path, 2}}
+
   @doc """
   Generates meta tags for the provided attributes.
   If none are provided it will use the default attributes specified in `config.exs`

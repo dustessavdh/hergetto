@@ -1,4 +1,6 @@
-use Mix.Config
+import Config
+
+# "none" | "errors-only" | "minimal" | "normal" | "detailed" | "verbose" | "errors-warnings"
 
 # Configure your database
 config :hergetto, Hergetto.Repo,
@@ -17,15 +19,15 @@ config :hergetto, Hergetto.Repo,
 # with webpack to recompile .js and .css sources.
 config :hergetto, HergettoWeb.Endpoint,
   http: [port: 4000],
-  debug_errors: true,
+  debug_errors: false,
   code_reloader: true,
   check_origin: false,
   watchers: [
     node: [
-      "node_modules/webpack/bin/webpack.js",
+      "node_modules/webpack-cli/bin/cli.js",
       "--mode",
       "development",
-      "--watch-stdin",
+      "--watch",
       cd: Path.expand("../assets", __DIR__)
     ]
   ]
@@ -56,13 +58,17 @@ config :hergetto, HergettoWeb.Endpoint,
 
 # Watch static and templates for browser reloading.
 config :hergetto, HergettoWeb.Endpoint,
+  reloadable_compilers: [:gettext, :elixir, :surface],
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/hergetto_web/(live|views)/.*(ex)$",
-      ~r"lib/my_app_web/live/.*(sface)$",
-      ~r"lib/hergetto_web/templates/.*(eex)$"
+      ~r"lib/hergetto_web/live/.*(sface)$",
+      ~r"lib/hergetto_web/templates/.*(eex)$",
+      ~r"priv/catalogue/.*(ex)$",
+      ~r"lib/my_app_web/(live|components)/.*(ex|js)$",
+      ~r"assets/css/.*(css|scss)"
     ]
   ]
 

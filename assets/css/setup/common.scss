@@ -1,0 +1,13 @@
+@import "../variables";
+
+.low-shadow {
+  box-shadow: $shadow-low;
+}
+
+.medium-shadow {
+  box-shadow: $shadow-medium;
+}
+
+.high-shadow {
+  box-shadow: $shadow-high;
+}
