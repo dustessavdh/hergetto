@@ -20,6 +20,14 @@ defmodule HergettoWeb.Router do
     pipe_through :browser
 
     live "/", PageLive
+    live "/login", LoginLive
+  end
+
+  scope "/auth", HergettoWeb do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
   end
 
   # Other scopes may use custom stacks.
