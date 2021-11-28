@@ -1,6 +1,7 @@
 defmodule HergettoWeb.Router do
   use HergettoWeb, :router
 
+  alias HergettoWeb.Plugs.Authentication
   import Surface.Catalogue.Router
 
   pipeline :browser do
@@ -16,11 +17,20 @@ defmodule HergettoWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :protected do
+    plug Authentication, nil
+  end
+
   scope "/", HergettoWeb do
     pipe_through :browser
 
     live "/", PageLive
     live "/login", LoginLive
+  end
+
+  # Routes where the user needs to be authenticated. E.G. /profile
+  scope "/", HergettoWeb do
+    pipe_through [:browser, :protected]
   end
 
   scope "/auth", HergettoWeb do
