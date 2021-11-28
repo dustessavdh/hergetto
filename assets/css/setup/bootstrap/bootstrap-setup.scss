@@ -4,8 +4,13 @@
 
 // override default settings
 @import "./theme";
+@import "./text";
 
+@import "./borders";
 @import "./button";
 
 // load bootstrap
 @import "bootstrap/scss/bootstrap";
+
+//override classes after setup
+@import "./after-setup.scss"
