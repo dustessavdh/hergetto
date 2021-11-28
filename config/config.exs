@@ -6,6 +6,7 @@
 
 # General application configuration
 import Config
+require Logger
 
 config :hergetto,
   ecto_repos: [Hergetto.Repo]
@@ -54,6 +55,17 @@ config :hergetto, HergettoWeb.Meta, [
   %{name: "twitter:title", content: "Hergetto · Together in a safe way!"},
   %{name: "twitter:image", content: "/images/oembed_logo.png"}
 ]
+
+config :ueberauth, Ueberauth,
+  providers: [google: {Ueberauth.Strategy.Google, []}
+]
+
+try do
+  import_config "ueberauth.secret.exs"
+rescue
+  _ ->
+    Logger.error("Please create a ueberauth.secret.exs")
+end
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

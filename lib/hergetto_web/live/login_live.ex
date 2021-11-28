@@ -1,7 +1,6 @@
-defmodule HergettoWeb.PageLive do
+defmodule HergettoWeb.LoginLive do
   use Surface.LiveView
-
-  alias HergettoWeb.Components.Hero
+  alias Surface.Components.Link
   alias Hergetto.Helpers.AuthHelper
 
   @impl true
