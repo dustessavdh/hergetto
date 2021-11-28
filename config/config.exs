@@ -6,6 +6,7 @@
 
 # General application configuration
 import Config
+require Logger
 
 config :hergetto,
   ecto_repos: [Hergetto.Repo]
@@ -63,7 +64,7 @@ try do
   import_config "ueberauth.secret.exs"
 rescue
   _ ->
-    IO.puts("Please create a ueberauth.secret.exs")
+    Logger.error("Please create a ueberauth.secret.exs")
 end
 
 # Import environment specific config. This must remain at the bottom
