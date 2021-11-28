@@ -30,6 +30,11 @@
             <%= if function_exported?(Routes, :live_path, 3) && Mix.env() == :dev do %>
               <li><%= link "catalogue", to: Routes.live_path(@conn, Surface.Catalogue.PageLive, []) %></li>
             <% end  %>
+            <%= if @user do %>
+              <li><%= link "Signout", to: "/auth/signout" %></li>
+            <% else %>
+              <li><%= link "Sign in", to: "/login" %></li>
+            <% end %>
           </ul>
         </nav>
         <a href="https://phoenixframework.org/" class="phx-logo">

@@ -1,13 +1,15 @@
 defmodule HergettoWeb.LoginLive do
   use Surface.LiveView
   alias Surface.Components.Link
+  alias Hergetto.Helpers.AuthHelper
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, fetch(socket)}
+  def mount(_params, session, socket) do
+    {:ok, fetch(socket, session)}
   end
 
-  def fetch(socket) do
+  def fetch(socket, session) do
     socket
+    |> AuthHelper.assign_user(session)
   end
 end

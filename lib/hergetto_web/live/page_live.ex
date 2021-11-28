@@ -2,6 +2,7 @@ defmodule HergettoWeb.PageLive do
   use Surface.LiveView
 
   alias HergettoWeb.Components.Hero
+  alias Hergetto.Helpers.AuthHelper
 
   @impl true
   def mount(_params, session, socket) do
@@ -9,13 +10,7 @@ defmodule HergettoWeb.PageLive do
   end
 
   def fetch(socket, session) do
-    case Map.has_key?(session, "user") do
-      true ->
-        socket
-        |> assign(user: Map.get(session, "user"))
-      false ->
-        socket
-        |> assign(user: nil)
-    end
+    socket
+    |> AuthHelper.assign_user(session)
   end
 end
