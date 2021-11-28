@@ -60,6 +60,7 @@ config :hergetto, HergettoWeb.Meta, [
 import_config "#{Mix.env()}.exs"
 
 try do
+  import_config "ueberauth.secret.exs"
 rescue
   _ ->
     IO.puts("Please create a ueberauth.secret.exs")
