@@ -59,13 +59,13 @@ config :ueberauth, Ueberauth,
   providers: [google: {Ueberauth.Strategy.Google, []}
 ]
 
-# Import environment specific config. This must remain at the bottom
-# of this file so it overrides the configuration defined above.
-import_config "#{Mix.env()}.exs"
-
 try do
   import_config "ueberauth.secret.exs"
 rescue
   _ ->
     IO.puts("Please create a ueberauth.secret.exs")
 end
+
+# Import environment specific config. This must remain at the bottom
+# of this file so it overrides the configuration defined above.
+import_config "#{Mix.env()}.exs"
