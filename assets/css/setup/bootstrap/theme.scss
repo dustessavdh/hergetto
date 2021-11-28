@@ -5,6 +5,19 @@ $theme-colors: (
   primary: $color-brand,
   secondary: $color-dark,
   info: $color-mid,
-  light: $color-light,
+  light: $color-white,
   dark: $color-dark
 );
+
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+
+$primary: $color-brand;
+$secondary: $color-dark;
+$info: $color-mid;
+$light: $color-light;
+$dark: $color-dark;
+$white:  $color-white;
+$black: $color-dark;
+
+$body-color: $color-dark;
+$body-bg: $color-brand;

@@ -1,0 +1,20 @@
+@import "../../variables";
+$input-focus-box-shadow: $box-shadow-lg;
+$input-border-width: 0px;
+
+$input-bg: $color-text-input;
+$input-focus-bg: $color-text-input;
+
+$input-placeholder-color: $color-text-input-placeholder;
+
+$input-color: $color-white;
+$input-focus-color: $color-white;
+
+$input-padding-y: 10px;
+$input-padding-x: 10px;
+$input-padding-y-sm: 10px;
+$input-padding-x-sm: 10px;
+$input-padding-y-lg: 10px;
+$input-padding-x-lg: 10px;
+
+$input-disabled-bg: lighten(rgba($color-text-input, .5), 20%);

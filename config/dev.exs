@@ -67,7 +67,7 @@ config :hergetto, HergettoWeb.Endpoint,
       ~r"lib/hergetto_web/live/.*(sface)$",
       ~r"lib/hergetto_web/templates/.*(eex)$",
       ~r"priv/catalogue/.*(ex)$",
-      ~r"lib/my_app_web/(live|components)/.*(ex|js)$",
+      ~r"lib/hergetto_web/(live|components)/.*(ex|js)$",
       ~r"assets/css/.*(css|scss)"
     ]
   ]

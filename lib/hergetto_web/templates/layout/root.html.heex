@@ -9,8 +9,9 @@
 
     <%= live_title_tag assigns[:page_title] || "Hergetto", suffix: " · Together in a safe way!" %>
 
-    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <link phx-track-static rel="stylesheet" title="Hergetto standard" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+    <link rel="stylesheet" href="https://use.typekit.net/vvn3ldi.css">
 
     <link phx-track-static rel="icon" type="image/x-icon" href="favicon.ico">
     <link phx-track-static rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
