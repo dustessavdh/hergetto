@@ -1,0 +1,27 @@
+.navbar-brand {
+  span {
+    margin-left: -5px;
+  }
+}
+
+.offcanvas {
+  background-color: var(--color-brand)
+}
+
+.offcanvas-body {
+  ul {
+    li:not(:last-child) {
+      padding-right: 25px;
+    }
+  }
+}
+
+.show {
+  .offcanvas-body {
+    ul {
+      li {
+        padding-bottom: 10px;
+      }
+    }
+  }
+}

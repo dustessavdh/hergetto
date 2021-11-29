@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -20,11 +20,18 @@
     <link phx-track-static rel="manifest" href="/site.webmanifest">
   </head>
   <body>
-    <header class="pb-3">
-      <HergettoWeb.Components.Navbar.render name="reeee" />
-    </header>
-    <main role="main" class="container-fluid px-">
-      <%= @inner_content %>
-    </main>
+  <div class="bg-gradient-brand min-vh-100 d-flex flex-column justify-content-between">
+    <div>
+      <header class="pb-5 px-5">
+        <HergettoWeb.Components.Navbar.render name="reeee" />
+      </header>
+      <main role="main" class="container-fluid px-5">
+        <%= @inner_content %>
+      </main>
+    </div>
+    <footer class="">
+    <h2>footer</h2>
+    </footer>
+  </div>
   </body>
 </html>
