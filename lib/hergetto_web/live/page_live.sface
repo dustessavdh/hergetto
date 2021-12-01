@@ -1,4 +1,4 @@
-<Hero name={@name} subtitle="How are you?"/>
+<!-- <Hero name={@room_name} subtitle="How are you?"/> -->
 
 <section class="row">
   <article class="column">

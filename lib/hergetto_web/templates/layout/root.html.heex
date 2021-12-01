@@ -7,7 +7,7 @@
     <%= meta_tags(assigns[:meta_attrs] || %{}) %>
     <%= csrf_meta_tag() %>
 
-    <%= live_title_tag assigns[:page_title] || "Hergetto", suffix: " · Together in a safe way!" %>
+    <%= live_title_tag assigns[:page_title] || "Hergetto", suffix: " ⋅ Together in a safe way!" %>
 
     <link phx-track-static rel="stylesheet" title="Hergetto standard" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
@@ -22,8 +22,8 @@
   <body>
   <div class="bg-gradient-brand min-vh-100 d-flex flex-column justify-content-between">
     <div>
-      <header class="pb-5 px-5">
-        <HergettoWeb.Components.Navbar.render name="reeee" />
+      <header class="pb-3 px-5">
+        <HergettoWeb.Components.Navbar.render show_dev_routes? ={function_exported?(Routes, :live_path, 3) && Mix.env() == :dev} room_name={assigns[:room_name]} private? ={assigns[:room_private?]} user={assigns[:user]} />
       </header>
       <main role="main" class="container-fluid px-5">
         <%= @inner_content %>
