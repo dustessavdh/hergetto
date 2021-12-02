@@ -1,6 +1,6 @@
 defmodule HergettoWeb.Components.Navbar.Example01 do
   @moduledoc """
-  Example using the `room_name` and `private?` properties.
+  Example using the `room` property.
   """
 
   use Surface.Catalogue.Example,
@@ -12,10 +12,11 @@ defmodule HergettoWeb.Components.Navbar.Example01 do
 
   def render(assigns) do
     ~F"""
-    <Navbar room_name="The Cool Public Room" />
     <Navbar
-      room_name="The Cool Privatge Room"
-      private? ={true}
+      room={%{
+        name: "The Cool Kid Room",
+        private?: true,
+      }}
     />
     """
   end

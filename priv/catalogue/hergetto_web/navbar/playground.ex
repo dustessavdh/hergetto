@@ -5,8 +5,10 @@ defmodule HergettoWeb.Components.Navbar.Playground do
     body: [style: "padding: 1.5rem;"]
 
   data props, :map, default: %{
-    room_name: "The Cool Kid Room!",
-    private?: true
+    room: %{
+      name: "The Cool Kid Room",
+      private?: true
+    },
   }
 
   def render(assigns) do
