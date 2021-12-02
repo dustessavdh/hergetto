@@ -12,11 +12,17 @@ frontend:
   - lib/hergetto_web/templates/**/*
   - assets/*
   - assets/**/*
-  
+  - lib/**/*.sface
+  - lib/**/*.heex
+
 styling:
   - assets/css/*
   - assets/static/*.ico
   - assets/static/images/*
+  - lib/hergetto_web/components/**/*.scss
+
+components:
+  - lib/hergetto_web/components/*
 
 workflow:
   - .github/workflows/*

@@ -1,6 +1,7 @@
+<!-- <Hero name={@room_name} subtitle="How are you?"/> -->
 {#if @user}
   <Hero name={@user.email} subtitle={@user.external_id}/>
-  <img src={@user.profile_picture}/>
+  <img referrerpolicy="no-referrer" src={@user.profile_picture}/>
 {/if}
 
 <section class="row">

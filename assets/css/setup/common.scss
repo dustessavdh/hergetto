@@ -1,1 +1,8 @@
-@import "../variables";
+.relative {
+  position: relative;
+  min-height: 100vh;
+}
+
+.bg-gradient-brand {
+  background-image: $gradient-background !important;
+}

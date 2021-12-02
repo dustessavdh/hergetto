@@ -60,11 +60,13 @@ config :ueberauth, Ueberauth,
   providers: [google: {Ueberauth.Strategy.Google, []}
 ]
 
-try do
-  import_config "ueberauth.secret.exs"
-rescue
-  _ ->
-    Logger.error("Please create a ueberauth.secret.exs")
+if config_env() == :prod || config_env() == :dev do
+  try do
+    import_config "ueberauth.secret.exs"
+  rescue
+    _ ->
+      Logger.error("Please create a ueberauth.secret.exs")
+  end
 end
 
 # Import environment specific config. This must remain at the bottom

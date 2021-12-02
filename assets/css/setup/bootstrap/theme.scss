@@ -4,7 +4,10 @@
 $theme-colors: (
   primary: $color-brand,
   secondary: $color-dark,
+  success: $success,
   info: $color-mid,
+  warning: $warning,
+  danger: $danger,
   light: $color-white,
   dark: $color-dark
 );

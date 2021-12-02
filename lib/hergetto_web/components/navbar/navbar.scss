@@ -1,0 +1,71 @@
+.navbar-brand {
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 28px;
+
+  span {
+    margin-left: -5px;
+  }
+}
+
+.offcanvas {
+  background-color: var(--color-brand);
+}
+
+.offcanvas-end {
+  width: fit-content;
+}
+
+.offcanvas-body {
+  ul {
+    li:not(:last-child) {
+      padding-right: 25px;
+    }
+  }
+}
+
+.show {
+  .offcanvas-body {
+    ul {
+      li {
+        padding-right: 0;
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
+
+.nav-room-info {
+  width: clamp(50px, 30%, 100%);
+  text-align: center;
+
+  .nav-room-name {
+    margin-bottom: 0;
+  }
+}
+
+.nav-item {
+  .nav-btn {
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 28px;
+    text-align: center;
+    width: 150px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+}
+
+.nav-link:not(.nav-btn) {
+  line-height: 28px;
+  text-align: center;
+}
+
+.nav-link:not(.nav-btn):not(.dev-link) {
+  font-weight: 800;
+  font-size: 30px;
+}
+
+.dev-link {
+  font-size: 15px;
+}
