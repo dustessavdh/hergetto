@@ -12,7 +12,7 @@ frontend:
   - lib/hergetto_web/templates/**/*
   - assets/*
   - assets/**/*
-  - lib/**/*.sfaceks
+  - lib/**/*.sface
   - lib/**/*.heex
 
 styling:
