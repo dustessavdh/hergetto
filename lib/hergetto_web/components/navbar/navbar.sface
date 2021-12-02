@@ -1,14 +1,14 @@
 <nav class="navbar navbar-dark navbar-expand-lg justify-content-between">
   <div class="container-flex">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="">
       <img src="/logo/logo.svg" alt="Hergetto logo" height="38" class="d-inline-block align-text-top">
       <span class="navbar-brand mb-0 h1">Hergetto</span>
     </a>
   </div>
 
-  {#if @room_name}
+  {#if @room}
     <div class="nav-room-info">
-      <h4 class="nav-room-name text-truncate"><i class="fas fa-eye-slash" :if={@private?}></i><span :if={@private?}> ⋅ </span>{@room_name}</h4>
+      <h4 class="nav-room-name text-truncate"><i class="fas fa-eye-slash" :if={@room.private?}></i><span :if={@room.private?}> ⋅ </span>{@room.name}</h4>
     </div>
   {/if}
 
@@ -40,10 +40,7 @@
           {/if}
           {#if !@user}
             <li class="nav-item">
-              <a class="nav-link nav-btn btn btn-light text-dark" href="#">Sign up</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-btn btn btn-dark text-white" href="#">Sign in</a>
+              <a class="nav-link nav-btn btn btn-light text-dark" href="/login">Sign in</a>
             </li>
           {#else}
             <li class="nav-item">
@@ -52,6 +49,7 @@
               </button>
               <div class="dropdown-menu dropdown-menu-end">
                 <h2 class="text-dark">test</h2>
+                <a class="nav-link nav-btn btn btn-danger text-white"  href="/auth/signout">Signout</a>
               </div>
             </li>
           {/if}

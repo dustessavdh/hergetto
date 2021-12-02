@@ -6,7 +6,16 @@ defmodule HergettoWeb.PageLive do
 
   @impl true
   def mount(_params, session, socket) do
-    {:ok, fetch(socket, session)}
+
+    {
+      :ok,
+      socket
+      |> fetch(session)
+      |> assign(room: %{
+        :name => "The Cool Kid Room",
+        :private? => true,
+      })
+    }
   end
 
   def fetch(socket, session) do
