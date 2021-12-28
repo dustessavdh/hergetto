@@ -11,10 +11,6 @@ defmodule HergettoWeb.PageLive do
       :ok,
       socket
       |> fetch(session)
-      |> assign(room: %{
-        :name => "The Cool Kid Room",
-        :private? => true,
-      })
     }
   end
 
