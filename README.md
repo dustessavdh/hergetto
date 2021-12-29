@@ -1,6 +1,9 @@
 # Hergetto
 
-[![Hergetto](assets/static/images/hergetto_color.png)](#hergetto)
+<!-- [![Hergetto](assets/static/assets/logo/logo.svg)](#hergetto) -->
+<p align="center">
+  <img src="/assets/static/assets/logo/logo.svg" height="250" width="250" >
+</p>
 
 ## Hergetto stands for Together
 
