@@ -1,0 +1,40 @@
+version: 2
+updates:
+  - package-ecosystem: "mix"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "dependabot hex"
+    labels:
+      - "dependencies"
+    reviewers:
+      - "dusthijsvdh"
+    assignees:
+      - "dusthijsvdh"
+
+  - package-ecosystem: "npm"
+    directory: "/assets"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "dependabot npm"
+    labels:
+      - "dependencies"
+    reviewers:
+      - "dusthijsvdh"
+    assignees:
+      - "dusthijsvdh"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "dependabot actions"
+    labels:
+      - "dependencies"
+    reviewers:
+      - "dusthijsvdh"
+    assignees:
+      - "dusthijsvdh"
