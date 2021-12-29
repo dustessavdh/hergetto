@@ -8,6 +8,7 @@
     top: 50%;
     left: 50%;
     position: absolute;
+    transform: translate(-50%, -50%) skew(0, 30deg);
 
     .customIcon-link {
       display: block;
@@ -16,21 +17,20 @@
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      transform: translate(-50%, -50%) skew(0, 30deg);
     }
 
     .customIcon-fontawesome {
       color: #ffffff;
       font-size: clamp(1px, 25vw, 125px);
-      transform: translate(-66%, -61%) skew(0, 30deg);
+      transform: translate(-8%, -5%);
     }
 
     .customIcon-letter {
       display: block;
       color: #ffffff;
-      text-align: center;
+      text-align: start;
       font-size: clamp(1px, 25vw, 190px);
-      transform: translate(-65%, -55%) skew(0, 30deg);
+      transform: translate(-8%, -5%);
 
       span {
         display: block;
