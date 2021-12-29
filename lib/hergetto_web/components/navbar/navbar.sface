@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark navbar-expand-lg justify-content-between">
   <div class="container-flex">
-    <a class="navbar-brand" href="">
-      <img src="/logo/logo.svg" alt="Hergetto logo" height="38" class="d-inline-block align-text-top">
+    <a class="navbar-brand" href="/">
+      <img src="/assets/logo/logo.svg" alt="Hergetto logo" height="38" class="d-inline-block align-text-top">
       <span class="navbar-brand mb-0 h1">Hergetto</span>
     </a>
   </div>

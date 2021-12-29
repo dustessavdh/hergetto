@@ -1,7 +1,7 @@
 defmodule HergettoWeb.Components.Navbar.Playground do
   use Surface.Catalogue.Playground,
     subject: HergettoWeb.Components.Navbar,
-    height: "250px",
+    height: "300px",
     body: [style: "padding: 1.5rem;"]
 
   data props, :map, default: %{
