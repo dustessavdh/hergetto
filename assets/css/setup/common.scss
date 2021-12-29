@@ -10,5 +10,5 @@
 }
 
 .full-height {
-  height: clamp(0px, calc(100vh - 8px - 72px - 38px), 100vh);
+  height: clamp(1px, calc(100vh - 8px - 72px - 38px), 100vh);
 }

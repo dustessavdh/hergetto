@@ -9,8 +9,6 @@
     </div>
     </div>
     <div class="col-md-6 d-flex align-items-center justify-content-center">
-      <LogoIcon icon={%{type: "letter", value: "H"}} />
-      <!-- <LogoIcon icon={%{type: "link", value: "https://file.coffee/u/mVuzcYQdTtM4Op.png"}} /> -->
-      <!-- <LogoIcon icon={%{type: "fontawesome", value: "fas fa-user"}} /> -->
+      <LogoIcon icon={%{type: "fontawesome", value: "fas fa-user"}} />
     </div>
   </div>

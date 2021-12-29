@@ -1,8 +1,8 @@
 .logoIcon {
   position: relative;
   display: block;
-  height: clamp(0px, 100%, 500px);
-  width: clamp(0px, 100%, 500px);
+  height: clamp(1px, 100%, 500px);
+  width: clamp(1px, 100%, 500px);
 
   .customIcon {
     top: 50%;
@@ -21,7 +21,7 @@
 
     .customIcon-fontawesome {
       color: #ffffff;
-      font-size: clamp(0px, 25vw, 125px);
+      font-size: clamp(1px, 25vw, 125px);
       transform: translate(-66%, -61%) skew(0, 30deg);
     }
 
@@ -29,7 +29,7 @@
       display: block;
       color: #ffffff;
       text-align: center;
-      font-size: clamp(0px, 25vw, 190px);
+      font-size: clamp(1px, 25vw, 190px);
       transform: translate(-65%, -55%) skew(0, 30deg);
 
       span {
