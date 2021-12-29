@@ -2,6 +2,7 @@ defmodule HergettoWeb.PageLive do
   use Surface.LiveView
 
   alias HergettoWeb.Components.Hero
+  alias HergettoWeb.Components.LogoIcon
   alias Hergetto.Helpers.AuthHelper
 
   @impl true

@@ -1,3 +1,16 @@
-<div class="container">
-  <Link label="Login with google" to="/auth/google" class="btn btn-primary" />
-</div>
+<div class="row full-height d-flex align-items-center">
+    <div class="col-md-6">
+    <div class="vstack gap-3 col-sm-8 mx-auto">
+      <h1>Sign in/up:</h1>
+      <Link to="/auth/google" class="btn btn-light">
+        <i><img src="assets/icons/google_g_logo.svg" alt="Google Logo" class="pe-2"></i>
+        Login with google
+      </Link>
+    </div>
+    </div>
+    <div class="col-md-6 d-flex align-items-center justify-content-center">
+      <LogoIcon icon={%{type: "letter", value: "H"}} />
+      <!-- <LogoIcon icon={%{type: "link", value: "https://file.coffee/u/mVuzcYQdTtM4Op.png"}} /> -->
+      <!-- <LogoIcon icon={%{type: "fontawesome", value: "fas fa-user"}} /> -->
+    </div>
+  </div>
