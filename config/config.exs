@@ -58,11 +58,11 @@ config :hergetto, HergettoWeb.Meta, [
     content:
       "Wanna watch videos together on a couch, but online? You can do that here! Find or create a room, send the link to your friends and start watching together. Hergetto stands for Together."
   },
-  %{property: "og:image", content: "/images/oembed_logo.png"},
+  %{property: "og:image", content: "assets/images/oembed_logo.png"},
   %{name: "twitter:card", content: "summary"},
   %{name: "twitter:url", content: "https://hergetto.live"},
   %{name: "twitter:title", content: "Hergetto · Together in a safe way!"},
-  %{name: "twitter:image", content: "/images/oembed_logo.png"}
+  %{name: "twitter:image", content: "assets//images/oembed_logo.png"}
 ]
 
 config :ueberauth, Ueberauth,

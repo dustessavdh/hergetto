@@ -1,0 +1,55 @@
+.logoIcon {
+  position: relative;
+  display: block;
+  height: clamp(1px, 100%, 500px);
+  width: clamp(1px, 100%, 500px);
+
+  .customIcon {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%) skew(0, 30deg);
+
+    .customIcon-link {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .customIcon-fontawesome {
+      color: #ffffff;
+      font-size: clamp(1px, 25vw, 125px);
+      transform: translate(-8%, -5%);
+    }
+
+    .customIcon-letter {
+      display: block;
+      color: #ffffff;
+      text-align: start;
+      font-size: clamp(1px, 25vw, 190px);
+      transform: translate(-8%, -5%);
+
+      span {
+        display: block;
+        visibility: hidden;
+        font-family: raleway, sans-serif;
+        font-weight: 800;
+        font-style: normal;
+      }
+
+      span:first-letter {
+        visibility: visible;
+      }
+    }
+  }
+
+  .baseLogo {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: bottom;
+  }
+}

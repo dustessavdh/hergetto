@@ -1,3 +1,5 @@
+@use "../variables";
+
 .relative {
   position: relative;
   min-height: 100vh;
@@ -5,4 +7,8 @@
 
 .bg-gradient-brand {
   background-image: $gradient-background !important;
+}
+
+.full-height {
+  height: clamp(1px, calc(100vh - 8px - 72px - 38px), 100vh);
 }
