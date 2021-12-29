@@ -1,0 +1,25 @@
+@use "../variables";
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: $color-scrollbar-secondary;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-scrollbar-primary;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba($color-scrollbar-primary, 0.5);
+}
+
+* {
+  scrollbar-color: $color-scrollbar-primary $color-scrollbar-secondary;
+  scrollbar-width: thin;
+}

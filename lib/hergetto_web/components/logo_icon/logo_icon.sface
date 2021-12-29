@@ -1,0 +1,14 @@
+<div class="logoIcon">
+  <div class="customIcon">
+    {#if @icon[:type] === "link"}
+      <img referrerpolicy="no-referrer" src={@icon[:value]} alt="customIcon" class="customIcon-link">
+    {#elseif @icon[:type] === "fontawesome"}
+      <i class={@icon[:value], "fa-fw", "customIcon-fontawesome"}></i>
+    {#elseif @icon[:type] === "letter"}
+      <div class="customIcon-letter">
+        <span class="">{@icon[:value]}</span>
+      </div>
+    {/if}
+  </div>
+  <img src="/assets/logo/logo-empty.svg" alt="hergetto logo" class="baseLogo">
+</div>

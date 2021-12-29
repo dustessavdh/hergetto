@@ -2,6 +2,7 @@ defmodule HergettoWeb.PageLive do
   use Surface.LiveView
 
   alias HergettoWeb.Components.Hero
+  alias HergettoWeb.Components.LogoIcon
   alias Hergetto.Helpers.AuthHelper
 
   @impl true
@@ -11,10 +12,6 @@ defmodule HergettoWeb.PageLive do
       :ok,
       socket
       |> fetch(session)
-      |> assign(room: %{
-        :name => "The Cool Kid Room",
-        :private? => true,
-      })
     }
   end
 
