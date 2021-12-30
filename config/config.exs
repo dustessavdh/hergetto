@@ -31,6 +31,15 @@ config :surface, :components, [
   {Surface.Components.Form.ErrorTag, default_translator: {HergettoWeb.ErrorHelpers, :translate_error}}
 ]
 
+# default cronjobs to run
+config :hergetto, Hergetto.Scheduler,
+  jobs: [
+    greetings: [
+      schedule: "@reboot",
+      task: {Hergetto.Scheduler.Greetings, :greetings, []}
+    ]
+  ]
+
 # Add default metadata for all the pages
 config :hergetto, HergettoWeb.Meta, [
   %{name: "title", content: "Hergetto · Together in a safe way!"},

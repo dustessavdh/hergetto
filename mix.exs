@@ -69,7 +69,8 @@ defmodule Hergetto.MixProject do
       {:surface_formatter, "~> 0.6.0"},
       {:surface_catalogue, "~> 0.2.0"},
       {:ueberauth, "~> 0.6"},
-      {:ueberauth_google, "~> 0.10"}
+      {:ueberauth_google, "~> 0.10"},
+      {:quantum, "~> 3.4"}
     ]
   end
 
