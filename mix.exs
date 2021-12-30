@@ -63,7 +63,7 @@ defmodule Hergetto.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:ecto_psql_extras, "~> 0.2"},
       {:elixir_uuid, "~> 1.2"},
-      {:excoveralls, "~> 0.14.0"},
+      {:excoveralls, "~> 0.14"},
       {:ex_doc, "~> 0.26", only: :dev, runtime: false},
       {:surface, "~> 0.6.0"},
       {:surface_formatter, "~> 0.6.0"},
