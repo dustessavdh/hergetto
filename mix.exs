@@ -19,7 +19,7 @@ defmodule Hergetto.MixProject do
       homepage_url: "https://hergetto.live",
       docs: [
         main: "readme",
-        logo: "./assets/static/images/Logo.png",
+        logo: "./assets/static/assets/images/Logo.png",
         source_ref: "main",
         extras: ["README.md"]
       ]
@@ -64,7 +64,7 @@ defmodule Hergetto.MixProject do
       {:ecto_psql_extras, "~> 0.2"},
       {:elixir_uuid, "~> 1.2"},
       {:excoveralls, "~> 0.14.0"},
-      {:ex_doc, "~> 0.24", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.26", only: :dev, runtime: false},
       {:surface, "~> 0.6.0"},
       {:surface_formatter, "~> 0.6.0"},
       {:surface_catalogue, "~> 0.2.0"},
