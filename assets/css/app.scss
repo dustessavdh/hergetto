@@ -1,7 +1,7 @@
 @use "setup/setup.scss";
 @use "../../lib/hergetto_web/components";
 
-$fa-font-path: "/assets/fonts";
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts/";
 
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/brands";

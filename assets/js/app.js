@@ -1,6 +1,5 @@
 import "../css/app.scss"
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import "@fortawesome/fontawesome-free/js/all.min";
 
 import "phoenix_html"
 import { Socket } from "phoenix"
