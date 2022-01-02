@@ -43,7 +43,7 @@ module.exports = (env, options) => {
           ],
         },
         {
-          test:  /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
           use: [
             {
               loader: 'file-loader',
@@ -61,10 +61,13 @@ module.exports = (env, options) => {
       new MiniCssExtractPlugin({ filename: '../assets/app.css' }),
       new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
     ]
-    .concat(devMode ? [new HardSourceWebpackPlugin({
-      configHash: function(webpackConfig) {
-        return require('node-object-hash')({sort: false}).hash(webpackConfig);
-      }
-    })] : [])
+    .concat(devMode ? [
+      new HardSourceWebpackPlugin({
+        configHash: (webpackConfig) => require('node-object-hash')({ sort: false }).hash(webpackConfig)
+      }),
+      new HardSourceWebpackPlugin.ExcludeModulePlugin([{
+        test: /mini-css-extract-plugin[\\/]dist[\\/]loader/
+      }])
+    ] : [])
   }
 };
