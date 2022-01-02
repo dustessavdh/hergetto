@@ -66,7 +66,7 @@ defmodule Hergetto.MixProject do
       {:excoveralls, "~> 0.14"},
       {:ex_doc, "~> 0.26", only: :dev, runtime: false},
       {:surface, "~> 0.6.0"},
-      {:surface_formatter, "~> 0.6.0"},
+      {:surface_formatter, "~> 0.7.4"},
       {:surface_catalogue, "~> 0.2.0"},
       {:ueberauth, "~> 0.6"},
       {:ueberauth_google, "~> 0.10"},
