@@ -10,7 +10,7 @@
     "scope": "/",
     "start_url": "/",
     "background_color": "#3d065f",
-    "theme_color": "#9f19ab",
+    "theme_color": "#6D28D9",
     "dir": "ltr",
     "display": "browser",
     "orientation": "any",
@@ -29,7 +29,7 @@
     "shortcuts": [
         {
             "name": "Create or Find a Room",
-            "url": " /watch",
+            "url": " /rooms",
             "description": "Page where you can either join a public room or create a room for yourself"
         }
     ],

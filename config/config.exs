@@ -28,7 +28,8 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :surface, :components, [
-  {Surface.Components.Form.ErrorTag, default_translator: {HergettoWeb.ErrorHelpers, :translate_error}}
+  {Surface.Components.Form.ErrorTag,
+   default_translator: {HergettoWeb.ErrorHelpers, :translate_error}}
 ]
 
 # default cronjobs to run
@@ -42,32 +43,37 @@ config :hergetto, Hergetto.Scheduler,
 
 # Add default metadata for all the pages
 config :hergetto, HergettoWeb.Meta, [
-  %{name: "title", content: "Hergetto · Together in a safe way!"},
-  %{name: "keywords", content: "phoenix watch youtube videos together hergetto"},
-  %{name: "tags", content: "phoenix,watch,youtube,videos,together,hergetto"},
+  %{name: "title", content: "Hergetto · Watch videos together!"},
+  %{name: "theme-color", content: "#6D28D9"},
+  %{
+    name: "keywords",
+    content: "synchronized, together, youtube, videos, watch, friends, social, hergetto, funny"
+  },
+  %{
+    name: "tags",
+    content: "synchronized,together,youtube,videos,watch,friends,social,hergetto,funny"
+  },
   %{
     name: "description",
     content:
-      "Wanna watch videos together on a couch, but online? You can do that here! Find or create a room, send the link to your friends and start watching together. Hergetto stands for Together."
+      "Hergetto allows you to watch videos together with your friends. It's a fun and easy way to share videos with your friends!"
   },
   %{property: "og:type", content: "website"},
   %{property: "og:url", content: "https://hergetto.live/"},
-  %{property: "og:title", content: "Hergetto · Together in a safe way!"},
+  %{property: "og:title", content: "Hergetto · Watch videos together!"},
   %{
     property: "og:description",
     content:
-      "Wanna watch videos together on a couch, but online? You can do that here! Find or create a room, send the link to your friends and start watching together. Hergetto stands for Together."
+      "Hergetto allows you to watch videos together with your friends. It's a fun and easy way to share videos with your friends!"
   },
   %{property: "og:image", content: "assets/images/oembed_logo.png"},
   %{name: "twitter:card", content: "summary"},
   %{name: "twitter:url", content: "https://hergetto.live"},
-  %{name: "twitter:title", content: "Hergetto · Together in a safe way!"},
+  %{name: "twitter:title", content: "Hergetto · Watch videos together!"},
   %{name: "twitter:image", content: "assets//images/oembed_logo.png"}
 ]
 
-config :ueberauth, Ueberauth,
-  providers: [google: {Ueberauth.Strategy.Google, []}
-]
+config :ueberauth, Ueberauth, providers: [google: {Ueberauth.Strategy.Google, []}]
 
 if config_env() == :prod || config_env() == :dev do
   try do

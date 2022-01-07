@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+<html lang="en">
   <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <%= meta_tags(assigns[:meta_attrs] || %{}) %>
     <%= csrf_meta_tag() %>
+    <%= meta_tags(assigns[:meta_attrs] || %{}) %>
 
-    <%= live_title_tag assigns[:page_title] || "Hergetto", suffix: " ⋅ Together in a safe way!" %>
+    <%= live_title_tag assigns[:page_title] || "Hergetto", suffix: " ⋅ Watch videos together!" %>
 
     <link phx-track-static rel="stylesheet" title="Hergetto standard" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
@@ -17,7 +17,7 @@
     <link phx-track-static rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
     <link phx-track-static rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
     <link phx-track-static rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-    <link phx-track-static rel="manifest" href="/site.webmanifest">
+    <link phx-track-static rel="manifest" href="/manifest.json">
   </head>
   <body>
   <div class="bg-gradient-brand min-vh-100 d-flex flex-column justify-content-between">
