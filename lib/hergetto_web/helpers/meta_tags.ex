@@ -43,4 +43,51 @@ defmodule HergettoWeb.Helpers.MetaTags do
     end)
   end
 
+  @doc """
+  Renders a meta title tag with automatic prefix/suffix on `@page_title` updates.
+  ## Examples
+      <%= live_meta_title_tag assigns[:page_title] || "Welcome", prefix: "MyApp – " %>
+      <%= live_meta_title_tag assigns[:page_title] || "Welcome", suffix: " – MyApp" %>
+  """
+  def live_meta_title_tag(title, opts \\ []) do
+    meta_title_tag(title, opts[:prefix], opts[:suffix], opts)
+  end
+
+  defp meta_title_tag(title, nil = _prefix, "" <> suffix, _opts) do
+    [
+      tag(:meta, name: "title", content: title <> suffix),
+      tag(:meta, name: "og:title", content: title <> suffix),
+      tag(:meta, name: "twitter:title", content: title <> suffix)
+    ]
+  end
+
+
+  defp meta_title_tag(title, "" <> prefix, nil = _suffix, _opts) do
+    [
+      tag(:meta, name: "title", content: prefix <> title),
+      tag(:meta, name: "og:title", content: prefix <> title),
+      tag(:meta, name: "twitter:title", content: prefix <> title)
+    ]
+  end
+
+  defp meta_title_tag(title, "" <> pre, "" <> post, _opts) do
+    [
+      tag(:meta, name: "title", content: pre <> title <> post),
+      tag(:meta, name: "og:title", content: pre <> title <> post),
+      tag(:meta, name: "twitter:title", content: pre <> title <> post)
+    ]
+  end
+
+  defp meta_title_tag(title, _prefix = nil, _postfix = nil, []) do
+    [
+      tag(:meta, name: "title", content: title),
+      tag(:meta, name: "og:title", content: title),
+      tag(:meta, name: "twitter:title", content: title)
+    ]
+  end
+
+  defp meta_title_tag(_title, _prefix = nil, _suffix = nil, opts) do
+    raise ArgumentError,
+          "live_meta_title_tag/2 expects a :prefix and/or :suffix option, got: #{inspect(opts)}"
+  end
 end
