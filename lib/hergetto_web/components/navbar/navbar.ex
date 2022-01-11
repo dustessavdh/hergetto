@@ -1,5 +1,6 @@
 defmodule HergettoWeb.Components.Navbar do
   use Surface.Component
+  alias HergettoWeb.Router.Helpers, as: Routes
 
   prop room, :map
 
