@@ -6,7 +6,11 @@
       <i class={@icon[:value], "fa-fw", "customIcon-fontawesome"}></i>
     {#elseif @icon[:type] === "letter"}
       <div class="customIcon-letter">
-        <span class="">{@icon[:value]}</span>
+        <span>{@icon[:value]}</span>
+      </div>
+    {#elseif @icon[:type] === "text"}
+      <div class="customIcon-text">
+        <span>{@icon[:value]}</span>
       </div>
     {/if}
   </div>
