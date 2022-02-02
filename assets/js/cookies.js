@@ -6,7 +6,6 @@ document.body.classList.toggle('c_darkmode');
 cc.run({
   current_lang: 'en',
   autoclear_cookies: true,
-  theme_css: 'assets/app.css',
   page_scripts: false,
   mode: 'opt-in',
   delay: 0,

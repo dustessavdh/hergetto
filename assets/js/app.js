@@ -1,5 +1,5 @@
 import "../css/app.scss"
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import "bootstrap"
 
 import "phoenix_html"
 import { Socket } from "phoenix"
