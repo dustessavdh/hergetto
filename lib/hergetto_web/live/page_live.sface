@@ -1,8 +1,9 @@
-<!-- <Hero name={@room_name} subtitle="How are you?"/> -->
 {#if @user}
   <Hero name={@user.email} subtitle={@user.external_id}/>
   <LogoIcon icon={%{type: "link", value: @user.profile_picture}} />
 {/if}
+
+<button class="btn btn-dark" type="button" aria-label="View cookie settings" data-cc="c-settings">Cookie Settings</button>
 
 <section class="row">
   <article class="column">
