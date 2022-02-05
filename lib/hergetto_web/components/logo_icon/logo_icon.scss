@@ -1,3 +1,5 @@
+@import "../../../../assets/css/variables";
+
 .logoIcon {
   position: relative;
   display: block;
@@ -20,14 +22,14 @@
     }
 
     .customIcon-fontawesome {
-      color: #ffffff;
+      color: $color-white;
       font-size: clamp(1px, 25vw, 125px);
       transform: translate(-8%, -5%);
     }
 
     .customIcon-letter {
       display: block;
-      color: #ffffff;
+      color: $color-white;
       text-align: start;
       font-size: clamp(1px, 25vw, 190px);
       transform: translate(-8%, -5%);
@@ -43,6 +45,17 @@
       span:first-letter {
         visibility: visible;
       }
+    }
+
+    .customIcon-text {
+      display: block;
+      color: $color-white;
+      text-align: center;
+      font-size: clamp(1px, 15vw, 150px);
+      transform: translate(-1%, -5%);
+      font-family: raleway, sans-serif;
+      font-weight: 800;
+      font-style: normal;
     }
   }
 
