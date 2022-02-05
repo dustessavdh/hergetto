@@ -5,11 +5,11 @@ config :hergetto, HergettoWeb.Meta, [
   %{name: "theme-color", content: "#6D28D9"},
   %{
     name: "keywords",
-    content: "synchronized, together, youtube, videos, watch, friends, social, hergetto, funny"
+    content: "synchronized, together, youtube, videos, video, watch, friends, social, hergetto, funny"
   },
   %{
     name: "tags",
-    content: "synchronized,together,youtube,videos,watch,friends,social,hergetto,funny"
+    content: "synchronized,together,youtube,videos,video,watch,friends,social,hergetto,funny"
   },
   %{
     name: "description",
@@ -26,5 +26,5 @@ config :hergetto, HergettoWeb.Meta, [
   %{property: "og:image", content: "assets/images/oembed_logo.png"},
   %{name: "twitter:card", content: "summary"},
   %{name: "twitter:url", content: "https://hergetto.live"},
-  %{name: "twitter:image", content: "assets//images/oembed_logo.png"}
+  %{name: "twitter:image", content: "/assets/images/oembed_logo.png"}
 ]

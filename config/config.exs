@@ -6,7 +6,6 @@
 
 # General application configuration
 import Config
-require Logger
 
 config :hergetto,
   ecto_repos: [Hergetto.Repo]
@@ -45,7 +44,7 @@ try do
   import_config "meta_tags.exs"
 rescue
   _ ->
-    Logger.error("Could not import meta_tags.exs")
+    raise "Could not import meta_tags.exs"
 end
 
 config :ueberauth, Ueberauth, providers: [google: {Ueberauth.Strategy.Google, []}]
@@ -55,7 +54,7 @@ if config_env() == :prod || config_env() == :dev do
     import_config "ueberauth.secret.exs"
   rescue
     _ ->
-      Logger.error("Please create a ueberauth.secret.exs")
+      raise "Please create a ueberauth.secret.exs"
   end
 end
 
