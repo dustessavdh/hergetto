@@ -6,7 +6,7 @@ defmodule HergettoWeb.LoginLive do
 
   @impl true
   def mount(_params, session, socket) do
-    {:ok, fetch(socket, session)}
+    {:ok, fetch(socket, session) |> assign(page_title: "Login")}
   end
 
   def fetch(socket, session) do

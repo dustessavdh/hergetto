@@ -14,5 +14,5 @@
       </div>
     {/if}
   </div>
-  <img src="/assets/logo/logo-empty.svg" alt="hergetto logo" class="baseLogo">
+  <img src={Routes.static_path(HergettoWeb.Endpoint, "/assets/logo/logo-empty.svg")} alt="hergetto logo" class="baseLogo">
 </div>
