@@ -6,6 +6,7 @@
 
 # General application configuration
 import Config
+import Logger
 
 config :hergetto,
   ecto_repos: [Hergetto.Repo]
@@ -54,7 +55,7 @@ if config_env() == :prod || config_env() == :dev do
     import_config "ueberauth.secret.exs"
   rescue
     _ ->
-      raise "Please create a ueberauth.secret.exs"
+      Logger.error "Please create a ueberauth.secret.exs"
   end
 end
 
