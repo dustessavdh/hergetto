@@ -1,12 +1,13 @@
 import "../css/app.scss"
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import "bootstrap"
 
 import "phoenix_html"
 import { Socket } from "phoenix"
 import { LiveSocket } from "phoenix_live_view"
-import topbar from "topbar";
+import topbar from "topbar"
 import Hooks from "./_hooks"
 import Alpine from "alpinejs"
+import "./cookies"
 
 Alpine.start()
 window.Alpine = Alpine
