@@ -1,29 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Welcome to Phoenix!</title>
-    <link rel="stylesheet" href="/assets/app.css"/>
-    <script defer type="text/javascript" src="/assets/app.js"></script>
+    <%= meta_tags(assigns[:meta_attrs] || %{}) %>
+    <%= csrf_meta_tag() %>
+
+    <%= live_title_tag assigns[:page_title] || "Not found", suffix: " ⋅ Hergetto" %>
+
+    <link phx-track-static rel="stylesheet" title="Hergetto standard" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
     <link rel="stylesheet" href="https://use.typekit.net/vvn3ldi.css">
+
+    <link phx-track-static rel="icon" type="image/x-icon" href={Routes.static_path(@conn, "/favicon.ico")}>
+    <link phx-track-static rel="apple-touch-icon" sizes="180x180" href={Routes.static_path(@conn, "/icons/apple-touch-icon.png")}>
+    <link phx-track-static rel="icon" type="image/png" sizes="32x32" href={Routes.static_path(@conn, "/icons/favicon-32x32.png")}>
+    <link phx-track-static rel="icon" type="image/png" sizes="16x16" href={Routes.static_path(@conn, "/icons/favicon-16x16.png")}>
+    <link phx-track-static rel="manifest" href={Routes.static_path(@conn,"/manifest.json")}>
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav>
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-          </ul>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src="/images/phoenix.png" alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
-    </header>
-    <main class="container">
-     <h1>Sorry we couldn't find that page</h1>
-    </main>
+  <div class="bg-gradient-brand min-vh-100 d-flex flex-column justify-content-between">
+    <div>
+      <header class="pb-3 px-5">
+        <HergettoWeb.Components.Navbar.render room={} user={assigns[:user]} show_dev_routes? ={false} />
+      </header>
+      <main role="main" class="container-fluid px-5">
+        <div class="row full-height d-flex align-items-center">
+          <div class="col-md-6">
+            <article class="vstack gap-3 col-sm-8 mx-auto">
+              <h1>Woops!</h1>
+              <p class="h3 text-dark">We couldn't find "<a href="" class="text-white"><%= Phoenix.Controller.current_path(@conn) %></a>"!</p>
+            </article>
+          </div>
+          <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <HergettoWeb.Components.LogoIcon.render icon={%{type: "text", value: "404"}}/>
+          </div>
+        </div>
+      </main>
+    </div>
+    <footer class="">
+    <h2>footer</h2>
+    </footer>
+  </div>
   </body>
 </html>
