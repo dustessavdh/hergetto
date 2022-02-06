@@ -35,6 +35,7 @@ jobs:
       with:
         path: |
           deps
+          _build
           priv/plts
         key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
         restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-mix-
@@ -73,6 +74,7 @@ jobs:
       with:
         path: |
           deps
+          _build
           priv/plts
         key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
         restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-mix-
@@ -125,6 +127,7 @@ jobs:
       with:
         path: |
           deps
+          _build
           priv/plts
         key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
         restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-mix-
