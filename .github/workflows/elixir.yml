@@ -134,3 +134,53 @@ jobs:
 
     - name: Run tests
       run: mix test
+
+  coverage:
+    name: Upload coverage OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    needs:
+      - deps
+      - unit-tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        elixir: [1.12.3]
+        otp: [22.3]
+
+    services:
+      db:
+        image: postgres:13
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Elixir
+      uses: erlef/setup-beam@730ac65cba0700bad37c0744de4aa916c16bb728
+      with:
+        elixir-version: ${{ matrix.elixir }}
+        otp-version: ${{ matrix.otp }}
+
+    - name: Restore dependencies cache
+      uses: actions/cache@v2
+      id: mix-cache
+      with:
+        path: |
+          deps
+          _build
+          priv/plts
+        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-mix-
+
+    - name: Upload coverage
+      run: mix coveralls.github
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
