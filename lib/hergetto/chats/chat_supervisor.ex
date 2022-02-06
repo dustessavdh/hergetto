@@ -1,4 +1,5 @@
 defmodule Hergetto.Chats.ChatSupervisor do
+  @moduledoc false
   use DynamicSupervisor
 
   def start_link(init_arg) do

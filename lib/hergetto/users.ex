@@ -1,4 +1,5 @@
 defmodule Hergetto.Users do
+  @moduledoc false
   alias Hergetto.User
   alias Hergetto.Repo
 

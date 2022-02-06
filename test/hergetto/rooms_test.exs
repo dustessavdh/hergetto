@@ -39,7 +39,7 @@ defmodule Hergetto.RoomsTest do
     {:ok, session} = room |> Rooms.join()
     session |> Rooms.leave(room)
     %{participants: participants} = room |> Rooms.get_all()
-    assert length(participants) == 0
+    assert Enum.empty?(participants)
   end
 
   test "Recieve events on broadcast" do

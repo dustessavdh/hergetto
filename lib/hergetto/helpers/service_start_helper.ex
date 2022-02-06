@@ -1,4 +1,5 @@
 defmodule Hergetto.Helpers.ServiceStartHelper do
+  @moduledoc false
   require Logger
 
   def start(supervisor, service, room) do

@@ -1,24 +1,27 @@
 defmodule HergettoWeb.Helpers.MetaTags do
+  @moduledoc """
+  A module for generating meta tags.
+  """
   use Phoenix.HTML
 
   @doc """
   Generates meta tags for the provided attributes.
   If none are provided it will use the default attributes specified in `config.exs`
-  
+
   ## Parameters
-  
+
   - attrs_list: The list of attributes
-  
+
   To pass different attributes add them to the `assigns` of the `socket`/`conn`
-  
+
   ### Example:
-  
+
   ```elixir
   def mount(_params, _session, socket) do
     meta_attrs = [
       %{name: "title", content: "Welcome!"},
     ]
-  
+
     {:ok, assign(socket, meta_attrs: meta_attrs)}
   end
   ```
@@ -54,7 +57,7 @@ defmodule HergettoWeb.Helpers.MetaTags do
     meta_title_tag(title, opts[:prefix], opts[:suffix], opts)
   end
 
-  defp meta_title_tag(title, nil = _prefix, "" <> suffix, _opts) do
+  defp meta_title_tag(title, _prefix = nil, "" <> suffix, _opts) do
     [
       tag(:meta, name: "title", content: title <> suffix),
       tag(:meta, name: "og:title", content: title <> suffix),
@@ -62,7 +65,7 @@ defmodule HergettoWeb.Helpers.MetaTags do
     ]
   end
 
-  defp meta_title_tag(title, "" <> prefix, nil = _suffix, _opts) do
+  defp meta_title_tag(title, "" <> prefix, _suffix = nil, _opts) do
     [
       tag(:meta, name: "title", content: prefix <> title),
       tag(:meta, name: "og:title", content: prefix <> title),
