@@ -11,7 +11,12 @@ defmodule Hergetto.Videos.VideoService do
   @doc false
   def start_link({video_service, room}) do
     Logger.info("Videoservice with id: #{video_service} starting.")
-    GenServer.start_link(__MODULE__, %{video_service: video_service, room: room, playlist: [], current: nil}, name: :"video_service:#{video_service}")
+
+    GenServer.start_link(
+      __MODULE__,
+      %{video_service: video_service, room: room, playlist: [], current: nil},
+      name: :"video_service:#{video_service}"
+    )
   end
 
   # Server

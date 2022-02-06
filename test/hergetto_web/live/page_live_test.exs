@@ -11,6 +11,8 @@ defmodule HergettoWeb.PageLiveTest do
   test "rendered meta tags", %{conn: conn} do
     {:ok, _view, html} = live(conn, "/")
     assert html =~ ~s|<meta content="Hergetto ⋅ Watch videos together!" name="title"/>|
-    assert html =~ ~s|<meta content="synchronized, together, youtube, videos, video, watch, friends, social, hergetto, funny" name="keywords"/>|
+
+    assert html =~
+             ~s|<meta content="synchronized, together, youtube, videos, video, watch, friends, social, hergetto, funny" name="keywords"/>|
   end
 end
