@@ -70,7 +70,8 @@ defmodule Hergetto.MixProject do
       {:surface_catalogue, "~> 0.2.0"},
       {:ueberauth, "~> 0.6"},
       {:ueberauth_google, "~> 0.10"},
-      {:quantum, "~> 3.4"}
+      {:quantum, "~> 3.4"},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
 
