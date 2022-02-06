@@ -1,4 +1,4 @@
-name: Elixir Tests
+name: Elixir CI
 
 on:
   push:
@@ -9,8 +9,13 @@ on:
 jobs:
   test:
 
-    name: Build and test
+    name: test OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        elixir: [1.12.3]
+        otp: [22.3]
 
     services:
       db:
@@ -29,15 +34,39 @@ jobs:
     - name: Set up Elixir
       uses: erlef/setup-beam@730ac65cba0700bad37c0744de4aa916c16bb728
       with:
-        elixir-version: '1.12.3'
-        otp-version: '22.3'
+        elixir-version: ${{ matrix.elixir }}
+        otp-version: ${{ matrix.otp }}
+
     - name: Restore dependencies cache
       uses: actions/cache@v2
       with:
         path: deps
         key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
         restore-keys: ${{ runner.os }}-mix-
+
     - name: Install dependencies
       run: mix deps.get
+
+    - name: Check Formatting
+      run: mix format --check-formatted
+
+    - name: Run Credo
+      run: mix credo --strict
+
+    - name: Restore PLT cache
+      uses: actions/cache@v2
+      id: plt_cache
+      with:
+        key: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-plt
+        restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-plt
+        path: priv/plts
+
+    - name: Create PLTs
+      if: steps.plt_cache.outputs.cache-hit != 'true'
+      run: mix dialyzer --plt
+
+    - name: Run dialyzer
+      run: mix dialyzer
+
     - name: Run tests
       run: mix test
