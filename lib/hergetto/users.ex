@@ -1,4 +1,5 @@
 defmodule Hergetto.Users do
+  @moduledoc false
   alias Hergetto.User
   alias Hergetto.Repo
 
@@ -8,6 +9,6 @@ defmodule Hergetto.Users do
 
   def create_user(email, profile_picture, external_id) do
     %User{email: email, profile_picture: profile_picture, external_id: external_id}
-    |> Repo.insert
+    |> Repo.insert()
   end
 end

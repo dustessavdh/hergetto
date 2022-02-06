@@ -15,12 +15,13 @@ defmodule HergettoWeb.Plugs.Authentication do
   """
   def call(conn, _default) do
     session = get_session(conn)
-    if(not Map.has_key?(session, "user")) do
+
+    if Map.has_key?(session, "user") do
+      conn
+    else
       conn
       |> redirect(to: "/login")
       |> halt()
-    else
-      conn
     end
   end
 end

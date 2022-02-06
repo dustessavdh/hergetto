@@ -1,4 +1,5 @@
 defmodule HergettoWeb.LoginLive do
+  @moduledoc false
   use Surface.LiveView
   alias Surface.Components.Link
   alias Hergetto.Helpers.AuthHelper

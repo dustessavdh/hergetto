@@ -1,4 +1,7 @@
 defmodule HergettoWeb.Components.Navbar do
+  @moduledoc """
+  The navbar component
+  """
   use Surface.Component
   alias HergettoWeb.Router.Helpers, as: Routes
 
@@ -6,7 +9,4 @@ defmodule HergettoWeb.Components.Navbar do
 
   @doc "Logged in user"
   prop user, :map
-
-  @doc "Boolean to toggle if the dev routes should be shown"
-  prop show_dev_routes?, :boolean
 end

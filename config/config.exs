@@ -55,7 +55,7 @@ if config_env() == :prod || config_env() == :dev do
     import_config "ueberauth.secret.exs"
   rescue
     _ ->
-      Logger.error "Please create a ueberauth.secret.exs"
+      Logger.error("Please create a ueberauth.secret.exs")
   end
 end
 

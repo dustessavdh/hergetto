@@ -1,4 +1,5 @@
 defmodule Hergetto.Videos do
+  @moduledoc false
   alias Hergetto.Videos.VideoSupervisor
   alias Hergetto.Videos.VideoService
   alias Hergetto.Helpers.ServiceStartHelper
@@ -35,6 +36,7 @@ defmodule Hergetto.Videos do
         pid = Process.whereis(video_service |> generate_videos_service_id())
         GenServer.cast(pid, {:add, video})
         :ok
+
       false ->
         :novideoservice
     end
@@ -57,6 +59,7 @@ defmodule Hergetto.Videos do
         pid = Process.whereis(video_service |> generate_videos_service_id())
         GenServer.cast(pid, {:set_current, video})
         :ok
+
       false ->
         :novideoservice
     end
@@ -79,15 +82,18 @@ defmodule Hergetto.Videos do
     case video_service |> exists() do
       true ->
         playlist = video_service |> get_playlist()
+
         case length(playlist) > 0 do
           true ->
             new_video = List.last(playlist)
             video_service |> delete(length(playlist) - 1)
             video_service |> set_current(new_video)
             :ok
+
           false ->
             :novideos
         end
+
       false ->
         :novideoservice
     end
@@ -110,6 +116,7 @@ defmodule Hergetto.Videos do
         pid = Process.whereis(video_service |> generate_videos_service_id())
         GenServer.cast(pid, {:delete, index})
         :ok
+
       false ->
         :novideoservice
     end
@@ -135,6 +142,7 @@ defmodule Hergetto.Videos do
       true ->
         pid = Process.whereis(video_service |> generate_videos_service_id())
         GenServer.call(pid, {:get, scope})
+
       false ->
         {:error, :novideoservice}
     end
@@ -170,6 +178,7 @@ defmodule Hergetto.Videos do
     case Process.whereis(video_service |> generate_videos_service_id()) do
       nil ->
         false
+
       _ ->
         true
     end

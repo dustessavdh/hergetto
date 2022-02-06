@@ -1,4 +1,4 @@
-name: Elixir Tests
+name: Elixir CI
 
 on:
   push:
@@ -6,11 +6,98 @@ on:
   pull_request:
     branches: [ main, development ]
 
-jobs:
-  test:
+env:
+  MIX_ENV: test
 
-    name: Build and test
+jobs:
+  deps:
+    name: Dependencies OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        elixir: [1.12.3]
+        otp: [22.3]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Elixir
+      uses: erlef/setup-beam@730ac65cba0700bad37c0744de4aa916c16bb728
+      with:
+        elixir-version: ${{ matrix.elixir }}
+        otp-version: ${{ matrix.otp }}
+
+    - name: Restore dependencies cache
+      uses: actions/cache@v2
+      id: mix-cache
+      with:
+        path: |
+          deps
+          _build
+          priv/plts
+        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-mix-
+
+    - name: Install dependencies
+      if: steps.mix-cache.outputs.cache-hit != 'true'
+      run: |
+        mix deps.get
+        mix deps.compile
+        mix dialyzer --plt
+
+
+  static_code_analysis:
+    name: Static code analysis OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    needs: deps
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        elixir: [1.12.3]
+        otp: [22.3]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Elixir
+      uses: erlef/setup-beam@730ac65cba0700bad37c0744de4aa916c16bb728
+      with:
+        elixir-version: ${{ matrix.elixir }}
+        otp-version: ${{ matrix.otp }}
+
+    - name: Restore dependencies cache
+      uses: actions/cache@v2
+      id: mix-cache
+      with:
+        path: |
+          deps
+          _build
+          priv/plts
+        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-mix-
+
+    - name: Check Formatting
+      run: mix format --check-formatted
+
+    - name: Run Credo
+      run: mix credo --strict
+
+    - name: Run dialyzer
+      run: mix dialyzer
+
+
+  unit-tests:
+    name: Unit tests OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    needs: deps
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        elixir: [1.12.3]
+        otp: [22.3]
 
     services:
       db:
@@ -25,19 +112,92 @@ jobs:
           --health-retries 5
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+
     - name: Set up Elixir
       uses: erlef/setup-beam@730ac65cba0700bad37c0744de4aa916c16bb728
       with:
-        elixir-version: '1.12.3'
-        otp-version: '22.3'
+        elixir-version: ${{ matrix.elixir }}
+        otp-version: ${{ matrix.otp }}
+
     - name: Restore dependencies cache
       uses: actions/cache@v2
+      id: mix-cache
       with:
-        path: deps
-        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-        restore-keys: ${{ runner.os }}-mix-
-    - name: Install dependencies
-      run: mix deps.get
+        path: |
+          deps
+          _build
+          priv/plts
+        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-mix-
+
     - name: Run tests
       run: mix test
+
+  coverage:
+    name: Upload coverage OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    needs:
+      - deps
+      - unit-tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        elixir: [1.12.3]
+        otp: [22.3]
+
+    services:
+      db:
+        image: postgres:13
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Elixir
+      uses: erlef/setup-beam@730ac65cba0700bad37c0744de4aa916c16bb728
+      with:
+        elixir-version: ${{ matrix.elixir }}
+        otp-version: ${{ matrix.otp }}
+
+    - name: Restore dependencies cache
+      uses: actions/cache@v2
+      id: mix-cache
+      with:
+        path: |
+          deps
+          _build
+          priv/plts
+        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-mix-
+
+    - name: Generate coverage report
+      run: mix coveralls.lcov
+
+    - name: Upload coverage report
+      uses: coverallsapp/github-action@1.1.3
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        flag-name: coverage-${{ matrix.elixir }}-${{ matrix.otp }}
+        parallel: true
+
+  finish-coverage:
+    name: Finish coverage report
+    needs: coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Coveralls finished
+        uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true

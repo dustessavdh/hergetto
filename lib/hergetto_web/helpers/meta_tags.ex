@@ -1,5 +1,9 @@
 defmodule HergettoWeb.Helpers.MetaTags do
+  @moduledoc """
+  A module for generating meta tags.
+  """
   use Phoenix.HTML
+
   @doc """
   Generates meta tags for the provided attributes.
   If none are provided it will use the default attributes specified in `config.exs`
@@ -38,8 +42,8 @@ defmodule HergettoWeb.Helpers.MetaTags do
 
   defp find_attr_index(attr, search_list) do
     Enum.find_index(search_list, fn search_attrs ->
-      (Map.has_key?(search_attrs, :name) && search_attrs[:name] == attr[:name])
-      || Map.has_key?(search_attrs, :property) && search_attrs[:property] == attr[:property]
+      (Map.has_key?(search_attrs, :name) && search_attrs[:name] == attr[:name]) ||
+        (Map.has_key?(search_attrs, :property) && search_attrs[:property] == attr[:property])
     end)
   end
 
@@ -53,7 +57,7 @@ defmodule HergettoWeb.Helpers.MetaTags do
     meta_title_tag(title, opts[:prefix], opts[:suffix], opts)
   end
 
-  defp meta_title_tag(title, nil = _prefix, "" <> suffix, _opts) do
+  defp meta_title_tag(title, _prefix = nil, "" <> suffix, _opts) do
     [
       tag(:meta, name: "title", content: title <> suffix),
       tag(:meta, name: "og:title", content: title <> suffix),
@@ -61,8 +65,7 @@ defmodule HergettoWeb.Helpers.MetaTags do
     ]
   end
 
-
-  defp meta_title_tag(title, "" <> prefix, nil = _suffix, _opts) do
+  defp meta_title_tag(title, "" <> prefix, _suffix = nil, _opts) do
     [
       tag(:meta, name: "title", content: prefix <> title),
       tag(:meta, name: "og:title", content: prefix <> title),

@@ -1,4 +1,5 @@
 defmodule Hergetto.Rooms do
+  @moduledoc false
   alias Hergetto.Rooms.RoomSupervisor
   alias Hergetto.Rooms.RoomService
   alias Hergetto.Structs.RoomEvent
@@ -18,7 +19,7 @@ defmodule Hergetto.Rooms do
       {:ok, "f2d97ea1-ddaf-4949-b1bc-63766ca8d52b"}
 
   """
-  def create() do
+  def create do
     {:ok, room} = return = ServiceStartHelper.start(RoomSupervisor, RoomService, nil)
     add_video_service(room)
     add_chat_service(room)
@@ -40,12 +41,14 @@ defmodule Hergetto.Rooms do
   """
   def join(room) do
     session = UUID.uuid4()
+
     case room |> exists() do
       true ->
         pid = Process.whereis(room |> generate_room_id())
         GenServer.cast(pid, {:join, session})
         PubSub.subscribe(Hergetto.PubSub, room)
         {:ok, session}
+
       false ->
         {:error, :noroom}
     end
@@ -72,6 +75,7 @@ defmodule Hergetto.Rooms do
         pid = Process.whereis(room |> generate_room_id())
         GenServer.cast(pid, {:leave, session})
         :ok
+
       false ->
         :noroom
     end
@@ -101,6 +105,7 @@ defmodule Hergetto.Rooms do
       true ->
         pid = Process.whereis(room |> generate_room_id())
         GenServer.call(pid, {:get, type})
+
       false ->
         {:error, :noroom}
     end
@@ -141,6 +146,7 @@ defmodule Hergetto.Rooms do
     case Process.whereis(room |> generate_room_id()) do
       nil ->
         false
+
       _ ->
         true
     end
@@ -163,6 +169,7 @@ defmodule Hergetto.Rooms do
       true ->
         PubSub.broadcast(Hergetto.PubSub, room, event |> create_event(data, sender))
         :ok
+
       false ->
         :noroom
     end
@@ -176,6 +183,7 @@ defmodule Hergetto.Rooms do
         pid = Process.whereis(room |> generate_room_id())
         GenServer.cast(pid, {:video_service, video_service})
         :ok
+
       false ->
         :noroom
     end
@@ -189,6 +197,7 @@ defmodule Hergetto.Rooms do
         pid = Process.whereis(room |> generate_room_id())
         GenServer.cast(pid, {:chat_service, chat_service})
         :ok
+
       false ->
         :noroom
     end

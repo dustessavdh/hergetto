@@ -13,6 +13,7 @@ defmodule Hergetto.Helpers.AuthHelper do
       true ->
         socket
         |> LiveView.assign(user: Map.get(session, "user"))
+
       false ->
         socket
         |> LiveView.assign(user: nil)

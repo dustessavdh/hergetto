@@ -11,7 +11,15 @@ defmodule Hergetto.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
+      dialyzer: dialyzer(),
       test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test,
+        "coveralls.lcov": :test
+      ],
 
       # Docs
       name: "Hergetto",
@@ -32,7 +40,7 @@ defmodule Hergetto.MixProject do
   def application do
     [
       mod: {Hergetto.Application, []},
-      extra_applications: [:logger, :runtime_tools, :os_mon]
+      extra_applications: [:logger, :runtime_tools, :os_mon, :ex_unit]
     ]
   end
 
@@ -70,7 +78,9 @@ defmodule Hergetto.MixProject do
       {:surface_catalogue, "~> 0.2.0"},
       {:ueberauth, "~> 0.6"},
       {:ueberauth_google, "~> 0.10"},
-      {:quantum, "~> 3.4"}
+      {:quantum, "~> 3.4"},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -90,7 +100,15 @@ defmodule Hergetto.MixProject do
     ]
   end
 
-  def catalogues do
+  defp dialyzer do
+    [
+      plt_core_path: "priv/plts",
+      plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
+      plt_add_apps: [:ex_unit]
+    ]
+  end
+
+  defp catalogues do
     [
       "priv/catalogue"
     ]

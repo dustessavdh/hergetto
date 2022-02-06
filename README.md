@@ -12,7 +12,7 @@ Normally you could just go to a friends house and start watching videos together
 So that's why hergetto was created!
 Watch videos together from the comfort of your own room!
 
-[![Elixir Tests](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml/badge.svg)](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml)
+[![Elixir CI](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml/badge.svg)](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml)
 [![codecov](https://codecov.io/gh/dusthijsvdh/hergetto/branch/development/graph/badge.svg?token=URVHVQXE9O)](https://codecov.io/gh/dusthijsvdh/hergetto)
 [![Travis build](https://travis-ci.com/dusthijsvdh/hergetto.svg?branch=main)](https://travis-ci.com/github/dusthijsvdh/hergetto)
 [![Mozilla observatory](https://img.shields.io/mozilla-observatory/grade-score/hergetto.live?publish)](https://observatory.mozilla.org/analyze/hergetto.live)

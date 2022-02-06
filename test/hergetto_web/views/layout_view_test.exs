@@ -3,5 +3,4 @@ defmodule HergettoWeb.LayoutViewTest do
 
   alias HergettoWeb.LayoutView
   import Phoenix.HTML
-
 end

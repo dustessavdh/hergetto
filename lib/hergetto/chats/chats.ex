@@ -1,4 +1,5 @@
 defmodule Hergetto.Chats do
+  @moduledoc false
   alias Hergetto.Helpers.ServiceStartHelper
   alias Hergetto.Chats.ChatSupervisor
   alias Hergetto.Chats.ChatService
@@ -19,7 +20,6 @@ defmodule Hergetto.Chats do
     ServiceStartHelper.start(ChatSupervisor, ChatService, room)
   end
 
-
   @doc """
   This function sends a message in the chat service.
 
@@ -39,10 +39,13 @@ defmodule Hergetto.Chats do
       true ->
         pid = Process.whereis(chat_service |> generate_chat_service_id())
         GenServer.cast(pid, {:send, message})
+
         chat_service
         |> get_room()
         |> Rooms.trigger("message", message, __MODULE__)
+
         :ok
+
       false ->
         :nochatservice
     end
@@ -54,6 +57,7 @@ defmodule Hergetto.Chats do
       true ->
         pid = Process.whereis(chat_service |> generate_chat_service_id())
         GenServer.call(pid, {:get, scope})
+
       false ->
         :nochatservice
     end
@@ -89,6 +93,7 @@ defmodule Hergetto.Chats do
     case Process.whereis(chat_service |> generate_chat_service_id()) do
       nil ->
         false
+
       _ ->
         true
     end

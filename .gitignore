@@ -4,7 +4,7 @@
 
 ### Elixir ###
 /_build
-/cover
+/coverage
 /deps
 /doc
 /.fetch
@@ -13,25 +13,15 @@ erl_crash.dump
 *.beam
 /config/*.secret.exs
 .elixir_ls/
-
-### Elixir Patch ###
+/priv/plts/*.plt
+/priv/plts/*.plt.hash
 
 ### Phoenix ###
-# gitignore template for Phoenix projects
-# website: http://www.phoenixframework.org/
-#
-# Recommended template: Elixir.gitignore
-
-# Temporary files
 /tmp
 
 # Static artifacts
 /node_modules
 /assets/node_modules
-
-# Since we are building assets from web/static,
-# we ignore priv/static. You may want to comment
-# this depending on your deployment strategy.
 /priv/static/
 
 # Installer-related files
@@ -39,8 +29,6 @@ erl_crash.dump
 /installer/tmp
 /installer/doc
 /installer/deps
-
-# End of https://www.toptal.com/developers/gitignore/api/phoenix,elixir
 
 # System Files
 .DS_Store
