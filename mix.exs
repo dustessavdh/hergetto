@@ -11,6 +11,7 @@ defmodule Hergetto.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
+      dialyzer: dialyzer(),
       test_coverage: [tool: ExCoveralls],
 
       # Docs
@@ -71,7 +72,8 @@ defmodule Hergetto.MixProject do
       {:ueberauth, "~> 0.6"},
       {:ueberauth_google, "~> 0.10"},
       {:quantum, "~> 3.4"},
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -91,7 +93,14 @@ defmodule Hergetto.MixProject do
     ]
   end
 
-  def catalogues do
+  defp dialyzer do
+    [
+      plt_core_path: "priv/plts",
+      plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+    ]
+  end
+
+  defp catalogues do
     [
       "priv/catalogue"
     ]

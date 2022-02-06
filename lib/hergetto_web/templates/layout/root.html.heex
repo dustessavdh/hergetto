@@ -25,7 +25,7 @@
   <div class="bg-gradient-brand min-vh-100 d-flex flex-column justify-content-between">
     <div>
       <header class="pb-3 px-5">
-        <HergettoWeb.Components.Navbar.render room={assigns[:room]} user={assigns[:user]} show_dev_routes? ={function_exported?(Routes, :live_path, 3) && Mix.env() == :dev} />
+        <HergettoWeb.Components.Navbar.render room={assigns[:room]} user={assigns[:user]} />
       </header>
       <main role="main" class="container-fluid px-5">
         <%= @inner_content %>

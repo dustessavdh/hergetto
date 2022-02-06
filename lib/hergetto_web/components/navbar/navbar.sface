@@ -27,17 +27,6 @@
           <li class="nav-item">
             <a class="nav-link" href="/rooms">Rooms</a>
           </li>
-          {#if @show_dev_routes?}
-            <li class="nav-item dropdown">
-              <a role="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                dev
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/dashboard" role="button">Dashboard</a></li>
-                <li><a class="dropdown-item" href="/catalogue" role="button">Catalogue</a></li>
-              </ul>
-            </li>
-          {/if}
           {#if !@user}
             <li class="nav-item">
               <a class="nav-link nav-btn btn btn-light text-dark" href="/login">Sign in</a>
