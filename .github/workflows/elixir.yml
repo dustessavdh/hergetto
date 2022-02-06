@@ -180,7 +180,24 @@ jobs:
         key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
         restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-mix-
 
-    - name: Upload coverage
-      run: mix coveralls.github
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Generate coverage report
+      run: mix coveralls.lcov
+
+    - name: Upload coverage report
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        flag-name: coverage-${{ matrix.elixir }}-${{ matrix.otp }}
+        parallel: true
+
+  finish-coverage:
+    name: Finish coverage report
+    needs: coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Coveralls finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true
