@@ -133,7 +133,7 @@ jobs:
         restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-mix-
 
     - name: Run tests
-      run: mix test
+      run: mix test --color
 
   coverage:
     name: Upload coverage OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}

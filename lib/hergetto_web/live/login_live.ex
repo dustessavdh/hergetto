@@ -1,6 +1,6 @@
 defmodule HergettoWeb.LoginLive do
   @moduledoc false
-  use Surface.LiveView
+  use HergettoWeb, :live_view
   alias Surface.Components.Link
   alias Hergetto.Helpers.AuthHelper
   alias HergettoWeb.Components.LogoIcon

@@ -2,7 +2,7 @@ defmodule HergettoWeb.Components.LogoIcon do
   @moduledoc """
   A component that renders the empty hergetto logo with a custom icon, letter, text or image
   """
-  use Surface.Component
+  use HergettoWeb, :component
   alias HergettoWeb.Router.Helpers, as: Routes
 
   prop icon, :map,

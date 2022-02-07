@@ -3,13 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src *;">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <%= csrf_meta_tag() %>
+    { csrf_meta_tag() }
 
-    <%= live_meta_title_tag assigns[:page_title] || "Hergetto", suffix: " ⋅ Watch videos together!" %>
-    <%= meta_tags(assigns[:meta_attrs] || %{}) %>
+    { live_meta_title_tag assigns[:page_title] || "Hergetto", suffix: " ⋅ Watch videos together!" }
+    { meta_tags(assigns[:meta_attrs] || %{}) }
 
-    <%= live_title_tag assigns[:page_title] || "Hergetto", suffix: " ⋅ Watch videos together!" %>
+    { live_title_tag assigns[:page_title] || "Hergetto", suffix: " ⋅ Watch videos together!" }
 
     <link phx-track-static rel="stylesheet" title="Hergetto standard" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
@@ -25,14 +26,14 @@
   <div class="bg-gradient-brand min-vh-100 d-flex flex-column justify-content-between">
     <div>
       <header class="pb-3 px-5">
-        <HergettoWeb.Components.Navbar.render room={assigns[:room]} user={assigns[:user]} />
+        <Navbar.render room={assigns[:room]} user={assigns[:user]} />
       </header>
       <main role="main" class="container-fluid px-5">
-        <%= @inner_content %>
+        { @inner_content }
       </main>
     </div>
     <footer class="">
-    <h2>footer</h2>
+      <h2>footer</h2>
     </footer>
   </div>
   </body>
