@@ -5,8 +5,10 @@ defmodule Hergetto.Repo.Migrations.CreateUsers do
     create table(:users, primary_key: false) do
       add :id, :uuid, primary_key: true
       add :email, :string
+      add :provider, :string
       add :profile_picture, :string
       add :external_id, :string
+      add :token, :string
 
       timestamps()
     end
