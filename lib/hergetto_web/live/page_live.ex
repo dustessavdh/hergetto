@@ -5,11 +5,14 @@ defmodule HergettoWeb.PageLive do
   alias HergettoWeb.Components.LogoIcon
   alias HergettoWeb.Helpers.UserLiveAuth
 
+  @claims %{"typ" => "access"}
+  @token_key "guardian_default_token"
+
   @impl true
   def mount(_params, session, socket) do
     {
       :ok,
-      UserLiveAuth.fetch_current_user(socket, session)
+      socket
     }
   end
 

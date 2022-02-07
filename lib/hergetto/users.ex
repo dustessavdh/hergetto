@@ -7,6 +7,10 @@ defmodule Hergetto.Users do
     Repo.get_by(User, external_id: uid)
   end
 
+  def get(id, :id) do
+    Repo.get_by(User, id: id)
+  end
+
   def create_user(email, token, profile_picture, external_id, provider) do
     %User{
       email: email,

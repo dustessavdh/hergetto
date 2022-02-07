@@ -2,7 +2,7 @@ defmodule HergettoWeb.AuthController do
   use HergettoWeb, :controller
   plug Ueberauth
   alias Hergetto.Users
-  alias Hergetto.User
+  alias Hergetto.Authentication.Guardian
 
   def callback(%{assigns: %{ueberauth_auth: auth_info}} = conn, _params) do
     user_params = %{
@@ -18,23 +18,24 @@ defmodule HergettoWeb.AuthController do
 
   def signout(conn, _params) do
     conn
-    |> clear_session()
     |> put_flash(:info, "Signed out")
+    |> Guardian.Plug.sign_out()
+    |> Guardian.Plug.clear_remember_me()
     |> redirect(to: "/")
   end
 
   defp signin(conn, user_params) do
     case insert_or_update_user(user_params) do
       {:ok, user} ->
-        IO.inspect(user)
         conn
         |> put_flash(:info, "Signed in as #{user.email}")
-        |> put_session(:user_token, user.external_id)
+        |> Guardian.Plug.sign_in(user)
+        |> Guardian.Plug.remember_me(user)
         |> redirect(to: "/")
       {:error, _reason} ->
         conn
         |> put_flash(:error, "Error signing in!")
-        |> redirect(to: "/")
+        |> redirect(to: "/login")
     end
   end
 
