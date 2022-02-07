@@ -51,6 +51,8 @@ defmodule HergettoWeb do
       use Surface.LiveView,
         layout: {HergettoWeb.LayoutView, "live.html"}
 
+      import HergettoWeb.Helpers.LiveAssigns
+
       unquote(view_helpers())
     end
   end
