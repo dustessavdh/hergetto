@@ -22,7 +22,19 @@ defmodule HergettoWeb.Router do
     pipe_through :browser
 
     live "/", PageLive
+  end
+
+  # Routes where an user is requiered not to be authenticated.
+  scope "/", HergettoWeb do
+    pipe_through [:browser, :redirect_if_user_is_authenticated]
+
     live "/login", LoginLive
+  end
+
+  # Routes where an user must be authenticated
+  scope "/", HergettoWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
   end
 
   scope "/auth", HergettoWeb do
