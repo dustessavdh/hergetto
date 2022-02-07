@@ -38,7 +38,8 @@ defmodule HergettoWeb do
         only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
 
       use Surface.View,
-        root: "lib/hergetto_web/templates"
+        root: "lib/hergetto_web/templates",
+        namespace: HergettoWeb
 
       # Include shared imports and aliases for views
       unquote(view_helpers())

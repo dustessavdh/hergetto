@@ -26,7 +26,7 @@
   <div class="bg-gradient-brand min-vh-100 d-flex flex-column justify-content-between">
     <div>
       <header class="pb-3 px-5">
-        <Navbar.render room={assigns[:room]} user={assigns[:user]} />
+        <Navbar.render room={assigns[:room]} user={assigns[:current_user]} />
       </header>
       <main role="main" class="container-fluid px-5">
         { @inner_content }

@@ -12,7 +12,6 @@ defmodule HergettoWeb.Plugs.UserAuth do
   def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
     user = user_token && Users.get(user_token, :external_id)
-    IO.inspect(user)
     assign(conn, :current_user, user)
   end
 

@@ -1,5 +1,9 @@
-<p class="alert alert-info" role="alert">{ get_flash(@conn, :info) }</p>
+{#if get_flash(@conn, :info)}
+  <p class="alert alert-info" role="alert">{ get_flash(@conn, :info) }</p>
+{/if}
 
-<p class="alert alert-danger" role="alert">{ get_flash(@conn, :error) }</p>
+{#if get_flash(@conn, :error)}
+  <p class="alert alert-danger" role="alert">{ get_flash(@conn, :error) }</p>
+{/if}
 
 { @inner_content }
