@@ -20,6 +20,7 @@ defmodule HergettoWeb.Helpers.LiveAssigns do
     case Guardian.decode_and_verify(token, @claims) do
       {:ok, claims} ->
         Guardian.resource_from_claims(claims)
+
       _ ->
         {:ok, nil}
     end

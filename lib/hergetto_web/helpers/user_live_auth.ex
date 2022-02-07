@@ -5,7 +5,6 @@ defmodule HergettoWeb.Helpers.UserLiveAuth do
   alias Phoenix.LiveView
   alias Hergetto.Users
 
-
   @doc """
   Gets the user from the session and assigns it to the socket
   """
@@ -13,7 +12,10 @@ defmodule HergettoWeb.Helpers.UserLiveAuth do
     case Map.has_key?(session, "user_token") do
       true ->
         socket
-        |> LiveView.assign_new(:current_user, fn -> Users.get(Map.get(session, "user_token"), :external_id) end)
+        |> LiveView.assign_new(:current_user, fn ->
+          Users.get(Map.get(session, "user_token"), :external_id)
+        end)
+
       false ->
         socket
         |> LiveView.assign_new(:current_user, fn -> nil end)

@@ -7,21 +7,21 @@ defmodule HergettoWeb.Helpers.MetaTags do
   @doc """
   Generates meta tags for the provided attributes.
   If none are provided it will use the default attributes specified in `config.exs`
-
+  
   ## Parameters
-
+  
   - attrs_list: The list of attributes
-
+  
   To pass different attributes add them to the `assigns` of the `socket`/`conn`
-
+  
   ### Example:
-
+  
   ```elixir
   def mount(_params, _session, socket) do
     meta_attrs = [
       %{name: "title", content: "Welcome!"},
     ]
-
+  
     {:ok, assign(socket, meta_attrs: meta_attrs)}
   end
   ```

@@ -4,7 +4,8 @@ import Config
 config :hergetto, HergettoWeb.Meta, [
   %{
     "http-equiv": "Content-Security-Policy",
-    content: "default-src 'self'; style-src 'self' *.typekit.net; font-src 'self' *.typekit.net; script-src 'self' *.youtube.com; img-src 'self' data: *.googleusercontent.com; frame-src 'self' *.youtube.com;"
+    content:
+      "default-src 'self'; style-src 'self' *.typekit.net; font-src 'self' *.typekit.net; script-src 'self' *.youtube.com; img-src 'self' data: *.googleusercontent.com; frame-src 'self' *.youtube.com;"
   },
   %{name: "theme-color", content: "#6D28D9"},
   %{

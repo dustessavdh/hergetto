@@ -33,7 +33,6 @@ defmodule HergettoWeb.Router do
 
   scope "/", HergettoWeb do
     pipe_through [:browser, :require_authenticated_user]
-
   end
 
   scope "/", HergettoWeb do

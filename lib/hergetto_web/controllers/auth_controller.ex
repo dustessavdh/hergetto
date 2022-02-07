@@ -32,6 +32,7 @@ defmodule HergettoWeb.AuthController do
         |> Guardian.Plug.sign_in(user)
         |> Guardian.Plug.remember_me(user)
         |> redirect(to: "/")
+
       {:error, _reason} ->
         conn
         |> put_flash(:error, "Error signing in!")
@@ -49,6 +50,7 @@ defmodule HergettoWeb.AuthController do
           user_params.external_id,
           user_params.provider
         )
+
       user ->
         {:ok, user}
     end

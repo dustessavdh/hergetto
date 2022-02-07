@@ -11,16 +11,19 @@ defmodule Hergetto.Authentication.ErrorHandler do
       :already_authenticated ->
         conn
         |> redirect(to: "/")
+
       :unauthenticated ->
         conn
         |> put_flash(:error, "You must be logged in to access this page.")
         |> redirect(to: "/login")
+
       :invalid_token ->
         conn
         |> Guardian.Plug.sign_out()
         |> Guardian.Plug.clear_remember_me()
         |> put_flash(:error, "An error occurred while authenticating.")
         |> redirect(to: "/login")
+
       _ ->
         conn
         |> put_flash(:error, "An error occurred while authenticating.")
