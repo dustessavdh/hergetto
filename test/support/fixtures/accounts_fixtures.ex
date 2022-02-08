@@ -14,7 +14,7 @@ defmodule Hergetto.AccountsFixtures do
         external_id: "some external_id",
         profile_picture: "some profile_picture",
         provider: "some provider",
-        tag: 42,
+        tag: "1337",
         username: "some username"
       })
       |> Hergetto.Accounts.create_user()

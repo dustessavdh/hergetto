@@ -8,7 +8,7 @@ defmodule Hergetto.Repo.Migrations.CreateUsers do
       add :external_id, :string
       add :provider, :string
       add :username, :string
-      add :tag, :integer
+      add :tag, :string
 
       timestamps()
     end

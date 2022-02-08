@@ -3,7 +3,7 @@ defmodule Hergetto.AccountsTest do
 
   alias Hergetto.Accounts
 
-  describe "users" do
+  describe "Users" do
     alias Hergetto.Accounts.User
 
     import Hergetto.AccountsFixtures
@@ -20,14 +20,24 @@ defmodule Hergetto.AccountsTest do
       assert Accounts.get_user!(user.id) == user
     end
 
+    test "get_user/1 returns the user with given id" do
+      user = user_fixture()
+      assert Accounts.get_user(user.id) == user
+    end
+
+    test "get_user/2 returns the user with given external_id" do
+      user = user_fixture()
+      assert Accounts.get_user(user.external_id, :external_id) == user
+    end
+
     test "create_user/1 with valid data creates a user" do
-      valid_attrs = %{external_id: "some external_id", profile_picture: "some profile_picture", provider: "some provider", tag: 42, username: "some username"}
+      valid_attrs = %{external_id: "some external_id", profile_picture: "some profile_picture", provider: "some provider", tag: "1337", username: "some username"}
 
       assert {:ok, %User{} = user} = Accounts.create_user(valid_attrs)
       assert user.external_id == "some external_id"
       assert user.profile_picture == "some profile_picture"
       assert user.provider == "some provider"
-      assert user.tag == 42
+      assert user.tag == "1337"
       assert user.username == "some username"
     end
 
@@ -37,13 +47,13 @@ defmodule Hergetto.AccountsTest do
 
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
-      update_attrs = %{external_id: "some updated external_id", profile_picture: "some updated profile_picture", provider: "some updated provider", tag: 43, username: "some updated username"}
+      update_attrs = %{external_id: "some updated external_id", profile_picture: "some updated profile_picture", provider: "some updated provider", tag: "1338", username: "some updated username"}
 
       assert {:ok, %User{} = user} = Accounts.update_user(user, update_attrs)
       assert user.external_id == "some updated external_id"
       assert user.profile_picture == "some updated profile_picture"
       assert user.provider == "some updated provider"
-      assert user.tag == 43
+      assert user.tag == 1338
       assert user.username == "some updated username"
     end
 

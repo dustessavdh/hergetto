@@ -8,7 +8,7 @@ defmodule Hergetto.Accounts.User do
     field :external_id, :string
     field :profile_picture, :string
     field :provider, :string
-    field :tag, :integer
+    field :tag, :string
     field :username, :string
 
     timestamps()
