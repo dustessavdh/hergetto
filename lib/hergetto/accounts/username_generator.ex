@@ -1,4 +1,7 @@
 defmodule Hergetto.Accounts.UsernameGenerator do
+  @moduledoc """
+  This module provides functions to generate usernames and tags.
+  """
   @adjectives ~w(
     autumn hidden bitter misty silent empty dry dark summer
     icy delicate quiet white cool spring winter patient
