@@ -28,9 +28,9 @@ defmodule Hergetto.ChatsTest do
 
     test "Get all info about chat service" do
       {:ok, chat_service} = Chats.create(nil)
-      %{:messages => messages, :room => room} = Chats.get_all(chat_service)
+      %{:chat_service => service_id, :messages => messages} = Chats.get_all(chat_service)
+      assert service_id == chat_service
       assert Enum.empty?(messages)
-      assert room == nil
     end
   end
 end
