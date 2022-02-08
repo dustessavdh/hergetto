@@ -10,14 +10,14 @@ defmodule HergettoWeb.Helpers.LiveAssigns do
 
   @doc """
   Set basic assigns for a liveview.
-
+  
   It sets the following assigns:
   - current_user
   - page_title
   - meta_attrs
-
+  
   ## Example:
-
+  
   ```elixir
   def mount(_params, session, socket) do
     {
