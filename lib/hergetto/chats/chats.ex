@@ -32,7 +32,6 @@ defmodule Hergetto.Chats do
       iex> chat |> Chats.send(%Message{})
       :ok
 
-
   """
   def send(chat_service, message) do
     case chat_service |> exists() do

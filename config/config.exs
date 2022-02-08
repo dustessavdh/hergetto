@@ -41,14 +41,15 @@ config :hergetto, Hergetto.Scheduler,
     ]
   ]
 
-try do
-  import_config "meta_tags.exs"
-rescue
-  _ ->
-    raise "Could not import meta_tags.exs"
-end
-
-config :ueberauth, Ueberauth, providers: [google: {Ueberauth.Strategy.Google, []}]
+config :ueberauth, Ueberauth,
+  providers: [
+    google: {
+      Ueberauth.Strategy.Google,
+      [
+        default_scope: "email profile"
+      ]
+    }
+  ]
 
 if config_env() == :prod || config_env() == :dev do
   try do
@@ -57,6 +58,13 @@ if config_env() == :prod || config_env() == :dev do
     _ ->
       Logger.error("Please create a ueberauth.secret.exs")
   end
+end
+
+try do
+  import_config "meta_tags.exs"
+rescue
+  _ ->
+    raise "Could not import meta_tags.exs"
 end
 
 # Import environment specific config. This must remain at the bottom

@@ -78,6 +78,7 @@ defmodule Hergetto.MixProject do
       {:surface_catalogue, "~> 0.3.0"},
       {:ueberauth, "~> 0.6"},
       {:ueberauth_google, "~> 0.10"},
+      {:guardian, "~> 2.0"},
       {:quantum, "~> 3.4"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false}

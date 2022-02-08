@@ -25,9 +25,11 @@ defmodule HergettoWeb.Components.Navbar do
   ## Examples
 
       %{
-        :email => "coolkid@hergetto.live",
-        :profile_picture => "https://file.coffee/u/Gd9Dyk1tZHbmpl.jpg",
-        :external_id => "123456789"
+        external_id: "123456789",
+        profile_picture: "https://file.coffee/u/Gd9Dyk1tZHbmpl.jpg",
+        provider: "google",
+        username: "coolkid",
+        tag: 1337
       }
   """
   prop user, :map
