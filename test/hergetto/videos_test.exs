@@ -58,7 +58,9 @@ defmodule Hergetto.VideosTest do
 
     test "Get all info about a video service" do
       {:ok, video_service} = Videos.create(nil)
-      %{:current => current, :playlist => playlist, :video_service => service_id} = Videos.get_all(video_service)
+
+      %{:current => current, :playlist => playlist, :video_service => service_id} =
+        Videos.get_all(video_service)
 
       assert current == nil
       assert Enum.empty?(playlist)

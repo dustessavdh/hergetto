@@ -8,7 +8,13 @@ defmodule Hergetto.AccountsTest do
 
     import Hergetto.AccountsFixtures
 
-    @invalid_attrs %{external_id: nil, profile_picture: nil, provider: nil, tag: nil, username: nil}
+    @invalid_attrs %{
+      external_id: nil,
+      profile_picture: nil,
+      provider: nil,
+      tag: nil,
+      username: nil
+    }
 
     test "list_users/0 returns all users" do
       user = user_fixture()
@@ -31,7 +37,13 @@ defmodule Hergetto.AccountsTest do
     end
 
     test "create_user/1 with valid data creates a user" do
-      valid_attrs = %{external_id: "some external_id", profile_picture: "some profile_picture", provider: "some provider", tag: "1337", username: "some username"}
+      valid_attrs = %{
+        external_id: "some external_id",
+        profile_picture: "some profile_picture",
+        provider: "some provider",
+        tag: "1337",
+        username: "some username"
+      }
 
       assert {:ok, %User{} = user} = Accounts.create_user(valid_attrs)
       assert user.external_id == "some external_id"
@@ -47,7 +59,14 @@ defmodule Hergetto.AccountsTest do
 
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
-      update_attrs = %{external_id: "some updated external_id", profile_picture: "some updated profile_picture", provider: "some updated provider", tag: "1338", username: "some updated username"}
+
+      update_attrs = %{
+        external_id: "some updated external_id",
+        profile_picture: "some updated profile_picture",
+        provider: "some updated provider",
+        tag: "1338",
+        username: "some updated username"
+      }
 
       assert {:ok, %User{} = user} = Accounts.update_user(user, update_attrs)
       assert user.external_id == "some updated external_id"

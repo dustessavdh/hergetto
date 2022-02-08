@@ -38,8 +38,8 @@ defmodule Hergetto.Accounts.UsernameGenerator do
   end
 
   def generate_username do
-    adjective = @adjectives |> Enum.random
-    noun = @nouns |> Enum.random
+    adjective = @adjectives |> Enum.random()
+    noun = @nouns |> Enum.random()
     [adjective, noun] |> Enum.join("")
   end
 
