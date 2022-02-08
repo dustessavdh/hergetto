@@ -21,8 +21,6 @@ defmodule Hergetto.Accounts.UsernameGenerator do
     frost voice paper frog smoke star hamster log
   )
 
-  @max_id 9999
-
   @guest_id "GUEST"
 
   def generate_username_with_tag do
@@ -46,6 +44,7 @@ defmodule Hergetto.Accounts.UsernameGenerator do
   end
 
   def generate_tag do
-    :rand.uniform(@max_id)
+    Enum.random(1_000..9_999)
+    |> Integer.to_string()
   end
 end

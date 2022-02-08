@@ -53,7 +53,7 @@ defmodule Hergetto.AccountsTest do
       assert user.external_id == "some updated external_id"
       assert user.profile_picture == "some updated profile_picture"
       assert user.provider == "some updated provider"
-      assert user.tag == 1338
+      assert user.tag == "1338"
       assert user.username == "some updated username"
     end
 
