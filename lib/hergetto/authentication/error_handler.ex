@@ -3,7 +3,7 @@ defmodule Hergetto.Authentication.ErrorHandler do
   This module provides a set of error handlers for when verifying authentication tokens fails.
   """
   import Phoenix.Controller
-  alias Hergetto.Authentication.Guardian
+  alias Hergetto.Authentication.Guardian.Plug
 
   @behaviour Guardian.Plug.ErrorHandler
 
@@ -21,8 +21,8 @@ defmodule Hergetto.Authentication.ErrorHandler do
 
       :invalid_token ->
         conn
-        |> Guardian.Plug.sign_out()
-        |> Guardian.Plug.clear_remember_me()
+        |> Plug.sign_out()
+        |> Plug.clear_remember_me()
         |> put_flash(:error, "An error occurred while authenticating.")
         |> redirect(to: "/login")
 
