@@ -2,7 +2,7 @@ defmodule HergettoWeb.LoginLiveTest do
   use HergettoWeb.ConnCase
   import Phoenix.LiveViewTest
 
-  describe "PageLive" do
+  describe "LoginLive" do
     test "disconnected and connected render", %{conn: conn} do
       {:ok, login_live, disconnected_html} = live(conn, "/login")
       assert disconnected_html =~ "Login"
