@@ -57,7 +57,7 @@ defmodule HergettoWeb.Helpers.MetaTags do
     meta_title_tag(title, opts[:prefix], opts[:suffix], opts)
   end
 
-  defp meta_title_tag(title, _prefix = nil, "" <> suffix, _opts) do
+  defp meta_title_tag(title, nil = _prefix, "" <> suffix, _opts) do
     [
       tag(:meta, name: "title", content: title <> suffix),
       tag(:meta, name: "og:title", content: title <> suffix),
@@ -65,7 +65,7 @@ defmodule HergettoWeb.Helpers.MetaTags do
     ]
   end
 
-  defp meta_title_tag(title, "" <> prefix, _suffix = nil, _opts) do
+  defp meta_title_tag(title, "" <> prefix, nil = _suffix, _opts) do
     [
       tag(:meta, name: "title", content: prefix <> title),
       tag(:meta, name: "og:title", content: prefix <> title),
@@ -81,7 +81,7 @@ defmodule HergettoWeb.Helpers.MetaTags do
     ]
   end
 
-  defp meta_title_tag(title, _prefix = nil, _postfix = nil, []) do
+  defp meta_title_tag(title, nil = _prefix, nil = _postfix, []) do
     [
       tag(:meta, name: "title", content: title),
       tag(:meta, name: "og:title", content: title),
@@ -89,7 +89,7 @@ defmodule HergettoWeb.Helpers.MetaTags do
     ]
   end
 
-  defp meta_title_tag(_title, _prefix = nil, _suffix = nil, opts) do
+  defp meta_title_tag(_title, nil = _prefix, nil = _suffix, opts) do
     raise ArgumentError,
           "live_meta_title_tag/2 expects a :prefix and/or :suffix option, got: #{inspect(opts)}"
   end

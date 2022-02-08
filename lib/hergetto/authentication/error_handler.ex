@@ -1,5 +1,7 @@
 defmodule Hergetto.Authentication.ErrorHandler do
-  import Plug.Conn
+  @moduledoc """
+  This module provides a set of error handlers for when verifying authentication tokens fails.
+  """
   import Phoenix.Controller
   alias Hergetto.Authentication.Guardian
 

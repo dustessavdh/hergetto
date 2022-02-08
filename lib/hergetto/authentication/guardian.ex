@@ -1,8 +1,12 @@
 defmodule Hergetto.Authentication.Guardian do
+  @moduledoc """
+  Implementation module for Guardian.
+  """
   use Guardian, otp_app: :hergetto
+  alias Hergetto.User
 
-  def subject_for_token(user, _claims) do
-    {:ok, to_string(user.id)}
+  def subject_for_token(%User{:id => id}, _claims) do
+    {:ok, id}
   end
 
   def subject_for_token(_, _) do

@@ -1,4 +1,7 @@
 defmodule Hergetto.Authentication.Pipeline do
+  @moduledoc """
+  This module provides a pipeline for verifying authentication credentials in the header, session and/or cookie.
+  """
   use Guardian.Plug.Pipeline,
     otp_app: :hergetto,
     error_handler: Hergetto.Authentication.ErrorHandler,
