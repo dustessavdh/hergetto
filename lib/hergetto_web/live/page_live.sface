@@ -1,5 +1,5 @@
 {#if assigns[:current_user]}
-  <Hero name={@current_user.email} subtitle={@current_user.external_id}/>
+  <Hero name={@current_user.username} subtitle={@current_user.external_id}/>
   <LogoIcon icon={%{type: "link", value: @current_user.profile_picture}} />
 {/if}
 

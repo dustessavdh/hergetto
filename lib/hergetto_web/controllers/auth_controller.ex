@@ -1,16 +1,17 @@
 defmodule HergettoWeb.AuthController do
   use HergettoWeb, :controller
   plug Ueberauth
-  alias Hergetto.Users
+  alias Hergetto.Accounts
+  alias Hergetto.Accounts.UsernameGenerator, as: USG
   alias Hergetto.Authentication.Guardian
 
   def callback(%{assigns: %{ueberauth_auth: auth_info}} = conn, _params) do
     user_params = %{
-      email: auth_info.info.email,
-      token: auth_info.credentials.token,
       profile_picture: auth_info.info.image,
       external_id: auth_info.uid,
-      provider: Atom.to_string(auth_info.provider)
+      provider: Atom.to_string(auth_info.provider),
+      username: USG.generate_username(),
+      tag: USG.generate_tag()
     }
 
     signin(conn, user_params)
@@ -28,7 +29,7 @@ defmodule HergettoWeb.AuthController do
     case insert_or_update_user(user_params) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "Signed in as #{user.email}")
+        |> put_flash(:info, "Signed in as #{user.username}")
         |> Guardian.Plug.sign_in(user)
         |> Guardian.Plug.remember_me(user)
         |> redirect(to: "/")
@@ -41,15 +42,9 @@ defmodule HergettoWeb.AuthController do
   end
 
   defp insert_or_update_user(user_params) do
-    case Users.get(user_params.external_id, :external_id) do
+    case Accounts.get_user(user_params.external_id, :external_id) do
       nil ->
-        Users.create_user(
-          user_params.email,
-          user_params.token,
-          user_params.profile_picture,
-          user_params.external_id,
-          user_params.provider
-        )
+        Accounts.create_user(user_params)
 
       user ->
         {:ok, user}

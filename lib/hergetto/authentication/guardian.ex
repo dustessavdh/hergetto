@@ -3,7 +3,8 @@ defmodule Hergetto.Authentication.Guardian do
   Implementation module for Guardian.
   """
   use Guardian, otp_app: :hergetto
-  alias Hergetto.User
+  alias Hergetto.Accounts
+  alias Hergetto.Accounts.User
 
   def subject_for_token(%User{:id => id}, _claims) do
     {:ok, id}
@@ -14,7 +15,7 @@ defmodule Hergetto.Authentication.Guardian do
   end
 
   def resource_from_claims(%{"sub" => id}) do
-    user = Hergetto.Users.get(id, :id)
+    user = Accounts.get_user(id)
     {:ok, user}
   end
 
