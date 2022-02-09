@@ -10,6 +10,10 @@ defmodule Hergetto.Authentication.Guardian do
     {:ok, id}
   end
 
+  def subject_for_token(%{:profile_picture => _, :external_id => _, :provider => _} = sub, _claims) do
+    {:ok, sub}
+  end
+
   def subject_for_token(_, _) do
     {:error, :unhandled_resource_type}
   end
