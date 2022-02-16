@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  site:
+    build: .
+    ports:
+      - 4000:4000
+    depends_on:
+      - db
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+      - site_build:/app/_build
+    command: bin/run_dev
+
+  db:
+    build:
+      context: .
+      dockerfile: postgres.Dockerfile
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+
+volumes:
+  site_build: null
+  db_data: null

@@ -19,12 +19,7 @@ Watch videos together from the comfort of your own room!
 [![Uptime Robot ratio (7 days)](https://img.shields.io/uptimerobot/ratio/7/m787479878-c7fbde79796c14354d41e123)](https://stats.uptimerobot.com/XpPBpun2Pl)
 
 To start your Phoenix server:
-
-- Install dependencies with `mix deps.get`
-- Create and migrate your database with `mix ecto.setup`
-- Install Node.js dependencies with `npm install` inside the `assets` directory
-- Create a new file in the config folder called `ueberauth.secret.exs`, copy the contents of `ueberauth.secret.exs.example` into it, and fill in the information
-- Start Phoenix endpoint with `mix phx.server`
+Just run `docker-compose up`. If its not working, it is because you have an arm chip. You can resolve the issue by adding `arm` to the end of the [Dockerfile](Dockerfile) (so the version tag will be `1.12v2arm`). Make sure you don't commit this.
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
