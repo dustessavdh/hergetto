@@ -11,7 +11,10 @@ defmodule Hergetto.Chats.ChatService do
   @doc false
   def start_link({chat_service, room}) do
     Logger.info("Chatservice with id: #{chat_service} starting.")
-    GenServer.start_link(__MODULE__, %{chat_service: chat_service, room: room, messages: []}, name: :"chat_service:#{chat_service}")
+
+    GenServer.start_link(__MODULE__, %{chat_service: chat_service, room: room, messages: []},
+      name: :"chat_service:#{chat_service}"
+    )
   end
 
   # Server

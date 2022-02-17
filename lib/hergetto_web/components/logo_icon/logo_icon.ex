@@ -1,8 +1,13 @@
 defmodule HergettoWeb.Components.LogoIcon do
-  use Surface.Component
+  @moduledoc """
+  A component that renders the empty hergetto logo with a custom icon, letter, text or image
+  """
+  use HergettoWeb, :component
+  alias HergettoWeb.Router.Helpers, as: Routes
 
-  prop icon, :map, default: %{
-    type: "fontawesome",
-    value: "fab fa-phoenix-framework"
-  }
+  prop icon, :map,
+    default: %{
+      type: "fontawesome",
+      value: "fab fa-phoenix-framework"
+    }
 end

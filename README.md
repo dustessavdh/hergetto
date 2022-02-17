@@ -12,11 +12,11 @@ Normally you could just go to a friends house and start watching videos together
 So that's why hergetto was created!
 Watch videos together from the comfort of your own room!
 
-[![Elixir Tests](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml/badge.svg)](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml)
-[![codecov](https://codecov.io/gh/dusthijsvdh/hergetto/branch/development/graph/badge.svg?token=URVHVQXE9O)](https://codecov.io/gh/dusthijsvdh/hergetto)
-[![Travis build](https://travis-ci.com/dusthijsvdh/hergetto.svg?branch=main)](https://travis-ci.com/github/dusthijsvdh/hergetto)
+[![Elixir CI](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml/badge.svg)](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml)
+[![Coverage Status](https://coveralls.io/repos/github/dusthijsvdh/hergetto/badge.svg)](https://coveralls.io/github/dusthijsvdh/hergetto)
 [![Mozilla observatory](https://img.shields.io/mozilla-observatory/grade-score/hergetto.live?publish)](https://observatory.mozilla.org/analyze/hergetto.live)
-[![Uptime Robot ratio (7 days)](https://img.shields.io/uptimerobot/ratio/7/m787479878-c7fbde79796c14354d41e123)](https://stats.uptimerobot.com/XpPBpun2Pl)
+[![Better Uptime Badge](https://betteruptime.com/status-badges/v1/monitor/bl3y.svg)](https://status.hergetto.live/)
+[![Figma](https://img.shields.io/badge/Design-Figma-1ABCFE.svg?logo=figma)](https://www.figma.com/file/2NjbwtE7o72YfgAG32m3DU/website?node-id=2%3A190)
 
 To start your Phoenix server:
 Just run `docker-compose up`. If its not working, it is because you have an arm chip. You can resolve the issue by adding `arm` to the end of the [Dockerfile](Dockerfile) (so the version tag will be `1.12v2arm`). Make sure you don't commit this.

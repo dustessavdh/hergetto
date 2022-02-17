@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src *;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    { csrf_meta_tag() }
+
+    { live_meta_title_tag assigns[:page_title] || "Hergetto", suffix: " ⋅ Watch videos together!" }
+    { meta_tags(assigns[:meta_attrs] || %{}) }
+
+    { live_title_tag assigns[:page_title] || "Hergetto", suffix: " ⋅ Watch videos together!" }
+
+    <link phx-track-static rel="stylesheet" title="Hergetto standard" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+    <link rel="stylesheet" href="https://use.typekit.net/vvn3ldi.css">
+
+    <link phx-track-static rel="icon" type="image/x-icon" href="favicon.ico">
+    <link phx-track-static rel="apple-touch-icon" sizes="180x180" href={Routes.static_path(@conn, "/assets/icons/apple-touch-icon.png")}>
+    <link phx-track-static rel="icon" type="image/png" sizes="32x32" href={Routes.static_path(@conn, "/assets/icons/favicon-32x32.png")}>
+    <link phx-track-static rel="icon" type="image/png" sizes="16x16" href={Routes.static_path(@conn, "/assets/icons/favicon-16x16.png")}>
+    <link phx-track-static rel="manifest" href={Routes.static_path(@conn,"/manifest.json")}>
+  </head>
+  <body>
+  <div class="bg-gradient-brand min-vh-100 d-flex flex-column justify-content-between">
+    <div>
+      <header class="pb-3 px-5">
+        <Navbar.render room={assigns[:room]} user={assigns[:user]} />
+      </header>
+      <main role="main" class="container-fluid px-5">
+        <div class="row full-height d-flex align-items-center">
+          <div class="col-md-6">
+            <article class="vstack gap-3 col-sm-8 mx-auto">
+              <h1>Woops!</h1>
+              <p class="h3 text-dark">We couldn't find "<a href="" class="text-white">{ Phoenix.Controller.current_path(@conn) }</a>"!</p>
+            </article>
+          </div>
+          <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <LogoIcon.render icon={%{type: "text", value: "404"}}/>
+          </div>
+        </div>
+      </main>
+    </div>
+    <footer class="">
+      <h2>footer</h2>
+    </footer>
+  </div>
+  </body>
+</html>
+

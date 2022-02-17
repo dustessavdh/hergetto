@@ -6,7 +6,7 @@
 
 # General application configuration
 import Config
-require Logger
+import Logger
 
 config :hergetto,
   ecto_repos: [Hergetto.Repo]
@@ -28,7 +28,8 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :surface, :components, [
-  {Surface.Components.Form.ErrorTag, default_translator: {HergettoWeb.ErrorHelpers, :translate_error}}
+  {Surface.Components.Form.ErrorTag,
+   default_translator: {HergettoWeb.ErrorHelpers, :translate_error}}
 ]
 
 # default cronjobs to run
@@ -40,34 +41,15 @@ config :hergetto, Hergetto.Scheduler,
     ]
   ]
 
-# Add default metadata for all the pages
-config :hergetto, HergettoWeb.Meta, [
-  %{name: "title", content: "Hergetto · Together in a safe way!"},
-  %{name: "keywords", content: "phoenix watch youtube videos together hergetto"},
-  %{name: "tags", content: "phoenix,watch,youtube,videos,together,hergetto"},
-  %{
-    name: "description",
-    content:
-      "Wanna watch videos together on a couch, but online? You can do that here! Find or create a room, send the link to your friends and start watching together. Hergetto stands for Together."
-  },
-  %{property: "og:type", content: "website"},
-  %{property: "og:url", content: "https://hergetto.live/"},
-  %{property: "og:title", content: "Hergetto · Together in a safe way!"},
-  %{
-    property: "og:description",
-    content:
-      "Wanna watch videos together on a couch, but online? You can do that here! Find or create a room, send the link to your friends and start watching together. Hergetto stands for Together."
-  },
-  %{property: "og:image", content: "assets/images/oembed_logo.png"},
-  %{name: "twitter:card", content: "summary"},
-  %{name: "twitter:url", content: "https://hergetto.live"},
-  %{name: "twitter:title", content: "Hergetto · Together in a safe way!"},
-  %{name: "twitter:image", content: "assets//images/oembed_logo.png"}
-]
-
 config :ueberauth, Ueberauth,
-  providers: [google: {Ueberauth.Strategy.Google, []}
-]
+  providers: [
+    google: {
+      Ueberauth.Strategy.Google,
+      [
+        default_scope: "email profile"
+      ]
+    }
+  ]
 
 if config_env() == :prod || config_env() == :dev do
   try do
@@ -76,6 +58,13 @@ if config_env() == :prod || config_env() == :dev do
     _ ->
       Logger.error("Please create a ueberauth.secret.exs")
   end
+end
+
+try do
+  import_config "meta_tags.exs"
+rescue
+  _ ->
+    raise "Could not import meta_tags.exs"
 end
 
 # Import environment specific config. This must remain at the bottom

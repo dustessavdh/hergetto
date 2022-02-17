@@ -1,7 +1,5 @@
 defmodule HergettoWeb.Router do
   use HergettoWeb, :router
-
-  alias HergettoWeb.Plugs.Authentication
   import Surface.Catalogue.Router
 
   pipeline :browser do
@@ -11,30 +9,40 @@ defmodule HergettoWeb.Router do
     plug :put_root_layout, {HergettoWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Hergetto.Authentication.Pipeline
   end
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  pipeline :protected do
-    plug Authentication, nil
+  pipeline :require_authenticated_user do
+    plug Guardian.Plug.EnsureAuthenticated
+  end
+
+  pipeline :redirect_if_user_is_authenticated do
+    plug Guardian.Plug.EnsureNotAuthenticated
+  end
+
+  # Maybe logged in routes
+  scope "/", HergettoWeb do
+    pipe_through [:browser]
+
+    live "/", PageLive
   end
 
   scope "/", HergettoWeb do
-    pipe_through :browser
+    pipe_through [:browser, :require_authenticated_user]
+  end
 
-    live "/", PageLive
+  scope "/", HergettoWeb do
+    pipe_through [:browser, :redirect_if_user_is_authenticated]
+
     live "/login", LoginLive
   end
 
-  # Routes where the user needs to be authenticated. E.G. /profile
-  scope "/", HergettoWeb do
-    pipe_through [:browser, :protected]
-  end
-
   scope "/auth", HergettoWeb do
-    pipe_through :browser
+    pipe_through [:browser]
 
     get "/signout", AuthController, :signout
     get "/:provider", AuthController, :request
@@ -65,7 +73,7 @@ defmodule HergettoWeb.Router do
   if Mix.env() == :dev do
     scope "/" do
       pipe_through :browser
-      surface_catalogue "/catalogue"
+      surface_catalogue("/catalogue")
     end
   end
 end

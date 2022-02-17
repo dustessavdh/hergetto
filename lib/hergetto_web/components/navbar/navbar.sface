@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark navbar-expand-lg justify-content-between">
   <div class="container-flex">
     <a class="navbar-brand" href="/">
-      <img src="/assets/logo/logo.svg" alt="Hergetto logo" height="38" class="d-inline-block align-text-top">
+      <img src={Routes.static_path(HergettoWeb.Endpoint, "/assets/logo/logo.svg")} alt="Hergetto logo" height="38" class="d-inline-block align-text-top">
       <span class="navbar-brand mb-0 h1">Hergetto</span>
     </a>
   </div>
@@ -27,17 +27,6 @@
           <li class="nav-item">
             <a class="nav-link" href="/rooms">Rooms</a>
           </li>
-          {#if @show_dev_routes?}
-            <li class="nav-item dropdown">
-              <a role="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                dev
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/dashboard" role="button">Dashboard</a></li>
-                <li><a class="dropdown-item" href="/catalogue" role="button">Catalogue</a></li>
-              </ul>
-            </li>
-          {/if}
           {#if !@user}
             <li class="nav-item">
               <a class="nav-link nav-btn btn btn-light text-dark" href="/login">Sign in</a>

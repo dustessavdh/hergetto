@@ -1,5 +1,8 @@
 defmodule HergettoWeb.ErrorView do
   use HergettoWeb, :view
+  import HergettoWeb.Helpers.MetaTags
+  alias HergettoWeb.Components.Navbar
+  alias HergettoWeb.Components.LogoIcon
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

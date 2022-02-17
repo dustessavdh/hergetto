@@ -14,9 +14,11 @@ defmodule HergettoWeb.Components.Navbar.Example02 do
     ~F"""
     <Navbar
       user={%{
-        email: "keesvonkaas@gmail.com",
-        external_id: 1337,
-        profile_picture: "https://avatars.githubusercontent.com/u/25427808?v=4"
+        external_id: "123456789",
+        profile_picture: "https://file.coffee/u/Gd9Dyk1tZHbmpl.jpg",
+        provider: "google",
+        username: "coolkid",
+        tag: 1337
       }}
     />
     """

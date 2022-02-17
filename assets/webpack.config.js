@@ -24,7 +24,7 @@ module.exports = (env, options) => {
       path: path.resolve(__dirname, '../priv/static/assets'),
       publicPath: '/js/'
     },
-    devtool: devMode ? 'eval-cheap-module-source-map' : undefined,
+    devtool: devMode ? 'cheap-module-source-map' : undefined,
     module: {
       rules: [
         {
@@ -43,13 +43,14 @@ module.exports = (env, options) => {
           ],
         },
         {
-          test:  /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
           use: [
             {
               loader: 'file-loader',
               options: {
                 name: '[name].[ext]',
-                outputPath: 'fonts/'
+                outputPath: '../fonts',
+                publicPath: '../fonts'
               }
             }
           ]
@@ -60,10 +61,13 @@ module.exports = (env, options) => {
       new MiniCssExtractPlugin({ filename: '../assets/app.css' }),
       new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
     ]
-    .concat(devMode ? [new HardSourceWebpackPlugin({
-      configHash: function(webpackConfig) {
-        return require('node-object-hash')({sort: false}).hash(webpackConfig);
-      }
-    })] : [])
+    .concat(devMode ? [
+      new HardSourceWebpackPlugin({
+        configHash: (webpackConfig) => require('node-object-hash')({ sort: false }).hash(webpackConfig)
+      }),
+      new HardSourceWebpackPlugin.ExcludeModulePlugin([{
+        test: /mini-css-extract-plugin[\\/]dist[\\/]loader/
+      }])
+    ] : [])
   }
 };

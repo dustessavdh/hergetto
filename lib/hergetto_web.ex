@@ -37,16 +37,21 @@ defmodule HergettoWeb do
       import Phoenix.Controller,
         only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
 
+      use Surface.View,
+        root: "lib/hergetto_web/templates",
+        namespace: HergettoWeb
+
       # Include shared imports and aliases for views
       unquote(view_helpers())
-      import Surface
     end
   end
 
   def live_view do
     quote do
-      use Phoenix.LiveView,
+      use Surface.LiveView,
         layout: {HergettoWeb.LayoutView, "live.html"}
+
+      import HergettoWeb.Helpers.LiveAssigns
 
       unquote(view_helpers())
     end
@@ -54,7 +59,15 @@ defmodule HergettoWeb do
 
   def live_component do
     quote do
-      use Phoenix.LiveComponent
+      use Surface.LiveComponent
+
+      unquote(view_helpers())
+    end
+  end
+
+  def component do
+    quote do
+      use Surface.Component
 
       unquote(view_helpers())
     end

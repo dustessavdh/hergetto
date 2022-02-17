@@ -11,7 +11,15 @@ defmodule Hergetto.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
+      dialyzer: dialyzer(),
       test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test,
+        "coveralls.lcov": :test
+      ],
 
       # Docs
       name: "Hergetto",
@@ -32,7 +40,7 @@ defmodule Hergetto.MixProject do
   def application do
     [
       mod: {Hergetto.Application, []},
-      extra_applications: [:logger, :runtime_tools, :os_mon]
+      extra_applications: [:logger, :runtime_tools, :os_mon, :ex_unit]
     ]
   end
 
@@ -46,15 +54,15 @@ defmodule Hergetto.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.6.5"},
+      {:phoenix, "~> 1.6.6"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.2.0"},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.16.4"},
+      {:phoenix_live_reload, "~> 1.3", only: :dev},
+      {:phoenix_live_view, "~> 0.17.6"},
       {:floki, ">= 0.30.0", only: :test},
-      {:phoenix_live_dashboard, "~> 0.5"},
+      {:phoenix_live_dashboard, "~> 0.6.4"},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 0.5"},
@@ -64,13 +72,16 @@ defmodule Hergetto.MixProject do
       {:ecto_psql_extras, "~> 0.2"},
       {:elixir_uuid, "~> 1.2"},
       {:excoveralls, "~> 0.14"},
-      {:ex_doc, "~> 0.26", only: :dev, runtime: false},
-      {:surface, "~> 0.6.0"},
-      {:surface_formatter, "~> 0.6.0"},
-      {:surface_catalogue, "~> 0.2.0"},
+      {:ex_doc, "~> 0.28", only: :dev, runtime: false},
+      {:surface, "~> 0.7.0"},
+      {:surface_formatter, "~> 0.7.4"},
+      {:surface_catalogue, "~> 0.3.0"},
       {:ueberauth, "~> 0.6"},
       {:ueberauth_google, "~> 0.10"},
-      {:quantum, "~> 3.4"}
+      {:guardian, "~> 2.0"},
+      {:quantum, "~> 3.4"},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -90,7 +101,15 @@ defmodule Hergetto.MixProject do
     ]
   end
 
-  def catalogues do
+  defp dialyzer do
+    [
+      plt_core_path: "priv/plts",
+      plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
+      plt_add_apps: [:ex_unit]
+    ]
+  end
+
+  defp catalogues do
     [
       "priv/catalogue"
     ]
