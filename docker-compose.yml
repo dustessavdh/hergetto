@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   site:
+    container_name: site
     build: .
     ports:
       - 4000:4000
@@ -12,14 +13,15 @@ services:
         source: .
         target: /app
       - site_build:/app/_build
-    command: bin/run_dev
+    command: bash bin/run_dev
 
   db:
+    container_name: db
     build:
       context: .
       dockerfile: postgres.Dockerfile
     ports:
-      - 5432:5432
+      - 5432:5433
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
