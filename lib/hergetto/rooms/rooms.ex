@@ -154,10 +154,11 @@ defmodule Hergetto.Rooms do
       :ok
   """
   def trigger(room, event, data, sender) do
-    with true <- exists?(room) do
-      PubSub.broadcast(Hergetto.PubSub, room, create_event(event, data, sender))
-      :ok
-    else
+    case exists?(room) do
+      true ->
+        PubSub.broadcast(Hergetto.PubSub, room, create_event(event, data, sender))
+        :ok
+
       _ ->
         :noroom
     end
