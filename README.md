@@ -18,6 +18,8 @@ Watch videos together from the comfort of your own room!
 [![Better Uptime Badge](https://betteruptime.com/status-badges/v1/monitor/bl3y.svg)](https://status.hergetto.live/)
 [![Figma](https://img.shields.io/badge/Design-Figma-1ABCFE.svg?logo=figma)](https://www.figma.com/file/2NjbwtE7o72YfgAG32m3DU/website?node-id=2%3A190)
 
+To start your Phoenix server:
+
 - Install dependencies with `mix deps.get`
 - Create and migrate your database with `mix ecto.setup`
 - Install Node.js dependencies with `npm install` inside the `assets` directory
