@@ -87,9 +87,8 @@ defmodule Hergetto.Chats do
 
   """
   def exists?(chat_service) do
-    with state <- Process.whereis(generate_chat_service_id(chat_service)) do
-      is_pid(state)
-    end
+    state = Process.whereis(generate_chat_service_id(chat_service))
+    is_pid(state)
   end
 
   @doc false

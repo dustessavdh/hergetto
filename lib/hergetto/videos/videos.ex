@@ -164,9 +164,8 @@ defmodule Hergetto.Videos do
 
   """
   def exists?(video_service) do
-    with state <- Process.whereis(generate_video_service_id(video_service)) do
-      is_pid(state)
-    end
+    state = Process.whereis(generate_video_service_id(video_service))
+    is_pid(state)
   end
 
   @doc false
