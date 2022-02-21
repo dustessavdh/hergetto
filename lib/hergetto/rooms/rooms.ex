@@ -137,9 +137,8 @@ defmodule Hergetto.Rooms do
 
   """
   def exists?(room) do
-    with state <- Process.whereis(generate_room_id(room)) do
-      is_pid(state)
-    end
+    state = Process.whereis(generate_room_id(room))
+    is_pid(state)
   end
 
   @doc """
