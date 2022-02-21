@@ -1,5 +1,0 @@
-.github
-assets/node_modules
-.gitignore
-docker-compose.yaml
-Dockerfile
