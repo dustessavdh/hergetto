@@ -31,13 +31,12 @@ defmodule Hergetto.Videos do
 
   """
   def add(video_service, video) do
-    case video_service |> exists() do
-      true ->
-        pid = Process.whereis(video_service |> generate_videos_service_id())
-        GenServer.cast(pid, {:add, video})
-        :ok
-
-      false ->
+    with true <- exists?(video_service),
+         pid <- Process.whereis(generate_video_service_id(video_service)) do
+      GenServer.cast(pid, {:add, video})
+      :ok
+    else
+      _ ->
         :novideoservice
     end
   end
@@ -54,13 +53,12 @@ defmodule Hergetto.Videos do
 
   """
   def set_current(video_service, video) do
-    case video_service |> exists() do
-      true ->
-        pid = Process.whereis(video_service |> generate_videos_service_id())
-        GenServer.cast(pid, {:set_current, video})
-        :ok
-
-      false ->
+    with true <- exists?(video_service),
+         pid <- Process.whereis(generate_video_service_id(video_service)) do
+      GenServer.cast(pid, {:set_current, video})
+      :ok
+    else
+      _ ->
         :novideoservice
     end
   end
@@ -79,23 +77,16 @@ defmodule Hergetto.Videos do
 
   """
   def next(video_service) do
-    case video_service |> exists() do
-      true ->
-        playlist = video_service |> get_playlist()
-
-        case length(playlist) > 0 do
-          true ->
-            new_video = List.last(playlist)
-            video_service |> delete(length(playlist) - 1)
-            video_service |> set_current(new_video)
-            :ok
-
-          false ->
-            :novideos
-        end
-
-      false ->
-        :novideoservice
+    with true <- exists?(video_service),
+         playlist <- get_playlist(video_service),
+         true <- length(playlist) > 0 do
+      new_video = List.last(playlist)
+      video_service |> delete(length(playlist) - 1)
+      video_service |> set_current(new_video)
+      :ok
+    else
+      _ ->
+        :error
     end
   end
 
@@ -111,13 +102,12 @@ defmodule Hergetto.Videos do
 
   """
   def delete(video_service, index) do
-    case video_service |> exists() do
-      true ->
-        pid = Process.whereis(video_service |> generate_videos_service_id())
-        GenServer.cast(pid, {:delete, index})
-        :ok
-
-      false ->
+    with true <- exists?(video_service),
+         pid <- Process.whereis(generate_video_service_id(video_service)) do
+      GenServer.cast(pid, {:delete, index})
+      :ok
+    else
+      _ ->
         :novideoservice
     end
   end
@@ -138,54 +128,49 @@ defmodule Hergetto.Videos do
       }
   """
   def get(video_service, scope) do
-    case video_service |> exists() do
-      true ->
-        pid = Process.whereis(video_service |> generate_videos_service_id())
-        GenServer.call(pid, {:get, scope})
-
-      false ->
-        {:error, :novideoservice}
+    with true <- exists?(video_service),
+         pid <- Process.whereis(generate_video_service_id(video_service)) do
+      GenServer.call(pid, {:get, scope})
+    else
+      _ ->
+        :novideoservice
     end
   end
 
   @doc false
   def get_all(video_service) do
-    video_service |> get(:all)
+    get(video_service, :all)
   end
 
   @doc false
   def get_playlist(video_service) do
-    video_service |> get(:playlist)
+    get(video_service, :playlist)
   end
 
   @doc false
   def get_current(video_service) do
-    video_service |> get(:current)
+    get(video_service, :current)
   end
 
   @doc """
-  Check if the specified `video_service` exists.
+  Check if the specified `video_service` exists?.
 
   Returns `true` or `false`.
 
   ## Examples
 
-      iex> Videos.exists("93a628cc-cec1-4733-b513-aff5824b02da")
+      iex> Videos.exists?("93a628cc-cec1-4733-b513-aff5824b02da")
       true
 
   """
-  def exists(video_service) do
-    case Process.whereis(video_service |> generate_videos_service_id()) do
-      nil ->
-        false
-
-      _ ->
-        true
+  def exists?(video_service) do
+    with state <- Process.whereis(generate_video_service_id(video_service)) do
+      is_pid(state)
     end
   end
 
   @doc false
-  defp generate_videos_service_id(video_service) do
+  defp generate_video_service_id(video_service) do
     :"video_service:#{video_service}"
   end
 end

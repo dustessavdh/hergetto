@@ -34,67 +34,61 @@ defmodule Hergetto.Chats do
 
   """
   def send(chat_service, message) do
-    case chat_service |> exists() do
-      true ->
-        pid = Process.whereis(chat_service |> generate_chat_service_id())
-        GenServer.cast(pid, {:send, message})
+    with true <- exists?(chat_service),
+         pid <- Process.whereis(generate_chat_service_id(chat_service)) do
+      GenServer.cast(pid, {:send, message})
 
-        chat_service
-        |> get_room()
-        |> Rooms.trigger("message", message, __MODULE__)
+      chat_service
+      |> get_room()
+      |> Rooms.trigger("message", message, __MODULE__)
 
-        :ok
-
-      false ->
+      :ok
+    else
+      _ ->
         :nochatservice
     end
   end
 
   @doc false
   def get(chat_service, scope) do
-    case chat_service |> exists() do
-      true ->
-        pid = Process.whereis(chat_service |> generate_chat_service_id())
-        GenServer.call(pid, {:get, scope})
-
-      false ->
+    with true <- exists?(chat_service),
+         pid <- Process.whereis(generate_chat_service_id(chat_service)) do
+      GenServer.call(pid, {:get, scope})
+    else
+      _ ->
         :nochatservice
     end
   end
 
   @doc false
   def get_all(chat_service) do
-    chat_service |> get(:all)
+    get(chat_service, :all)
   end
 
   @doc false
   def get_messages(chat_service) do
-    chat_service |> get(:messages)
+    get(chat_service, :messages)
   end
 
   @doc false
   def get_room(chat_service) do
-    chat_service |> get(:room)
+    get(chat_service, :room)
   end
 
   @doc """
-  Check if the specified `chat_service` exists.
+  Check if the specified `chat_service` exists?.
 
   Returns `true` or `false`.
 
   ## Examples
 
-      iex> Chats.exists("93a628cc-cec1-4733-b513-aff5824b02da")
+      iex> Chats.exists?("93a628cc-cec1-4733-b513-aff5824b02da")
       true
 
   """
-  def exists(chat_service) do
-    case Process.whereis(chat_service |> generate_chat_service_id()) do
-      nil ->
-        false
-
-      _ ->
-        true
+  def exists?(chat_service) do
+    with state <- Process.whereis(generate_chat_service_id(chat_service)) do
+      is_pid(state)
     end
   end
 
