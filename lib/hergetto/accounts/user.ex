@@ -9,8 +9,9 @@ defmodule Hergetto.Accounts.User do
     field :external_id, :string
     field :profile_picture, :string
     field :provider, :string
-    field :tag, :string
+    field :email, :string
     field :username, :string
+    field :tag, :string
 
     timestamps()
   end
@@ -18,7 +19,11 @@ defmodule Hergetto.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:profile_picture, :external_id, :provider, :username, :tag])
-    |> validate_required([:profile_picture, :external_id, :provider, :username, :tag])
+    |> cast(attrs, [:profile_picture, :external_id, :provider, :email, :username, :tag])
+    |> validate_required([:profile_picture, :external_id, :provider, :email, :username, :tag])
+    |> unique_constraint([:username, :tag], name: :username_with_tag_index, message: "username and tag must be unique")
+    |> validate_format(:email, ~r/^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/)
+    |> validate_length(:tag, is: 4)
+    |> validate_inclusion(:provider, ["google"])
   end
 end
