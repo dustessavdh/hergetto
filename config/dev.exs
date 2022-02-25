@@ -1,7 +1,5 @@
 import Config
 
-# "none" | "errors-only" | "minimal" | "normal" | "detailed" | "verbose" | "errors-warnings"
-
 # Configure your database
 config :hergetto, Hergetto.Repo,
   username: "postgres",
