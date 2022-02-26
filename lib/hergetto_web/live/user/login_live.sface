@@ -2,9 +2,9 @@
     <div class="col-md-6">
       <article class="vstack gap-3 col-sm-8 mx-auto">
         <h1>Login/Join Hergetto:</h1>
-        <Link to="/auth/google" class="btn btn-light">
-          <i><img src="assets/icons/google_g_logo.svg" alt="Google Logo" class="pe-2"></i>
-          Login with google
+        <Link to="/auth/google" class="btn btn-light btn-google">
+          <i class="pe-2 fas"><img src="assets/icons/google_g_logo.svg" alt="Google Logo"></i>
+          Continue with Google
         </Link>
       </article>
     </div>

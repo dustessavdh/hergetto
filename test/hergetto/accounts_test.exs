@@ -11,6 +11,7 @@ defmodule Hergetto.AccountsTest do
     @invalid_attrs %{
       external_id: nil,
       profile_picture: nil,
+      profile_colour: nil,
       provider: nil,
       email: nil,
       tag: nil,
@@ -41,6 +42,7 @@ defmodule Hergetto.AccountsTest do
       valid_attrs = %{
         external_id: "some external_id",
         profile_picture: "some profile_picture",
+        profile_colour: "some profile_colour",
         provider: "google",
         email: "info@hergetto.live",
         tag: "1337",
@@ -50,6 +52,7 @@ defmodule Hergetto.AccountsTest do
       assert {:ok, %User{} = user} = Accounts.create_user(valid_attrs)
       assert user.external_id == "some external_id"
       assert user.profile_picture == "some profile_picture"
+      assert user.profile_colour == "some profile_colour"
       assert user.provider == "google"
       assert user.email == "info@hergetto.live"
       assert user.tag == "1337"
@@ -66,6 +69,7 @@ defmodule Hergetto.AccountsTest do
       update_attrs = %{
         external_id: "some updated external_id",
         profile_picture: "some updated profile_picture",
+        profile_colour: "some updated profile_colour",
         provider: "google",
         email: "updated@hergetto.live",
         tag: "1338",
@@ -75,6 +79,7 @@ defmodule Hergetto.AccountsTest do
       assert {:ok, %User{} = user} = Accounts.update_user(user, update_attrs)
       assert user.external_id == "some updated external_id"
       assert user.profile_picture == "some updated profile_picture"
+      assert user.profile_colour == "some updated profile_colour"
       assert user.provider == "google"
       assert user.email == "updated@hergetto.live"
       assert user.tag == "1338"

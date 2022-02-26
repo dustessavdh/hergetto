@@ -13,6 +13,7 @@ defmodule Hergetto.AccountsFixtures do
       |> Enum.into(%{
         external_id: "some external_id",
         profile_picture: "some profile_picture",
+        profile_colour: "some profile_colour",
         provider: "google",
         email: "info@hergetto.live",
         tag: "1337",
