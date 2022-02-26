@@ -8,6 +8,7 @@ defmodule Hergetto.Accounts.User do
   schema "users" do
     field :external_id, :string
     field :profile_picture, :string
+    field :profile_colour, :string
     field :provider, :string
     field :email, :string
     field :username, :string

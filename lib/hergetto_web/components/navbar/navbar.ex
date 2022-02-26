@@ -26,8 +26,10 @@ defmodule HergettoWeb.Components.Navbar do
 
       %{
         external_id: "123456789",
-        profile_picture: "https://file.coffee/u/Gd9Dyk1tZHbmpl.jpg",
+        profile_picture: "/assets/images/avatar/default.png",
+        profile_color: "#6D28D9",
         provider: "google",
+        email: "info@hergetto.live",
         username: "coolkid",
         tag: 1337
       }
