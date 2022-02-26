@@ -1,0 +1,3 @@
+<h1>Hello {@current_user.username}</h1>
+<img referrerpolicy="no-referrer" src={@current_user.profile_picture} style={"background: #{UH.get_color_for_username(@current_user.username)}"} alt="profile picture" class="img-fluid pfp-example">
+
