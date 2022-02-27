@@ -24,7 +24,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Elixir
-      uses: erlef/setup-beam@730ac65cba0700bad37c0744de4aa916c16bb728
+      uses: erlef/setup-beam@c428d8c359c7a208a7471729c4a619c35780d541
       with:
         elixir-version: ${{ matrix.elixir }}
         otp-version: ${{ matrix.otp }}
@@ -63,7 +63,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Elixir
-      uses: erlef/setup-beam@730ac65cba0700bad37c0744de4aa916c16bb728
+      uses: erlef/setup-beam@c428d8c359c7a208a7471729c4a619c35780d541
       with:
         elixir-version: ${{ matrix.elixir }}
         otp-version: ${{ matrix.otp }}
@@ -116,7 +116,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Elixir
-      uses: erlef/setup-beam@730ac65cba0700bad37c0744de4aa916c16bb728
+      uses: erlef/setup-beam@c428d8c359c7a208a7471729c4a619c35780d541
       with:
         elixir-version: ${{ matrix.elixir }}
         otp-version: ${{ matrix.otp }}
@@ -164,7 +164,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Elixir
-      uses: erlef/setup-beam@730ac65cba0700bad37c0744de4aa916c16bb728
+      uses: erlef/setup-beam@c428d8c359c7a208a7471729c4a619c35780d541
       with:
         elixir-version: ${{ matrix.elixir }}
         otp-version: ${{ matrix.otp }}
