@@ -20,9 +20,28 @@ defmodule Hergetto.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:profile_picture, :profile_colour, :external_id, :provider, :email, :username, :tag])
-    |> validate_required([:profile_picture, :profile_colour, :external_id, :provider, :email, :username, :tag])
-    |> unique_constraint([:username, :tag], name: :username_with_tag_index, message: "username and tag must be unique")
+    |> cast(attrs, [
+      :profile_picture,
+      :profile_colour,
+      :external_id,
+      :provider,
+      :email,
+      :username,
+      :tag
+    ])
+    |> validate_required([
+      :profile_picture,
+      :profile_colour,
+      :external_id,
+      :provider,
+      :email,
+      :username,
+      :tag
+    ])
+    |> unique_constraint([:username, :tag],
+      name: :username_with_tag_index,
+      message: "username and tag must be unique"
+    )
     |> validate_length(:profile_picture, max: 254)
     |> validate_format(:email, ~r/^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/)
     |> validate_length(:tag, is: 4)

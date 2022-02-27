@@ -14,6 +14,7 @@ defmodule HergettoWeb.Helpers.LiveUpload do
         File.cp!(path, full_destination)
         {:ok, Routes.static_path(socket, "/uploads/#{folder_location}/#{filename}")}
       end)
+
     {:ok, uploaded_files}
   end
 

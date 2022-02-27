@@ -64,7 +64,8 @@ defmodule HergettoWeb.AuthController do
   defp create_user(user_params) do
     username = UH.generate_username()
 
-    user_params = user_params
+    user_params =
+      user_params
       |> Map.put_new(:username, username)
       |> Map.put_new(:tag, UH.generate_tag())
       |> Map.put_new(:profile_colour, UH.get_color_for_username(username))

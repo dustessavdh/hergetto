@@ -29,5 +29,12 @@ defmodule Hergetto.UserHelperTest do
       tag = UH.generate_tag()
       assert(String.match?(tag, ~r/^\d{4}$/))
     end
+
+    test "get_color_for_username/1 returns a hex color" do
+      expected = "#098F6B"
+      actual = UH.get_color_for_username("test")
+
+      assert expected == actual
+    end
   end
 end

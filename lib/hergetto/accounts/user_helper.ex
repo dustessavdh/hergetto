@@ -52,11 +52,13 @@ defmodule Hergetto.Accounts.UserHelper do
   end
 
   def get_color_for_username(username) do
-    [r, g, b | _tail] = :crypto.hash(:md5, username)
-    |> :binary.bin_to_list
+    [r, g, b | _tail] =
+      :crypto.hash(:md5, username)
+      |> :binary.bin_to_list()
 
-    %Chameleon.Hex{hex: color} = Chameleon.RGB.new(r, g, b)
-    |> Chameleon.convert(Chameleon.Hex)
+    %Chameleon.Hex{hex: color} =
+      Chameleon.RGB.new(r, g, b)
+      |> Chameleon.convert(Chameleon.Hex)
 
     "##{color}"
   end
