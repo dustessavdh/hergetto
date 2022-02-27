@@ -40,16 +40,14 @@ defmodule Hergetto.Rooms do
 
   """
   def join(room) do
-    session = UUID.uuid4()
-
-    case room |> exists() do
-      true ->
-        pid = Process.whereis(room |> generate_room_id())
-        GenServer.cast(pid, {:join, session})
-        PubSub.subscribe(Hergetto.PubSub, room)
-        {:ok, session}
-
-      false ->
+    with session <- UUID.uuid4(),
+         true <- exists?(room),
+         pid <- Process.whereis(generate_room_id(room)) do
+      GenServer.cast(pid, {:join, session})
+      PubSub.subscribe(Hergetto.PubSub, room)
+      {:ok, session}
+    else
+      _ ->
         {:error, :noroom}
     end
   end
@@ -70,13 +68,11 @@ defmodule Hergetto.Rooms do
 
   """
   def leave(session, room) do
-    case room |> exists() do
-      true ->
-        pid = Process.whereis(room |> generate_room_id())
-        GenServer.cast(pid, {:leave, session})
-        :ok
-
-      false ->
+    with true <- exists?(room), pid <- Process.whereis(generate_room_id(room)) do
+      GenServer.cast(pid, {:leave, session})
+      :ok
+    else
+      _ ->
         :noroom
     end
   end
@@ -101,55 +97,48 @@ defmodule Hergetto.Rooms do
 
   """
   def get(room, type) do
-    case room |> exists() do
-      true ->
-        pid = Process.whereis(room |> generate_room_id())
-        GenServer.call(pid, {:get, type})
-
-      false ->
+    with true <- exists?(room), pid <- Process.whereis(generate_room_id(room)) do
+      GenServer.call(pid, {:get, type})
+    else
+      _ ->
         {:error, :noroom}
     end
   end
 
   @doc false
   def get_all(room) do
-    room |> get(:all)
+    get(room, :all)
   end
 
   @doc false
   def get_participants(room) do
-    room |> get(:participants)
+    get(room, :participants)
   end
 
   @doc false
   def get_video_service(room) do
-    room |> get(:video_service)
+    get(room, :video_service)
   end
 
   @doc false
   def get_chat_service(room) do
-    room |> get(:chat_service)
+    get(room, :chat_service)
   end
 
   @doc """
-  Check if the specified `room` exists.
+  Check if the specified `room` exists?.
 
   Returns `true` or `false`.
 
   ## Examples
 
-      iex> Rooms.exists("93a628cc-cec1-4733-b513-aff5824b02da")
+      iex> Rooms.exists?("93a628cc-cec1-4733-b513-aff5824b02da")
       true
 
   """
-  def exists(room) do
-    case Process.whereis(room |> generate_room_id()) do
-      nil ->
-        false
-
-      _ ->
-        true
-    end
+  def exists?(room) do
+    state = Process.whereis(generate_room_id(room))
+    is_pid(state)
   end
 
   @doc """
@@ -165,36 +154,35 @@ defmodule Hergetto.Rooms do
       :ok
   """
   def trigger(room, event, data, sender) do
-    case room |> exists() do
+    case exists?(room) do
       true ->
-        PubSub.broadcast(Hergetto.PubSub, room, event |> create_event(data, sender))
+        PubSub.broadcast(Hergetto.PubSub, room, create_event(event, data, sender))
         :ok
 
-      false ->
+      _ ->
         :noroom
     end
   end
 
   @doc false
   defp add_video_service(room) do
-    case room |> exists() do
-      true ->
-        {:ok, video_service} = Videos.create(room)
-        pid = Process.whereis(room |> generate_room_id())
-        GenServer.cast(pid, {:video_service, video_service})
-        :ok
-
-      false ->
+    with true <- exists?(room),
+         {:ok, video_service} <- Videos.create(room),
+         pid <- Process.whereis(generate_room_id(room)) do
+      GenServer.cast(pid, {:video_service, video_service})
+      :ok
+    else
+      _ ->
         :noroom
     end
   end
 
   @doc false
   defp add_chat_service(room) do
-    case room |> exists() do
+    case exists?(room) do
       true ->
         {:ok, chat_service} = Chats.create(room)
-        pid = Process.whereis(room |> generate_room_id())
+        pid = Process.whereis(generate_room_id(room))
         GenServer.cast(pid, {:chat_service, chat_service})
         :ok
 
