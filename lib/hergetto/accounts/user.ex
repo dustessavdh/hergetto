@@ -30,7 +30,7 @@ defmodule Hergetto.Accounts.User do
   end
 
   defp validate_profile_picture(changeset, default_profile_picture \\ "/assets/avatars/default.svg") do
-    case String.length(changeset.changes.profile_picture) > 255 do
+    case String.length(Map.get(changeset.changes, :profile_pciture, "")) > 255 do
       true ->
         put_change(changeset, :profile_picture, default_profile_picture)
       false ->
