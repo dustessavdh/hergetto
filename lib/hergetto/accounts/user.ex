@@ -23,18 +23,9 @@ defmodule Hergetto.Accounts.User do
     |> cast(attrs, [:profile_picture, :profile_colour, :external_id, :provider, :email, :username, :tag])
     |> validate_required([:profile_picture, :profile_colour, :external_id, :provider, :email, :username, :tag])
     |> unique_constraint([:username, :tag], name: :username_with_tag_index, message: "username and tag must be unique")
+    |> validate_length(:profile_picture, max: 254)
     |> validate_format(:email, ~r/^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/)
     |> validate_length(:tag, is: 4)
     |> validate_inclusion(:provider, ["google"])
-    |> validate_profile_picture()
-  end
-
-  defp validate_profile_picture(changeset, default_profile_picture \\ "/assets/avatars/default.svg") do
-    case String.length(Map.get(changeset.changes, :profile_pciture, "")) > 255 do
-      true ->
-        put_change(changeset, :profile_picture, default_profile_picture)
-      false ->
-        changeset
-    end
   end
 end

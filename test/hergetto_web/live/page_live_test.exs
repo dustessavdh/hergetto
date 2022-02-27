@@ -1,5 +1,5 @@
 defmodule HergettoWeb.PageLiveTest do
-  use HergettoWeb.ConnCase
+  use HergettoWeb.ConnCase, async: true
   import Phoenix.LiveViewTest
 
   describe "PageLive" do

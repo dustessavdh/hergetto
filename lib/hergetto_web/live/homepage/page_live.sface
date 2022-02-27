@@ -1,5 +1,5 @@
 {#if assigns[:current_user]}
-  <Hero name={@current_user.username} subtitle={@current_user.external_id}/>
+  <h1>Hello {@current_user.username}</h1>
   <Avatar class="pfp" user={@current_user} />
 {/if}
 

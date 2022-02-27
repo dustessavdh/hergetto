@@ -1,7 +1,6 @@
 defmodule HergettoWeb.AccountLive do
   @moduledoc false
   use HergettoWeb, :live_view
-  alias Hergetto.Accounts.UserHelper, as: UH
   alias HergettoWeb.Components.Avatar
 
   @impl true
