@@ -1,4 +1,7 @@
 defmodule HergettoWeb.Components.Avatar do
+  @moduledoc """
+  A component that renders an avatar.
+  """
   use HergettoWeb, :component
 
   @doc """

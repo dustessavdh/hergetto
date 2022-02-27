@@ -1,4 +1,7 @@
 defmodule HergettoWeb.Helpers.LiveUpload do
+  @moduledoc """
+  This module provides helper functions for live uploads.
+  """
   alias Phoenix.LiveView
   alias Phoenix.LiveView.UploadEntry
   alias HergettoWeb.Router.Helpers, as: Routes
