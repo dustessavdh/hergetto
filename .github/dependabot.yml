@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: "mix"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     commit-message:
       prefix: "dependabot hex"
     labels:
@@ -16,7 +16,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/assets"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     commit-message:
       prefix: "dependabot npm"
     labels:
@@ -29,7 +29,7 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     commit-message:
       prefix: "dependabot"
     labels:
