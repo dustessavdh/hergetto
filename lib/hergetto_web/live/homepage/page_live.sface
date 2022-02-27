@@ -1,6 +1,6 @@
 {#if assigns[:current_user]}
   <Hero name={@current_user.username} subtitle={@current_user.external_id}/>
-  <LogoIcon icon={%{type: "link", value: @current_user.profile_picture}} />
+  <Avatar class="pfp" user={@current_user} />
 {/if}
 
 <button class="btn btn-dark" type="button" aria-label="View cookie settings" data-cc="c-settings">Cookie Settings</button>
