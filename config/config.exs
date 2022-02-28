@@ -27,10 +27,12 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :surface, :components, [{
-  Surface.Components.Form.ErrorTag,
-  default_translator: {HergettoWeb.ErrorHelpers, :translate_error}
-}]
+config :surface, :components, [
+  {
+    Surface.Components.Form.ErrorTag,
+    default_translator: {HergettoWeb.ErrorHelpers, :translate_error}
+  }
+]
 
 # default cronjobs to run
 config :hergetto, Hergetto.Scheduler,
