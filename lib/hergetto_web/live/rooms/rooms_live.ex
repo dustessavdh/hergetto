@@ -4,7 +4,7 @@ defmodule HergettoWeb.RoomsLive do
 
   import HergettoWeb.Presence
 
-  @topic "Hergetto:rooms"
+  @topic "hergetto:rooms"
 
   @impl true
   def mount(_params, session, socket) do
