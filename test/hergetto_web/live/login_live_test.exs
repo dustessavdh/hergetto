@@ -1,5 +1,5 @@
 defmodule HergettoWeb.LoginLiveTest do
-  use HergettoWeb.ConnCase
+  use HergettoWeb.ConnCase, async: true
   import Phoenix.LiveViewTest
 
   describe "LoginLive" do

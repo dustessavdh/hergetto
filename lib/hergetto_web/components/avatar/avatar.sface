@@ -1,0 +1,9 @@
+<svg viewBox="0 0 1000 1000" class={["avatar"] ++ @class}>
+  <mask id={"avatar-mask-#{@user.username}"} width="1000" height="1000">
+    <circle cx="500" cy="500" r="500" fill="white"/>
+  </mask>
+  <rect width="1000" height="1000" mask={"url(#avatar-mask-#{@user.username})"} fill={@user.profile_colour} />
+  <foreignObject x="0" y="0" width="1000" height="1000" mask={"url(#avatar-mask-#{@user.username})"}>
+    <img src={@user.profile_picture} alt=" " class="avatar-profile_picture">
+  </foreignObject>
+</svg>

@@ -1,4 +1,4 @@
-<div class="logoIcon">
+<div class={["logoIcon"] ++ @class}>
   <div class="customIcon">
     {#if @icon[:type] === "link"}
       <img referrerpolicy="no-referrer" src={@icon[:value]} alt="customIcon" class="customIcon-link">

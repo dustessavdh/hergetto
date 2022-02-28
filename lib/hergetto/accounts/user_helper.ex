@@ -1,4 +1,4 @@
-defmodule Hergetto.Accounts.UsernameGenerator do
+defmodule Hergetto.Accounts.UserHelper do
   @moduledoc """
   This module provides functions to generate usernames and tags.
   """
@@ -49,5 +49,17 @@ defmodule Hergetto.Accounts.UsernameGenerator do
   def generate_tag do
     Enum.random(1_000..9_999)
     |> Integer.to_string()
+  end
+
+  def get_color_for_username(username) do
+    [r, g, b | _tail] =
+      :crypto.hash(:md5, username)
+      |> :binary.bin_to_list()
+
+    %Chameleon.Hex{hex: color} =
+      Chameleon.RGB.new(r, g, b)
+      |> Chameleon.convert(Chameleon.Hex)
+
+    "##{color}"
   end
 end
