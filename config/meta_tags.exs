@@ -5,7 +5,7 @@ config :hergetto, HergettoWeb.Meta, [
   %{
     "http-equiv": "Content-Security-Policy",
     content:
-      "default-src 'self'; style-src 'self' 'unsafe-inline' *.typekit.net; font-src 'self' *.typekit.net; script-src 'self' *.youtube.com; img-src 'self' data: blob: *.googleusercontent.com; frame-src 'self' *.youtube.com;"
+      "default-src 'self'; style-src 'self' 'unsafe-inline' *.typekit.net; font-src 'self' *.typekit.net; script-src 'self' 'nonce-ga' *.youtube.com www.google-analytics.com www.googletagmanager.com; img-src 'self' data: blob: *.googleusercontent.com www.google-analytics.com; frame-src 'self' *.youtube.com; connect-src 'self' www.google-analytics.com;"
   },
   %{name: "theme-color", content: "#6D28D9"},
   %{

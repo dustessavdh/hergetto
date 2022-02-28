@@ -28,8 +28,10 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :surface, :components, [
-  {Surface.Components.Form.ErrorTag,
-   default_translator: {HergettoWeb.ErrorHelpers, :translate_error}}
+  {
+    Surface.Components.Form.ErrorTag,
+    default_translator: {HergettoWeb.ErrorHelpers, :translate_error}
+  }
 ]
 
 # default cronjobs to run
@@ -53,10 +55,10 @@ config :ueberauth, Ueberauth,
 
 if config_env() == :prod || config_env() == :dev do
   try do
-    import_config "ueberauth.secret.exs"
+    import_config "config.secret.exs"
   rescue
     _ ->
-      Logger.error("Please create a ueberauth.secret.exs")
+      Logger.error("Please create a config.secret.exs")
   end
 end
 

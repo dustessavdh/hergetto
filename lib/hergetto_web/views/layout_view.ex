@@ -1,6 +1,7 @@
 defmodule HergettoWeb.LayoutView do
   use HergettoWeb, :view
   import HergettoWeb.Helpers.MetaTags
+  import HergettoWeb.Helpers.GoogleAnalytics
   alias HergettoWeb.Components.Navbar
 
   # Phoenix LiveDashboard is available only in development by default,
