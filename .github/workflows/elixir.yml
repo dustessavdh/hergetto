@@ -40,6 +40,13 @@ jobs:
         key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
         restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-mix-
 
+    - name: Restore dialyzer plts
+      uses: actions/cache@v2
+      with:
+        path: priv/plts
+        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-
+        restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-mix-
+
     - name: Install dependencies
       if: steps.mix-cache.outputs.cache-hit != 'true'
       run: |
