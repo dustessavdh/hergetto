@@ -37,11 +37,13 @@ defmodule HergettoWeb.Presence do
   """
   def start_user_presence(%{assigns: %{current_user: current_user}} = socket, topic, pid) do
     user = current_user || %{id: "GUEST" <> UUID.uuid4(), username: UH.generate_username()}
+
     if connected?(socket) do
-      {:ok, _} = track(pid, topic, user.id, %{
-        username: user.username,
-        joined_at: :os.system_time(:seconds)
-      })
+      {:ok, _} =
+        track(pid, topic, user.id, %{
+          username: user.username,
+          joined_at: :os.system_time(:seconds)
+        })
 
       HergettoWeb.Endpoint.subscribe(topic)
     end
@@ -70,7 +72,7 @@ defmodule HergettoWeb.Presence do
   end
 
   defp handle_user_joins(socket, joins) do
-    Enum.reduce(joins, socket, fn {user, %{metas: [meta| _]}}, socket ->
+    Enum.reduce(joins, socket, fn {user, %{metas: [meta | _]}}, socket ->
       assign(socket, :users, Map.put(socket.assigns.users, user, meta))
     end)
   end

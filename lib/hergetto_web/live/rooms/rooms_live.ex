@@ -17,7 +17,10 @@ defmodule HergettoWeb.RoomsLive do
   end
 
   @impl true
-  def handle_info(%Phoenix.Socket.Broadcast{event: "presence_diff", topic: @topic, payload: diff}, socket) do
+  def handle_info(
+        %Phoenix.Socket.Broadcast{event: "presence_diff", topic: @topic, payload: diff},
+        socket
+      ) do
     handle_user_presence_diff(socket, diff)
   end
 end
