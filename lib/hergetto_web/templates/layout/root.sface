@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     { csrf_meta_tag() }
 
+    { google_analytics() }
+
     { live_meta_title_tag assigns[:page_title] || "Hergetto", suffix: " ⋅ Watch videos together!" }
     { meta_tags(assigns[:meta_attrs] || %{}) }
 
