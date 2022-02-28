@@ -1,11 +1,11 @@
-defmodule Hergetto.UsernameGeneratorTest do
+defmodule Hergetto.UserHelperTest do
   use ExUnit.Case
 
   describe "username generator" do
-    alias Hergetto.Accounts.UsernameGenerator, as: USG
+    alias Hergetto.Accounts.UserHelper, as: UH
 
     test "generate_username_with_tag/0 returns a username with tag" do
-      username_with_tag = USG.generate_username_with_tag()
+      username_with_tag = UH.generate_username_with_tag()
       [username, tag] = String.split(username_with_tag, "#")
 
       assert(String.match?(username, ~r/\w+/))
@@ -13,7 +13,7 @@ defmodule Hergetto.UsernameGeneratorTest do
     end
 
     test "generate_guest_with_tag/0 returns a guest with tag" do
-      guest_with_tag = USG.generate_guest_with_tag()
+      guest_with_tag = UH.generate_guest_with_tag()
       [guest, tag] = String.split(guest_with_tag, "#")
 
       assert(String.match?(guest, ~r/\w+/))
@@ -21,13 +21,20 @@ defmodule Hergetto.UsernameGeneratorTest do
     end
 
     test "generate_username/0 returns a username" do
-      username = USG.generate_username()
+      username = UH.generate_username()
       assert(String.match?(username, ~r/\w+/))
     end
 
     test "generate_tag/0 returns a tag" do
-      tag = USG.generate_tag()
+      tag = UH.generate_tag()
       assert(String.match?(tag, ~r/^\d{4}$/))
+    end
+
+    test "get_color_for_username/1 returns a hex color" do
+      expected = "#098F6B"
+      actual = UH.get_color_for_username("test")
+
+      assert expected == actual
     end
   end
 end

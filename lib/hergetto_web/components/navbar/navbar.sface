@@ -25,11 +25,11 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1">
           <li class="nav-item">
-            <a class="nav-link" href="/rooms">Rooms</a>
+            <a class="nav-link btn" href="/rooms">Rooms</a>
           </li>
           {#if !@user}
             <li class="nav-item">
-              <a class="nav-link nav-btn btn btn-light text-dark" href="/login">Sign in</a>
+              <a class="nav-link nav-btn btn btn-light text-dark" href="/login">Login</a>
             </li>
           {#else}
             <li class="nav-item">
@@ -38,7 +38,7 @@
               </button>
               <div class="dropdown-menu dropdown-menu-end">
                 <h2 class="text-dark">test</h2>
-                <a class="nav-link nav-btn btn btn-danger text-white"  href="/auth/signout">Signout</a>
+                <a class="nav-link nav-btn btn btn-danger text-white"  href="/auth/logout">Logout</a>
               </div>
             </li>
           {/if}

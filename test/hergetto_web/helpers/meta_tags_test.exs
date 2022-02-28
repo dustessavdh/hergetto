@@ -1,5 +1,5 @@
 defmodule HergettoWeb.MetaTagsTest do
-  use HergettoWeb.ConnCase, async: true
+  use ExUnit.Case
 
   alias HergettoWeb.Helpers.MetaTags
   import Phoenix.HTML

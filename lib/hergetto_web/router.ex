@@ -33,6 +33,8 @@ defmodule HergettoWeb.Router do
 
   scope "/", HergettoWeb do
     pipe_through [:browser, :require_authenticated_user]
+
+    live "/account", AccountLive
   end
 
   scope "/", HergettoWeb do
@@ -44,7 +46,7 @@ defmodule HergettoWeb.Router do
   scope "/auth", HergettoWeb do
     pipe_through [:browser]
 
-    get "/signout", AuthController, :signout
+    get "/logout", AuthController, :logout
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
   end

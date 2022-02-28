@@ -2,9 +2,9 @@
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 
-// override default settings
+// configure bootstrap
 @import "./theme";
-@import "./text";
+@import "./typography";
 
 @import "./borders";
 @import "./shadows";

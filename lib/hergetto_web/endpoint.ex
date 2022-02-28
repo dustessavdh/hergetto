@@ -21,14 +21,14 @@ defmodule HergettoWeb.Endpoint do
     at: "/",
     from: :hergetto,
     gzip: false,
-    only: ~w(assets fonts favicon.ico robots.txt manifest.json sitemap.xml)
+    only: ~w(assets uploads fonts favicon.ico robots.txt manifest.json sitemap.xml)
 
   if Application.get_env(:hergetto, :environment) == :prod do
     plug Plug.Static,
       at: "/",
       from: :hergetto,
       gzip: true,
-      only: ~w(assets fonts favicon.ico robots.txt manifest.json sitemap.xml),
+      only: ~w(assets uploads fonts favicon.ico robots.txt manifest.json sitemap.xml),
       headers: %{"cache-control" => "max-age=86400, private, must-revalidate"}
   end
 

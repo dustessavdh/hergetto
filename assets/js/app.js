@@ -39,4 +39,3 @@ window.addEventListener("phx:page-loading-stop", () => {
 // connect if there are any LiveViews on the page
 liveSocket.connect()
 window.liveSocket = liveSocket
-
