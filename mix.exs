@@ -62,7 +62,7 @@ defmodule Hergetto.MixProject do
       {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:phoenix_live_view, "~> 0.17.7"},
       {:floki, ">= 0.30.0", only: :test},
-      {:phoenix_live_dashboard, "~> 0.6.4"},
+      {:phoenix_live_dashboard, "~> 0.6.5"},
       {:swoosh, "~> 1.6"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 0.5"},
