@@ -1,4 +1,7 @@
 defmodule HergettoWeb.Helpers.GoogleAnalytics do
+  @moduledoc """
+  This module provides a function to load Google Analytics.
+  """
   use Phoenix.HTML
   import Phoenix.LiveView.Helpers
 
