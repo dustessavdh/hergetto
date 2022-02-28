@@ -17,6 +17,7 @@ defmodule Hergetto.Application do
       HergettoWeb.Endpoint,
       # Start a worker by calling: Hergetto.Worker.start_link(arg)
       # {Hergetto.Worker, arg}
+      HergettoWeb.Presence,
       {DynamicSupervisor, strategy: :one_for_one, name: Hergetto.Rooms.RoomSupervisor},
       {DynamicSupervisor, strategy: :one_for_one, name: Hergetto.Videos.VideoSupervisor},
       {DynamicSupervisor, strategy: :one_for_one, name: Hergetto.Chats.ChatSupervisor},
