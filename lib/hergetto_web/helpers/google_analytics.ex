@@ -5,17 +5,17 @@ defmodule HergettoWeb.Helpers.GoogleAnalytics do
   use Phoenix.HTML
   import Phoenix.LiveView.Helpers
 
-  def google_analytics() do
+  def google_analytics do
     tracking_id =
       Application.get_env(:hergetto, HergettoWeb.Helpers.GoogleAnalytics, tracking_id: nil)[
         :tracking_id
       ]
 
-    case {Mix.env(), tracking_id} do
-      {:prod, tracking_id} when tracking_id in [nil, ""] ->
+    case tracking_id do
+      id when id in [nil, ""] ->
         nil
 
-      {:prod, tracking_id} ->
+      id when is_binary(id) ->
         assigns = %{
           tracking_id: tracking_id
         }
