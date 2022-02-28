@@ -1,0 +1,10 @@
+<h1>Rooms</h1>
+{#if map_size(@users) == 1}
+  <h2>1 person is looking for a room</h2>
+{#else}
+  <h2>{map_size(@users)} people are looking for a room</h2>
+{/if}
+<h3>People:</h3>
+{#for {_user_id, user} <- @users}
+  <p class="text-white">{ user.username }</p>
+{/for}
