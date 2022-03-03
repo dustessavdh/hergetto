@@ -1,4 +1,7 @@
 defmodule HergettoWeb.Plugs.ContentSecurityPolicy do
+  @moduledoc """
+  This plug adds a Content-Security-Policy header to the response.
+  """
   import Plug.Conn
 
   def put_content_security_policy_headers(conn, _opts) do
