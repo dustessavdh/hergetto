@@ -4,6 +4,7 @@ defmodule HergettoWeb.WatchLive do
 
   import HergettoWeb.Presence
   alias Hergetto.Rooms
+  alias HergettoWeb.LiveMonitor
 
   @topic "hergetto:rooms:u9hewjr"
 
@@ -29,6 +30,10 @@ defmodule HergettoWeb.WatchLive do
     }
   end
 
+  def unmount(%{id: id}, _reason) do
+    IO.puts("view #{id} unmounted")
+    :ok
+  end
 
   @impl true
   def handle_info(
@@ -56,6 +61,7 @@ defmodule HergettoWeb.WatchLive do
         socket
         |> assign(:user_session_id, session_id)
         |> start_user_presence(@topic, self(), %{"user_session_id" => session_id})
+        |> LiveMonitor.monitor(self(), __MODULE__, %{user_session_id: session_id})
 
       {:error, _reason} ->
         socket
