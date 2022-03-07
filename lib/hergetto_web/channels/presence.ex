@@ -35,16 +35,15 @@ defmodule HergettoWeb.Presence do
         }
       end
   """
-  def start_user_presence(
-        %{assigns: %{current_user: current_user}} = socket,
-        topic,
-        pid,
-        optional_data \\ %{}
-      ) do
-    {:ok, user, user_metadata} = prepare_user_data(current_user, optional_data)
+  def start_user_presence(%{assigns: %{current_user: current_user}} = socket, topic, pid) do
+    user = current_user || %{id: "GUEST" <> UUID.uuid4(), username: UH.generate_username()}
 
     if connected?(socket) do
-      {:ok, _} = track(pid, topic, user.id, user_metadata)
+      {:ok, _} =
+        track(pid, topic, user.id, %{
+          username: user.username,
+          joined_at: :os.system_time(:seconds)
+        })
 
       HergettoWeb.Endpoint.subscribe(topic)
     end
@@ -69,19 +68,6 @@ defmodule HergettoWeb.Presence do
       socket
       |> handle_user_leaves(diff.leaves)
       |> handle_user_joins(diff.joins)
-    }
-  end
-
-  defp prepare_user_data(user, optional_data) do
-    user = user || %{id: "GUEST" <> UUID.uuid4(), username: UH.generate_username()}
-
-    user_metadata =
-      Map.merge(%{username: user.username, joined_at: :os.system_time(:seconds)}, optional_data)
-
-    {
-      :ok,
-      user,
-      user_metadata
     }
   end
 
