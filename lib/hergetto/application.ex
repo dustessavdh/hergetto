@@ -21,6 +21,7 @@ defmodule Hergetto.Application do
       {DynamicSupervisor, strategy: :one_for_one, name: Hergetto.Rooms.RoomSupervisor},
       {DynamicSupervisor, strategy: :one_for_one, name: Hergetto.Videos.VideoSupervisor},
       {DynamicSupervisor, strategy: :one_for_one, name: Hergetto.Chats.ChatSupervisor},
+      HergettoWeb.LiveMonitor,
       Hergetto.Scheduler
     ]
 

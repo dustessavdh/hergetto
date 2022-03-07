@@ -1,5 +1,7 @@
 defmodule Hergetto.Videos do
-  @moduledoc false
+  @moduledoc """
+  The video service context.
+  """
   alias Hergetto.Videos.VideoSupervisor
   alias Hergetto.Videos.VideoService
   alias Hergetto.Helpers.ServiceStartHelper
