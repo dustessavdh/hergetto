@@ -1,7 +1,5 @@
 defmodule Hergetto.Rooms do
-  @moduledoc """
-  The room service context.
-  """
+  @moduledoc false
   alias Hergetto.Rooms.RoomSupervisor
   alias Hergetto.Rooms.RoomService
   alias Hergetto.Structs.RoomEvent

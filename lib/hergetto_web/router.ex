@@ -31,15 +31,7 @@ defmodule HergettoWeb.Router do
     pipe_through [:browser]
 
     live "/", PageLive
-  end
-
-  scope "/rooms", HergettoWeb do
-    pipe_through [:browser]
-
-    live "/", RoomsLive
-
-    get "/new", RoomsController, :new
-    live "/:room_id", WatchLive
+    live "/rooms", RoomsLive
   end
 
   scope "/", HergettoWeb do

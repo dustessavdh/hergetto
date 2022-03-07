@@ -1,7 +1,5 @@
 defmodule Hergetto.Chats do
-  @moduledoc """
-  The chat service context.
-  """
+  @moduledoc false
   alias Hergetto.Helpers.ServiceStartHelper
   alias Hergetto.Chats.ChatSupervisor
   alias Hergetto.Chats.ChatService

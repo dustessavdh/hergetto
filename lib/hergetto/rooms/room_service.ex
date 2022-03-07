@@ -30,14 +30,14 @@ defmodule Hergetto.Rooms.RoomService do
   @doc false
   @impl true
   def handle_cast({:join, session}, state) do
-    Logger.info("Session #{session} joined room #{state.room}")
+    Logger.info("Session #{session} joined room #{state.room_id}")
     {:noreply, %{state | participants: [session | state.participants]}}
   end
 
   @doc false
   @impl true
   def handle_cast({:leave, session}, state) do
-    Logger.info("Session #{session} left room #{state.room}")
+    Logger.info("Session #{session} left room #{state.room_id}")
     {:noreply, %{state | participants: Enum.filter(state.participants, fn p -> p != session end)}}
   end
 
