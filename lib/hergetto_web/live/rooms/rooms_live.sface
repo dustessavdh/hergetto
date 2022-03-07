@@ -8,3 +8,6 @@
 {#for {_user_id, user} <- @users}
   <p class="text-white">{ user.username }</p>
 {/for}
+
+<Surface.Components.Link to="/rooms/new" class="btn btn-light">Create a room</Surface.Components.Link>
+{ live_redirect "test", to: "/rooms/wersadf", class: "btn btn-dark"}
