@@ -17,6 +17,21 @@ defmodule Hergetto.Accounts.User do
     timestamps()
   end
 
+  # Blacklist sensitive fields.
+  defimpl Inspect do
+    @sensitive_fields [
+      :external_id,
+      :profile_picture,
+      :username,
+      :email
+    ]
+    def inspect(user, opts) do
+      user
+      |> Map.drop(@sensitive_fields)
+      |> Inspect.Any.inspect(opts)
+    end
+  end
+
   @doc false
   def changeset(user, attrs) do
     user

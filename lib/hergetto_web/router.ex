@@ -1,6 +1,7 @@
 defmodule HergettoWeb.Router do
   use HergettoWeb, :router
   import Surface.Catalogue.Router
+  import HergettoWeb.Plugs.ContentSecurityPolicy
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -9,6 +10,7 @@ defmodule HergettoWeb.Router do
     plug :put_root_layout, {HergettoWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_content_security_policy_headers
     plug Hergetto.Authentication.Pipeline
   end
 
