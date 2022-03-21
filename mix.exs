@@ -73,7 +73,7 @@ defmodule Hergetto.MixProject do
       {:elixir_uuid, "~> 1.2"},
       {:excoveralls, "~> 0.14"},
       {:ex_doc, "~> 0.28", only: :dev, runtime: false},
-      {:surface, "~> 0.7.1"},
+      {:surface, "~> 0.7"},
       {:surface_formatter, "~> 0.7.4"},
       {:surface_catalogue, "~> 0.3.0"},
       {:ueberauth, "~> 0.6"},
