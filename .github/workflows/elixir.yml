@@ -30,14 +30,14 @@ jobs:
         otp-version: ${{ matrix.otp }}
 
     - name: Restore dialyzer plts
-      uses: actions/cache@v2
+      uses: actions/cache@v3.0.1
       with:
         path: priv/plts
         key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-
         restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-mix-
 
     - name: Restore dependencies cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3.0.1
       id: mix-cache
       with:
         path: |
@@ -76,7 +76,7 @@ jobs:
         otp-version: ${{ matrix.otp }}
 
     - name: Restore dependencies cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3.0.1
       id: mix-cache
       with:
         path: |
@@ -129,7 +129,7 @@ jobs:
         otp-version: ${{ matrix.otp }}
 
     - name: Restore dependencies cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3.0.1
       id: mix-cache
       with:
         path: |
@@ -177,7 +177,7 @@ jobs:
         otp-version: ${{ matrix.otp }}
 
     - name: Restore dependencies cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3.0.1
       id: mix-cache
       with:
         path: |
