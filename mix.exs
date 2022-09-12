@@ -75,7 +75,7 @@ defmodule Hergetto.MixProject do
       {:ex_doc, "~> 0.28", only: :dev, runtime: false},
       {:surface, "~> 0.7"},
       {:surface_formatter, "~> 0.7.4"},
-      {:surface_catalogue, "~> 0.3.0"},
+      {:surface_catalogue, "~> 0.5.1"},
       {:ueberauth, "~> 0.6"},
       {:ueberauth_google, "~> 0.10"},
       {:guardian, "~> 2.0"},
