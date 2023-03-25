@@ -12,6 +12,7 @@ updates:
       - "dusthijsvdh"
     assignees:
       - "dusthijsvdh"
+    open-pull-requests-limit: 0
 
   - package-ecosystem: "npm"
     directory: "/assets"
@@ -25,6 +26,7 @@ updates:
       - "dusthijsvdh"
     assignees:
       - "dusthijsvdh"
+    open-pull-requests-limit: 0
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -38,3 +40,4 @@ updates:
       - "dusthijsvdh"
     assignees:
       - "dusthijsvdh"
+    open-pull-requests-limit: 0
