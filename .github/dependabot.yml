@@ -9,9 +9,9 @@ updates:
     labels:
       - "dependencies"
     reviewers:
-      - "dusthijsvdh"
+      - "dustessavdh"
     assignees:
-      - "dusthijsvdh"
+      - "dustessavdh"
     open-pull-requests-limit: 0
 
   - package-ecosystem: "npm"
@@ -23,9 +23,9 @@ updates:
     labels:
       - "dependencies"
     reviewers:
-      - "dusthijsvdh"
+      - "dustessavdh"
     assignees:
-      - "dusthijsvdh"
+      - "dustessavdh"
     open-pull-requests-limit: 0
 
   - package-ecosystem: "github-actions"
@@ -37,7 +37,7 @@ updates:
     labels:
       - "dependencies"
     reviewers:
-      - "dusthijsvdh"
+      - "dustessavdh"
     assignees:
-      - "dusthijsvdh"
+      - "dustessavdh"
     open-pull-requests-limit: 0

@@ -12,8 +12,8 @@ Normally you could just go to a friends house and start watching videos together
 So that's why hergetto was created!
 Watch videos together from the comfort of your own room!
 
-[![Elixir CI](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml/badge.svg)](https://github.com/dusthijsvdh/hergetto/actions/workflows/elixir.yml)
-[![Coverage Status](https://coveralls.io/repos/github/dusthijsvdh/hergetto/badge.svg)](https://coveralls.io/github/dusthijsvdh/hergetto)
+[![Elixir CI](https://github.com/dustessavdh/hergetto/actions/workflows/elixir.yml/badge.svg)](https://github.com/dustessavdh/hergetto/actions/workflows/elixir.yml)
+[![Coverage Status](https://coveralls.io/repos/github/dustessavdh/hergetto/badge.svg)](https://coveralls.io/github/dustessavdh/hergetto)
 [![Mozilla observatory](https://img.shields.io/mozilla-observatory/grade-score/hergetto.live?publish)](https://observatory.mozilla.org/analyze/hergetto.live)
 [![Better Uptime Badge](https://betteruptime.com/status-badges/v1/monitor/bl3y.svg)](https://status.hergetto.live/)
 [![Figma](https://img.shields.io/badge/Design-Figma-1ABCFE.svg?logo=figma)](https://www.figma.com/file/2NjbwtE7o72YfgAG32m3DU/website?node-id=2%3A190)

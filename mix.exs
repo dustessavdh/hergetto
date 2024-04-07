@@ -23,7 +23,7 @@ defmodule Hergetto.MixProject do
 
       # Docs
       name: "Hergetto",
-      source_url: "https://github.com/dusthijsvdh/hergetto",
+      source_url: "https://github.com/dustessavdh/hergetto",
       homepage_url: "https://hergetto.live",
       docs: [
         main: "readme",
